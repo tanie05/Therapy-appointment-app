@@ -15,16 +15,6 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  phone: {
-    countryCode: {
-      type: String,
-      required: true
-    },
-    number: {
-      type: String,
-      required: true
-    }
-  },
   language: {
     type: String,
     enum: ['english', 'spanish'],
@@ -39,28 +29,6 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     unique: true
-  },
-  address: {
-    houseNo: {
-      type: String,
-      required: true
-    },
-    locality: {
-      type: String,
-      required: true
-    },
-    state: {
-      type: String,
-      required: true
-    },
-    city: {
-      type: String,
-      required: true
-    },
-    country: {
-      type: String,
-      required: true
-    }
   },
   role: {
     type: String,

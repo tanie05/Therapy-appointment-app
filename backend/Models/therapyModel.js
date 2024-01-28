@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
 const TherapySchema = new Schema({
   healthPlan: {
     type: String,
@@ -8,6 +7,12 @@ const TherapySchema = new Schema({
   },
   description: {
     type: String,
+    required: true
+  },
+  language: {
+    type: String,
+    enum: ['english', 'spanish'],
+    default: 'english',
     required: true
   },
   timings: {
@@ -18,6 +23,38 @@ const TherapySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  address: {
+    houseNo: {
+      type: String,
+      required: true
+    },
+    locality: {
+      type: String,
+      required: true
+    },
+    state: {
+      type: String,
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    country: {
+      type: String,
+      required: true
+    }
+  },
+  phone: {
+    countryCode: {
+      type: String,
+      required: true
+    },
+    number: {
+      type: String,
+      required: true
+    }
   },
   status: {
     type: String,
@@ -30,4 +67,3 @@ const TherapySchema = new Schema({
 const Therapy = mongoose.model("Therapy", TherapySchema);
 
 module.exports = Therapy;
-
