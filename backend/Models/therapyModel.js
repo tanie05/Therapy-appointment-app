@@ -11,7 +11,8 @@ const TherapySchema = new Schema({
     required: true
   },
   timings: {
-    type: [Date]
+    type: [Date],
+    required: true
   },
   userId: {
     type: Schema.Types.ObjectId,
@@ -21,7 +22,8 @@ const TherapySchema = new Schema({
   status: {
     type: String,
     enum: ['booked', 'pending', 'cancelled'],
-    default: 'pending'
+    default: 'pending',
+    required: true
   }
 }, { timestamps: true });
 
