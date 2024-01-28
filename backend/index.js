@@ -1,0 +1,22 @@
+const express = require("express");
+const app = express();
+const mongoose = require("./Services/db"); 
+const PORT = 5000;
+
+const cors = require('cors');
+app.use(cors());
+app.use(express.json());
+
+
+const authRouter = require('./Routes/authRoutes')
+const userRouter = require('./Routes/userRoutes')
+const therapyRouter = require('./Routes/therapyRoutes')
+
+app.use('/auth', authRouter)
+app.use('/users', userRouter)
+app.use('/therapy', therapyRouter)
+
+
+app.listen(PORT, () => {
+  console.log("Server is running on port", PORT);
+});
