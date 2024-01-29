@@ -1,15 +1,17 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
+const {
+  showUserProfile,
+  showAllUsers,
+  showAppointmentHistory,
+} = require("../Controllers/userController");
 
-router.get("/", (req, res) => {
-    // get request by admin to view all users
-});
+router.get("/", showAllUsers);
 
-router.post("/:id", (req, res) => {
-    // get request by user to view his profile
-})
+// get request by users to view their own profile
+router.get("/:id", showUserProfile);
 
+// get request by user to view his appointments
+router.get("/history/:id", showAppointmentHistory);
 
-
-
-module.exports = router
+module.exports = router;
