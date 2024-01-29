@@ -1,5 +1,4 @@
-const doesEmailExists = require("../Utils/userUtils");
-const User = require("../Models/userModel");
+const doesEmailExists = require("../Services/userQueries");
 const updateUser = require("../Services/userQueries");
 
 async function editUser(req, res) {
@@ -9,7 +8,7 @@ async function editUser(req, res) {
   try {
     if(updates.email)
     {
-    const emailExists = await doesEmailExists(updates.email, userId);
+    const emailExists = await doesEmailExists(updates.email);
     if (emailExists) {
       return res.status(409).json({ error: "Email already in use." });
     }
