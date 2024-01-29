@@ -1,9 +1,14 @@
 const mongoose = require("mongoose");
+
 require('dotenv').config();
 
 const MONGOURI = process.env.MONGOURI;
 
-mongoose.connect(MONGOURI);
+mongoose.connect(MONGOURI, {
+  useNewUrlParser: true,
+
+  useUnifiedTopology: true
+});
 
 mongoose.connection.on("connected", () => {
   console.log("Successfully connected to MongoDB!");
