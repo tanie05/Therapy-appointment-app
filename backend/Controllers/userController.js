@@ -12,7 +12,7 @@ const registerController = async (req, res, next) => {
   try {
     const { firstname, lastname, email, DOB, language, password } = userDetails;
     if (!firstname || !lastname || !email || !DOB || !password) {
-      const error = new Error("all details are not field ");
+      const error = new Error("All details are required ");
       error.status = 400;
       throw error;
     }
@@ -27,7 +27,7 @@ const registerController = async (req, res, next) => {
       throw error;
     }
     if (!validateDateOfBirth(DOB)) {
-      const error = new Error("Invalid age detail");
+      const error = new Error("Invalid age ");
       error.status = 400;
       throw error;
     }
