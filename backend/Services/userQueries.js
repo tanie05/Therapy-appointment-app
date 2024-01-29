@@ -64,5 +64,5 @@ module.exports = {
   finduserbyemail,
   createUser,
   updateUser, 
-  doesEmailExist;
+  doesEmailExist
 };
