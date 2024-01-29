@@ -7,11 +7,13 @@ async function editUser(req, res) {
   const userId = req.params.id;
 
   try {
+    if(updates.email)
+    {
     const emailExists = await doesEmailExists(updates.email, userId);
-
     if (emailExists) {
       return res.status(409).json({ error: "Email already in use." });
     }
+  }
 
     const updatedUser = await updateUser(userId, updates);
 
