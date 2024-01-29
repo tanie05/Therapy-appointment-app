@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-require('dotenv').config();
+require("dotenv").config();
 
 const MONGOURI = process.env.MONGOURI;
 
 mongoose.connect(MONGOURI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 mongoose.connection.on("connected", () => {
