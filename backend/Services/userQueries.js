@@ -2,8 +2,12 @@ const userModel = require("../Models/userModel");
 const { hashPassword } = require("../Utils/authhelper");
 
 async function finduserbyemail({ email }) {
-  const user = await userModel.findOne({ email });
-  return user;
+  try {
+    const user = await userModel.findOne({ email });
+    return user;
+  } catch (err) {
+    throw err;
+  }
 }
 async function createUser(userdetails) {
   try {
