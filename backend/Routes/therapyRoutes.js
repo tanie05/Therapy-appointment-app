@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const fetchSingleTherapy = require('../Controllers/therapyController');
 
 router.post("/create", (req, res) => {
     // post request by user to create a new appointment
@@ -20,5 +21,9 @@ router.delete("/:id", (req,res) => {
 router.get("/history", (req,res) => {
     // get request by user to view his appointments
 })
+
+
+router.get("/:id", fetchSingleTherapy)
+
 
 module.exports = router
