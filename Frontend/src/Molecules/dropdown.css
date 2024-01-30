@@ -1,0 +1,31 @@
+#dropDownContainer{
+    background-color: aqua;
+    
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 5;
+    left: 0;
+    overflow:scroll;
+    width: 10vw;
+    max-height: 20vh;
+    padding-top: 10vh;
+    /* box-sizing: border-box; */
+
+}
+
+.dropDownField{
+    /* display: flex;
+    flex-direction: column; */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 5%px 5%px #888888;
+    width: 90%;
+}
+
+.dropdownbtn{
+    font: 1rem
+}
