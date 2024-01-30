@@ -2,25 +2,32 @@ const {
   validateDateOfBirth,
   validateEmail,
   validatePassword,
+  areTokenAndParameterIdSame,
 } = require("../Utils/userUtils");
-const { finduserbyemail } = require("../Services/userQueries");
-const { createUser } = require("../Services/userQueries");
+
+const {
+  finduserbyemail,
+  createUser,
+  updateUser,
+  findUserById,
+  findAllUsers,
+  findAppointmentHistory,
+  doesEmailExists,
+} = require("../Services/userQueries");
+
 const jwt = require("jsonwebtoken");
-const doesEmailExists = require("../Services/userQueries");
-const updateUser = require("../Services/userQueries");
 
 async function editUser(req, res) {
   const updates = req.body;
   const userId = req.params.id;
 
   try {
-    if(updates.email)
-    {
-    const emailExists = await doesEmailExists(updates.email);
-    if (emailExists) {
-      return res.status(409).json({ error: "Email already in use." });
+    if (updates.email) {
+      const emailExists = await doesEmailExists(updates.email);
+      if (emailExists) {
+        return res.status(409).json({ error: "Email already in use." });
+      }
     }
-  }
 
     const updatedUser = await updateUser(userId, updates);
 
@@ -38,9 +45,6 @@ async function editUser(req, res) {
     res.status(500).json({ error: "Internal server error." });
   }
 }
-
-
-
 
 const registerController = async (req, res, next) => {
   const userDetails = req.body;
@@ -80,6 +84,7 @@ const registerController = async (req, res, next) => {
     next(error);
   }
 };
+
 const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -105,8 +110,89 @@ const loginController = async (req, res, next) => {
   }
 };
 
+const showAllUsers = async (req, res) => {
+  try {
+    const id = req.user.id; //taken from decoded token
+    const data = await findUserById(id);
+    if (data.role !== "admin") {
+      let error = new Error("Unauthorized");
+      error.status = 401;
+      throw error;
+    }
+
+    const users = await findAllUsers();
+
+    //sends array of users
+    res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const showUserProfile = async (req, res) => {
+  try {
+    //check whether id from token and params is same
+    const id1 = req.params.id,
+      id2 = req.user.id; //taken from decoded token
+
+    if (!areTokenAndParameterIdSame(id1, id2)) {
+      let error = new Error("Unauthorized");
+      error.status = 401;
+      throw error;
+    }
+
+    const data = await findUserById(id1);
+    if (data.role !== "user") {
+      let error = new Error("Unauthorized");
+      error.status = 401;
+      throw error;
+    }
+
+    const userInfo = {
+      name: data.name,
+      language: data.language,
+      DOB: data.DOB,
+      email: data.email,
+    };
+
+    res.status(200).json(userInfo);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const showAppointmentHistory = async (req, res) => {
+  try {
+    //check whether id from token and params is same
+    const id1 = req.params.id,
+      id2 = req.user.id; //taken from decoded token
+
+    if (!areTokenAndParameterIdSame(id1, id2)) {
+      let error = new Error("Unauthorized");
+      error.status = 401;
+      throw error;
+    }
+
+    const data = await findUserById(id1);
+    if (data.role !== "user") {
+      let error = new Error("Unauthorized");
+      error.status = 401;
+      throw error;
+    }
+
+    const response = await findAppointmentHistory(id1);
+
+    res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   registerController,
   loginController,
-  editUser
+  editUser,
+  showUserProfile,
+  showAllUsers,
+  showAppointmentHistory,
 };

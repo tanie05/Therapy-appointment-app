@@ -1,4 +1,5 @@
 const User = require("../Models/userModel");
+const Therapy = require("../Models/therapyModel");
 const { hashPassword } = require("../Utils/authhelper");
 
 async function doesEmailExist(email) {
@@ -39,11 +40,11 @@ async function updateUser(userId, updates) {
     throw err;
 }
 
-
 async function finduserbyemail({ email }) {
   const user = await User.findOne({ email });
   return user;
 }
+
 async function createUser(userdetails) {
   try {
     const { firstname, lastname, email, DOB, language, password } = userdetails;
@@ -60,9 +61,40 @@ async function createUser(userdetails) {
     throw err;
   }
 }
+
+const findUserById = async (id) => {
+    try {
+      const user = await User.findById(id);
+      return user;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+const findAllUsers = async () => {
+  try {
+    const users = await User.find();
+    return users;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const findAppointmentHistory = async (userId) => {
+  try {
+    const appointments = await Therapy.find({ userId: userId });
+    return appointments;
+  } catch (err) {
+    throw Error;
+  }
+};
+
 module.exports = {
   finduserbyemail,
   createUser,
   updateUser, 
-  doesEmailExist
+  doesEmailExist,
+  findUserById,
+  findAllUsers,
+  findAppointmentHistory,
 };
