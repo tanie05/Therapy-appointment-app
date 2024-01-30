@@ -3,9 +3,24 @@ const {
   getTherapy,
   deleteTherapyById,
   updateTherapyById,
+  fetchTherapyWithId
 } = require("../Services/therapyQueries");
 const { validatePhone } = require("../Utils/therapyUtils");
 const ObjectId = require("mongodb").ObjectId;
+
+const fetchTherapyWithId = require('../Services/therapyQueries');
+
+async function fetchSingleTherapy(req,res) {
+
+    const therapyId = req.params.id;
+    const result = await fetchTherapyWithId(therapyId);
+
+    if(result){
+        res.status(200).send({success: true, therapy: result})
+    }else{
+        res.status(404).send({success: false, message: "Therapy not found"});
+    }
+}
 
 const createTherapy = async (req, res, next) => {
   try {
@@ -91,4 +106,5 @@ module.exports = {
   getAllTherapies,
   deleteTherapy,
   updateTherapy,
+  fetchSingleTherapy
 };
