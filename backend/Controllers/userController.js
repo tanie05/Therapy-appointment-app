@@ -1,3 +1,5 @@
+const doesEmailExists = require("../Services/userQueries");
+const updateUser = require("../Services/userQueries");
 const {
   validateDateOfBirth,
   validateEmail,
@@ -5,10 +7,8 @@ const {
 } = require("../Utils/userUtils");
 const { finduserbyemail } = require("../Services/userQueries");
 const { createUser } = require("../Services/userQueries");
-const doesEmailExists = require("../Services/userQueries");
-const updateUser = require("../Services/userQueries");
-
 const jwt = require("jsonwebtoken");
+const { comparePassword } = require("../Utils/authhelper");
 async function editUser(req, res) {
   const updates = req.body;
   const userId = req.params.id;
@@ -37,7 +37,6 @@ async function editUser(req, res) {
     res.status(500).json({ error: "Internal server error." });
   }
 }
-
 const registerController = async (req, res, next) => {
   const userDetails = req.body;
   try {
@@ -79,6 +78,7 @@ const registerController = async (req, res, next) => {
 const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    console.log(req.body);
     if (!email || !password) {
       const error = new Error("email or password not provided");
       error.status = 400;
@@ -89,12 +89,27 @@ const loginController = async (req, res, next) => {
       error.status = 400;
       throw error;
     }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal server error." });
+    const user = await finduserbyemail({ email });
+    if (!user) {
+      const error = new Error("user not exist");
+      error.status = 400;
+      throw error;
+    }
+    const match = await comparePassword(password, user.password);
+    if (!match) {
+      const error = new Error("Wrong Password");
+      error.status = 400;
+      throw error;
+    } else {
+      const token = await jwt.sign({ id: user.id }, "abc", {
+        expiresIn: "1h",
+      });
+      res.status(200).json({token: token, user: {name: user.name, _id: user._id}  });
+    }
+  } catch (error) {
+    next(error);
   }
-}
-
+};
 module.exports = {
   registerController,
   loginController,

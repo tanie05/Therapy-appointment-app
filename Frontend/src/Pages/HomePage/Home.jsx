@@ -12,6 +12,7 @@ const Home = () => {
   const dispatch = useDispatch()
   const userInfo = useSelector((state) => state.userInfo)
 
+  // console.log(userInfo)
   const [formData, setFormData] = useState({
     name: {
       firstName: userInfo.name.firstName,

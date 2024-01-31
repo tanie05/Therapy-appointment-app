@@ -74,5 +74,3 @@ module.exports = {
   updateUser, 
   doesEmailExist
 };
-
-module.exports = updateUser, doesEmailExist;

@@ -38,7 +38,8 @@ body {
   padding: 0px;
   margin: 0px;
   background-image: linear-gradient(to right, white, rgb(210, 207, 207));
-  
+  height: 100%;
+  width: 100%;
 }
 .container {
   background-color: #ffffff;
@@ -87,7 +88,7 @@ body {
   color: #ff705b;
   cursor: pointer;
 }
-.container button[type="submit"] {
+.btn3 {
   display: block;
   margin: 2rem auto;
   font-size: 1.6rem;
@@ -98,7 +99,7 @@ body {
   background-color: #ff705b;
   color: #ffffff;
 }
-.container button[type="submit"]:hover {
+.btn3:hover {
   cursor: pointer;
 }
 .container .login-message {

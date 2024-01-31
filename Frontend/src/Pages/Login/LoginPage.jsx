@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { login } from "../../Redux/Slices/userInfo";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { json, useNavigate } from "react-router-dom";
 import "./Login.css";
-
 const LoginPage = () => {
-
   const [error, setError] = useState();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -23,8 +23,18 @@ const LoginPage = () => {
       console.log(userdata);
       if (userdata) {
         const token = userdata.data.token;
-        console.log(userdata);
+        console.log(token);
         localStorage.setItem("token", token);
+        const loginAction = {
+          type: "login",
+          payload: {
+            isLoggedIn: true,
+            _id: userdata.data.user._id,
+            name: userdata.data.user.name,
+          },
+        };
+        dispatch(loginAction);
+
         navigate("/");
       }
     } catch (err) {
@@ -69,7 +79,9 @@ const LoginPage = () => {
             required
           />
           <p style={{ color: "rgb(37, 58, 214)" }}>Forgot Password?</p>
-          <button type="submit">Login</button>
+          <button type="submit" className="btn3">
+            Login
+          </button>
           <p className="login-message">
             Not a member? <span onClick={redirecttosignup}>Sign up</span>
           </p>
