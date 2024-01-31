@@ -6,6 +6,7 @@ const {
 const { finduserbyemail } = require("../Services/userQueries");
 const { createUser } = require("../Services/userQueries");
 const jwt = require("jsonwebtoken");
+const { comparePassword } = require("../Utils/authhelper");
 
 const registerController = async (req, res, next) => {
   const userDetails = req.body;
@@ -48,6 +49,7 @@ const registerController = async (req, res, next) => {
 const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    console.log(req.body);
     if (!email || !password) {
       const error = new Error("email or password not provided");
       error.status = 400;
@@ -59,7 +61,17 @@ const loginController = async (req, res, next) => {
       throw error;
     }
     const user = await finduserbyemail({ email });
-    if (user) {
+    if (!user) {
+      const error = new Error("user not exist");
+      error.status = 400;
+      throw error;
+    }
+    const match = await comparePassword(password, user.password);
+    if (!match) {
+      const error = new Error("Wrong Password");
+      error.status = 400;
+      throw error;
+    } else {
       const token = await jwt.sign({ id: user.id }, "abc", {
         expiresIn: "1h",
       });

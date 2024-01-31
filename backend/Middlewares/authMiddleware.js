@@ -1,4 +1,5 @@
-const jwt = require("json-web-token");
+const jwt = require("jsonwebtoken");
+
 const authuser = async (req, res, next) => {
   const authHeader = req.headers["authorization"];
   if (authHeader) {
@@ -8,7 +9,7 @@ const authuser = async (req, res, next) => {
       const token = tokenParts[1];
       try {
         const decoded = jwt.verify(token, "abc");
-        req.user = decoded;
+        req.user = decoded.id;
         next();
       } catch (error) {
         res.status(401).send({ message: "Invalid token details" });
