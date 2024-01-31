@@ -68,7 +68,9 @@ const LoginPage = () => {
             required
           />
           <p style={{ color: "rgb(37, 58, 214)" }}>Forgot Password?</p>
-          <button type="submit">Login</button>
+          <button type="submit" className="btn3">
+            Login
+          </button>
           <p className="login-message">
             Not a member? <span onClick={redirecttosignup}>Sign up</span>
           </p>

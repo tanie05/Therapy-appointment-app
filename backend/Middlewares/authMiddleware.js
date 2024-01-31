@@ -9,7 +9,8 @@ const authuser = async (req, res, next) => {
       const token = tokenParts[1];
       try {
         const decoded = jwt.verify(token, "abc");
-        req.user = decoded.id;
+        req.user = decoded;
+
         next();
       } catch (error) {
         res.status(401).send({ message: "Invalid token details" });

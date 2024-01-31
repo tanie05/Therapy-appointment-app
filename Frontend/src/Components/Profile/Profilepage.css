@@ -105,7 +105,7 @@ body {
   justify-content: space-between;
 }
 
-.container btn1 {
+.container .btn1 {
   display: block;
   margin: 2rem auto;
   font-size: 1.6rem;
@@ -117,13 +117,13 @@ body {
   background-color: #ff705b;
   color: #ffffff;
 }
-.container button[type="submit"]:hover {
+.btn1:hover {
   cursor: pointer;
 }
 
-.container btn {
+.btn {
   display: block;
-  margin: rem auto;
+  margin: 2rem auto;
   font-size: 1.6rem;
   width: 50%;
   align-content: flex-end;
@@ -132,4 +132,7 @@ body {
   border: none;
   background-color: #326bdc;
   color: #ffffff;
+}
+.btn:hover {
+  cursor: pointer;
 }

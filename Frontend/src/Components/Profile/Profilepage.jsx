@@ -7,7 +7,7 @@ import PersonIcon from "@mui/icons-material/Person";
 // useEffect(() => {}, []);
 
 const Profilepage = () => {
-  const { id } = useParams();
+  const id = "65b748134b758584546d78dd";
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
     Firstname: "",
@@ -16,27 +16,28 @@ const Profilepage = () => {
     Langauge: "",
     DOB: "",
   });
-  const token = localStorage.getItem("token");
+  //const token = localStorage.getItem("token");
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Yjc0ODEzNGI3NTg1ODQ1NDZkNzhkZCIsImlhdCI6MTcwNjY4NzY4NSwiZXhwIjoxNzA2NjkxMjg1fQ.SZ_J5p2Vx9T6luq3Dw9uGEptqctaPiVjIYFL8vkgPR4";
+
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const userdata = await axios.get(
-          `http://localhost:5000/auth/users/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const userdata = await axios.get(`http://localhost:5000/users/${id}`, {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(userdata.data);
         if (userdata) {
-          setUserData(userdata);
+          setUserData(userdata.data);
         }
       } catch (err) {
         console.log("error while fetching user:", err.message);
       }
     };
     fetchdata();
-  }, [token]);
+  }, []);
 
   const handleInputChange = (field) => (event) => {
     setUserData({
@@ -45,7 +46,8 @@ const Profilepage = () => {
     });
   };
 
-  const handlesubmit = async () => {
+  const handlesubmit = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.put(
         `https://localhost:5000/users/${id}`,
@@ -60,7 +62,7 @@ const Profilepage = () => {
       if (response.status !== 200) {
         throw new Error("Failed to update user data");
       }
-
+      setIsEditing(false);
       console.log("User data updated successfully");
     } catch (error) {
       console.error("Error updating user data:", error.message);
@@ -119,21 +121,19 @@ const Profilepage = () => {
           />
 
           <div className="buttoncontainer">
-            {!isEditing ? (
-              <button
-                type="submit"
-                onClick={() => {
-                  setIsEditing((val) => !val);
-                }}
-                style={{ backgroundColor: "#008CBA" }}
-              >
-                Edit
-              </button>
-            ) : (
-              <button onClick={handlesubmit} type="submit" className="btn">
-                Save
-              </button>
-            )}
+            <button
+              type="button"
+              className="btn"
+              onClick={() => {
+                setIsEditing((val) => !val);
+              }}
+              style={{ backgroundColor: "#008CBA" }}
+            >
+              Edit
+            </button>
+            <button onClick={handlesubmit} type="button" className="btn1">
+              Save
+            </button>
           </div>
         </form>
       </div>
