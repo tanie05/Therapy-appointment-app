@@ -25,7 +25,7 @@ async function editUser(req, res) {
 
   try {
     if (updates.email) {
-      const emailExists = await doesEmailExists(updates.email);
+      const emailExists = await finduserbyemail(updates.email);
       if (emailExists) {
         return res.status(409).json({ error: "Email already in use." });
       }
@@ -89,7 +89,7 @@ const registerController = async (req, res, next) => {
 const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     if (!email || !password) {
       const error = new Error("email or password not provided");
       error.status = 400;
@@ -115,7 +115,7 @@ const loginController = async (req, res, next) => {
       const token = await jwt.sign({ id: user.id }, "abc", {
         expiresIn: "1h",
       });
-      res.status(200).json({ token });
+      res.status(200).json({ token: token, user: {name: user.name, _id: user._id, role: user.role} });
     }
   } catch (error) {
     next(error);

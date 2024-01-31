@@ -3,6 +3,7 @@ import "./Profilepage.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import PersonIcon from "@mui/icons-material/Person";
+import { Navbar } from "../Navbar/Navbar";
 
 // useEffect(() => {}, []);
 
@@ -70,6 +71,7 @@ const Profilepage = () => {
   };
   return (
     <div className="Parentcontainer">
+      <Navbar/>
       <div className="container">
         <form className="login-form">
           <PersonIcon style={{ fontSize: "10rem" }} />

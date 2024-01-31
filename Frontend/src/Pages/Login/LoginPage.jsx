@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { login } from "../../Redux/Slices/userInfo";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
+
 const LoginPage = () => {
+  
   const [error, setError] = useState();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const handlelogin = async (e) => {
+
     e.preventDefault();
     const rawdata = new FormData(e.target);
     const data = Object.fromEntries(rawdata.entries());
@@ -20,23 +24,26 @@ const LoginPage = () => {
         "http://localhost:5000/auth/login",
         data
       );
-      console.log(userdata);
-      if (userdata) {
+      
+      console.log(userdata)
+      
         const token = userdata.data.token;
-        console.log(token);
         localStorage.setItem("token", token);
-        const loginAction = {
-          type: "login",
-          payload: {
-            isLoggedIn: true,
-            _id: userdata.data.user._id,
-            name: userdata.data.user.name,
-          },
+        const userInfo = userdata.data.user;
+        const storeUser = {
+          isLoggedIn: true,
+          _id: userInfo._id,
+          name: userInfo.name,
+          role: userInfo.role
         };
-        dispatch(loginAction);
+        
+        localStorage.setItem("user", JSON.stringify(storeUser));
+        
+        dispatch(login(storeUser))
 
-        navigate("/");
-      }
+        navigate("/")
+
+      
     } catch (err) {
       setError("Wrong Password or Email");
     }

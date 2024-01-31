@@ -5,18 +5,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { userData } from "../../Redux/Slices/user";
 import './home.css';
 import TherapyHeader from "../../Molecules/TherapyHeader";
-
+import { Navbar } from "../../Components/Navbar/Navbar";
+import {useNavigate} from 'react-router-dom'
+import axios from 'axios';
 
 const Home = () => {
 
   const dispatch = useDispatch()
   const userInfo = useSelector((state) => state.userInfo)
+  const navigate = useNavigate();
 
   // console.log(userInfo)
   const [formData, setFormData] = useState({
     name: {
-      firstName: userInfo.name.firstName,
-      lastName: userInfo.name.lastName
+      firstName: userInfo.name.firstname,
+      lastName: userInfo.name.lastname
     }
   });
 
@@ -30,26 +33,52 @@ const Home = () => {
     setStep(step + 1);
   };
 
+  function separateCountryCodeAndNumber(phone) {
+    
+    const [countryCode, number] = phone.split(' ');
+  
+    
+    const phoneObject = {
+      countryCode: countryCode,
+      number: number
+    };
+  
+    return phoneObject;
+  }
+
   const handleFormSubmit = async () => {
+
+    const phone = separateCountryCodeAndNumber(formData.phone)
+    const timings = new Array(formData.time1, formData.time2, formData.time3, formData.time4);
+    const filteredTimings = timings.filter(time => time !== undefined);
     
     const data = {
-      name: formData.name,
       email: formData.email,
-      phone: formData.phone,
-      dob: formData.dob,
+      phone: phone,
+      DOB: formData.dob,
       description: formData.description,
       address: {
-        houseno: formData.houseno,
+        houseNo: formData.houseno,
         locality: formData.locality,
         city: formData.city,
         state: formData.state,
         country: formData.country,
       },
       language: formData.language,
-      timings: new Array(formData.time1, formData.time2, formData.time3, formData.time4)
+      timings: filteredTimings,
+      healthPlan: formData.healthPlan,
+      userId: userInfo._id
     }
-    console.log(typeof(formData.dob), formData.dob)
-    console.log(data);
+    
+    // console.log(data);
+    const res = await axios.post('http://localhost:5000/therapy/create', data);
+    navigate("/")
+    // console.log(res);
+
+
+
+
+    
   };
 
   const handleBack = () => {
@@ -59,6 +88,7 @@ const Home = () => {
   return (
     
     <div className="form-container">
+      <Navbar/>
       <TherapyHeader/>
       {step === 1 && (
         <TherapyPage1

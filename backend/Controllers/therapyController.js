@@ -5,7 +5,7 @@ const {
   updateTherapyById,
   fetchTherapyWithId
 } = require("../Services/therapyQueries");
-const { validatePhone } = require("../Utils/therapyUtils");
+const { validatePhone, validateAddress } = require("../Utils/therapyUtils");
 const ObjectId = require("mongodb").ObjectId;
 
 
@@ -30,22 +30,27 @@ const createTherapy = async (req, res, next) => {
       timings,
       userId,
       phone,
+      email,
+      DOB,
       ...rest
     } = req.body;
 
-    if (!validatePhone(phone.number) || !validateAddress(rest.address)) {
-      const error = new Error("Invalid Entries");
-      error.status = 401;
-      throw error;
-    }
+    
+    // if (!validatePhone(phone.number) || !validateAddress(rest.address)) {
+    //   const error = new Error("Invalid Entries");
+    //   error.status = 401;
+    //   throw error;
+    // }
 
     const therapy = {
       healthPlan,
       language,
       description,
-      timings: [Date.now()],
+      timings,
       userId: new ObjectId(userId),
       phone,
+      email,
+      DOB,
       address: rest.address,
       status: "pending",
     };

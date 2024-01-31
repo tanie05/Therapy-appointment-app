@@ -4,8 +4,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./therapyForms.css";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { MuiTelInput } from 'mui-tel-input'
 
 export default function TherapyPage1({ formData, onFormDataChange }) {
   const handleInputChange = (e) => {
@@ -49,38 +49,31 @@ export default function TherapyPage1({ formData, onFormDataChange }) {
         </div>
         <div className="therapy-row">
         
-          <PhoneInput
-            className="therapy-form-field therapy-phone"
-            country={"us"}
-            value={formData.phone}
-            onChange={handlePhoneChange}
-            name="phone"
-          />
-        
+        <MuiTelInput name="phone" value={formData.phone} onChange={handlePhoneChange} />
+      
         <TextField
             className="therapy-form-field"
             variant="standard"
-            required
             type={"email"}
             name="email"
             label="Email"
-            value={formData.email}
+            value={formData.email ? formData.email : ""}
             onChange={handleInputChange}
           />
         </div>
 
-        
-
         <div>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
             className="therapy-description"
               label="Date of Birth"
-              value={formData.dob}
+              value={formData.dob ? formData.dob : ""}
               onChange={handleDateChange}
               name="dob"
             />
           </LocalizationProvider>
+          
         </div>
 
         <div className="address-container">

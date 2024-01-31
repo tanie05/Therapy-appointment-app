@@ -1,44 +1,36 @@
-import React from 'react'
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../Redux/Slices/userInfo";
 import { useDispatch, useSelector } from "react-redux";
-import {logout} from "../../Redux/Slices/userInfo";
-import {Link} from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import './navbar.css';
 
 export const Navbar = () => {
+  const navigate = useNavigate();
 
-  const isLoggedIn = useSelector(state => state.userInfo.isLoggedIn);
-  const role = useSelector(state => state.userInfo.role);
+  const user = useSelector((state) => state.userInfo);
+  const isLoggedIn = user.isLoggedIn;
+  const role = user.role;
   const dispatch = useDispatch();
+
   const handleLogOut = (e) => {
-    dispatch(logout);
+    dispatch(logout());
+    navigate("/");
   };
-  
 
   return (
     <div className="nav-container">
-
-        {
-            isLoggedIn &&
-
-            role === "user" ? 
-            <div>
-            <Link to= "/">Home</Link>
-            <Link to="/profile">Profile</Link>
-            <Link to="/history">History</Link>
-            </div> :
-            <Link to = "/">Home</Link>
-
-            &&
-
-            <button onClick={handleLogOut} >Logout</button>
-        }
-        
-        {
-        
-        }
-        
-
-        
-
+      <div className="nav-link-list">
+      <Link to={"/"} className="nav-items">Home</Link>
+      {role === "user" && (
+        <>
+          <Link to={"/profile"} className="nav-items" >{user.name.firstname}</Link>
+          <Link to={"/history"} className="nav-items" >History</Link>
+        </>
+      )}
+      <LogoutIcon onClick={handleLogOut} className="logout-icon nav-items"/>
+      </div>
+      
     </div>
-  )
-}
+  );
+};

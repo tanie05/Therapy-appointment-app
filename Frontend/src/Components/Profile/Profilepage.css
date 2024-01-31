@@ -1,16 +1,4 @@
-/* .App {
-  text-align: center;
-  position: relative;
-  font-family: sans-serif;
-  width: 100vw;
-  min-height: 100vh;
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  z-index: 1;
-  border-radius: 10rem;
-} */
-@import url("https://fonts.googleapis.com/css?family=Poppins");
+/* @import url("https://fonts.googleapis.com/css?family=Poppins");
 
 * {
   box-sizing: border-box;
@@ -18,34 +6,7 @@
   margin: 0px;
 }
 
-html {
-  font-size: 10px;
-}
-
-/* body {
-  background-color: #b3d5e8;
-  background: rgba(142, 190, 218, 0.92);
-  background: -moz-linear-gradient(
-    160deg,
-    rgb(170, 208, 230) 0%,
-    rgba(128, 208, 199, 1) 100%
-  );
-  background: -webkit-linear-gradient(
-    160deg,
-    rgb(122, 185, 222) 0%,
-    rgba(128, 208, 199, 1) 100%
-  );
-  background: linear-gradient(
-    160deg,
-    rgb(118, 170, 200) 0%,
-    rgba(128, 208, 199, 1) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0093e9",endColorstr="#80d0c7",GradientType=1);
-  height: 100vh;
-  width: 100%;
-  font-family: "Poppins", sans-serif;
-} */
-body {
+.Parentcontainer {
   box-sizing: border-box;
   padding: 0px;
   margin: 0px;
@@ -135,4 +96,4 @@ body {
 }
 .btn:hover {
   cursor: pointer;
-}
+} */
