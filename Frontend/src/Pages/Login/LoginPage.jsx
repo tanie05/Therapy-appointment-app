@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { json, useNavigate } from "react-router-dom";
 import "./Login.css";
+
 const LoginPage = () => {
+
   const [error, setError] = useState();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -21,10 +23,9 @@ const LoginPage = () => {
       console.log(userdata);
       if (userdata) {
         const token = userdata.data.token;
-        console.log(token);
+        console.log(userdata);
         localStorage.setItem("token", token);
-
-        navigate("/homepage");
+        navigate("/");
       }
     } catch (err) {
       setError("Wrong Password or Email");

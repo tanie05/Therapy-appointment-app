@@ -2,9 +2,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const userInfoSlice = createSlice({
-  initialState:  localStorage.getItem("userInfo") || {isLoggedIn: false, name: {
+  initialState: {isLoggedIn: false, name: {
     firstName: "Tanvi",
-    lastName: "Sharma"
+    lastName:"Sharma"
   }},
   name: "userInfo",
   reducers: {

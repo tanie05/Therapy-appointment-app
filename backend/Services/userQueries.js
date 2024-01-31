@@ -67,7 +67,7 @@ async function createUser(userdetails) {
   }
     throw err;
   }
-}
+
 module.exports = {
   finduserbyemail,
   createUser,
