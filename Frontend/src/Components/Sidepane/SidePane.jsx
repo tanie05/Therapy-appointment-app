@@ -1,7 +1,6 @@
 // SidePane.js
 import React from "react";
 import { useState } from "react";
-
 import PaneButtonList from "../../Molecules/PaneButtonList";
 import PaneHeader from "../../Molecules/PaneHeader";
 import "./sidePane.css";

@@ -5,6 +5,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import TextField from "@mui/material/TextField";
 import "./therapyForms.css";
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 export default function TherapyPage2({ formData, onFormDataChange }) {
   const handleInputChange = (e) => {
@@ -17,6 +19,9 @@ export default function TherapyPage2({ formData, onFormDataChange }) {
     onFormDataChange({ [name]: dateTime });
   };
 
+  const handleChange = () => {
+
+  }
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={["DateTimePicker"]}>
@@ -64,7 +69,17 @@ export default function TherapyPage2({ formData, onFormDataChange }) {
             value={formData.healthPlan}
             onChange={handleInputChange}
           />
-        </div>
+          
+          <select
+            defaultValue={"english"}
+            name="language"
+            value={formData.language}
+            onChange={handleInputChange}
+          >
+            <option value="english">English</option>
+            <option value="spanish">Spanish</option>
+          </select>
+            </div>
 
         <div>
           <textarea

@@ -10,7 +10,6 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 const authRouter = require('./Routes/authRoutes')
 const userRouter = require('./Routes/userRoutes')
 const therapyRouter = require('./Routes/therapyRoutes')

@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import TherapyPage1 from "../../Components/HomePageComponents/TherapyPage1";
 import TherapyPage2 from "../../Components/HomePageComponents/TherapyPage2";
+import { useDispatch, useSelector } from "react-redux";
+import { userData } from "../../Redux/Slices/user";
 import './home.css';
-
 import TherapyHeader from "../../Molecules/TherapyHeader";
+
+
 const Home = () => {
+
+  const dispatch = useDispatch()
+  const userInfo = useSelector((state) => state.userInfo)
+
   const [formData, setFormData] = useState({
     name: {
-      firstName: "Tanvi",
-      lastName: "Sharma"
+      firstName: userInfo.name.firstName,
+      lastName: userInfo.name.lastName
     }
   });
 
@@ -23,7 +30,25 @@ const Home = () => {
   };
 
   const handleFormSubmit = async () => {
-    console.log(formData);
+    
+    const data = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      dob: formData.dob,
+      description: formData.description,
+      address: {
+        houseno: formData.houseno,
+        locality: formData.locality,
+        city: formData.city,
+        state: formData.state,
+        country: formData.country,
+      },
+      language: formData.language,
+      timings: new Array(formData.time1, formData.time2, formData.time3, formData.time4)
+    }
+    console.log(typeof(formData.dob), formData.dob)
+    console.log(data);
   };
 
   const handleBack = () => {

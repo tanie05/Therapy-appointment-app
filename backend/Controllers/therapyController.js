@@ -8,7 +8,6 @@ const {
 const { validatePhone } = require("../Utils/therapyUtils");
 const ObjectId = require("mongodb").ObjectId;
 
-const fetchTherapyWithId = require('../Services/therapyQueries');
 
 async function fetchSingleTherapy(req,res) {
 
