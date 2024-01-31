@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { login } from "../../Redux/Slices/userInfo";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { json, useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -23,8 +25,17 @@ const LoginPage = () => {
         const token = userdata.data.token;
         console.log(token);
         localStorage.setItem("token", token);
+        const loginAction = {
+          type: "login",
+          payload: {
+            isLoggedIn: true,
+            _id: userdata.data.user._id,
+            name: userdata.data.user.name,
+          },
+        };
+        dispatch(loginAction);
 
-        navigate("/homepage");
+        navigate("/");
       }
     } catch (err) {
       setError("Wrong Password or Email");

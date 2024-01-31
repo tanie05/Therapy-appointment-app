@@ -1,0 +1,74 @@
+#filterContainer{
+    display: flex;
+    flex-direction: row;
+    /* flex-grow: 1; */
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.filterField{
+    position: relative;
+    /* flex-grow: 1; */
+    width: 95%;
+    justify-content:center;
+    align-items: center;
+    height: 6vh;
+    
+}
+
+
+.filterField input{
+    width: 70%;
+    border-width: 0px;
+    height: 70%;
+    border-radius: 2%;
+    /* border: 0.1vw solid black */
+    /* flex-grow: 3; */
+    outline: none;
+}
+
+.filterField input::selection{
+    border: none
+}
+
+.filterBtn{
+    width: 12%;
+    height: 70%;
+    border-radius: 5%;
+    background-color: white;
+    border: none;
+
+}
+
+.filterField button{
+    height: 70%;
+    border-radius: 5%;
+    background-color: white;
+    border: none;
+    height: 95%;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.filterField button:hover{
+    background-color: gray;
+}
+
+
+#inputField{
+    width: 60vw;
+    margin-left: 4vw;
+    border: 0.1vw solid black;
+    border-radius: .5vw;
+}
+#dropDownField{
+    width: 20vw;
+}
+#removeFilter{
+    width: 10vw;
+    height: 80%;
+    justify-content: flex-end;
+    border-radius: 0.5vw;
+    border: 0.1vw solid black;
+}
