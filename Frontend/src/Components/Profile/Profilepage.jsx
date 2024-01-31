@@ -21,7 +21,7 @@ const Profilepage = () => {
     const fetchdata = async () => {
       try {
         const userdata = await axios.get(
-          `http://localhost:5000/auth/user/${id}`,
+          `http://localhost:5000/auth/users/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
