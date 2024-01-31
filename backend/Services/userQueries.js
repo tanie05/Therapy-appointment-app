@@ -1,4 +1,4 @@
-const User = require("../Models/userModel");
+const userModel = require("../Models/userModel");
 const { hashPassword } = require("../Utils/authhelper");
 
 async function doesEmailExist(email) {
@@ -41,14 +41,14 @@ async function updateUser(userId, updates) {
 
 
 async function finduserbyemail({ email }) {
-  const user = await User.findOne({ email });
+  const user = await userModel.findOne({ email });
   return user;
 }
 async function createUser(userdetails) {
   try {
     const { firstname, lastname, email, DOB, language, password } = userdetails;
     const hashedPassword = await hashPassword(password);
-    const user = await new User({
+    const user = await new userModel({
       name: { firstname, lastname },
       email,
       DOB,
@@ -57,6 +57,14 @@ async function createUser(userdetails) {
     }).save();
     return user;
   } catch (err) {
+    if (err.code === 11000 || err.code === 11001) {
+      // Duplicate key error
+      console.error('Duplicate key error:', error.message);
+      const error = new Error('Duplicate entry');
+      error.status = 403;
+      throw error;
+    }
+  }
     throw err;
   }
 }
@@ -66,3 +74,5 @@ module.exports = {
   updateUser, 
   doesEmailExist
 };
+
+module.exports = updateUser, doesEmailExist;

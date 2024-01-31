@@ -1,14 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const {fetchSingleTherapy} = require('../Controllers/therapyController');
 
 const {
   createTherapy,
   getAllTherapies,
   deleteTherapy,
   updateTherapy,
+  fetchSingleTherapy
 } = require("../Controllers/therapyController");
-const { fetchTherapyWithId } = require("../Services/therapyQueries");
 
 
 router.post("/create", createTherapy);
