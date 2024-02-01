@@ -7,6 +7,7 @@ import "./sidePane.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@mui/material";
 import { isClose } from "../../Redux/Slices/admin";
+import ViewSidebarIcon from "@mui/icons-material/ViewSidebar";
 
 const SidePane = () => {
   const admin = useSelector((state) => state.admin);
@@ -23,19 +24,20 @@ const SidePane = () => {
           <PaneButtonList />
         </div>
       ) : (
-        <Button
-          variant="outlined"
-          style={{
-            height: "5vh",
-            position: "sticky",
-            top: 0,
-            bottom: 0,
-            backgroundColor: "#0698f6",
-          }}
-          onClick={handleOnClick}
-        >
-          {":)"}
-        </Button>
+        <div id="sideBtnContainer">
+          <ViewSidebarIcon
+            variant="outlined"
+            style={{
+              fontSize: "200%",
+              position: "sticky",
+              top: 0,
+              bottom: 0,
+              color: "orange",
+              // backgroundColor: "#0698f6",
+            }}
+            onClick={handleOnClick}
+          ></ViewSidebarIcon>
+        </div>
       )}
     </>
   );

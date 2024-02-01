@@ -9,6 +9,7 @@
     /* margin-left: 4vw; */
     
 }
+
 #pageSelection{
     display: flex;
     align-items: center;
@@ -28,7 +29,8 @@
     /* font-size: 200%; */
     font-weight: 50;
     margin: 1vh 1vw;
-    background-color: rgb(0, 153, 255);
+    /* background-color: rgb(0, 153, 255); */
+    color: #0698f6;
     /* color: rgb(21, 173, 228); */
     /* padding: 2vw; */
     /* height: 2vh;
@@ -37,8 +39,11 @@
 #list{
     padding-top: 0.5vh;
     border-left: 0.2vh solid gray;
+    /* margin-left: 1vw; */
     overflow: auto;
     max-height: 60vh;
+    -webkit-box-shadow: 0 0 0.05vw 0.05vw gray;
+    box-shadow: 0 0 0.05vw 0.05vw gray;
     /* display: flex; */
     
     /* margin-left: 4vw; */
@@ -47,18 +52,37 @@
 #tabHeading{
     display: flex;
     flex-direction: row;
-    color: gray;
-    box-sizing: border-box;
-    padding-top: 8vh ;
-    padding-bottom: 4vh;
+    color: black;
+    /* box-sizing: border-box; */
+    /* align-items: center; */
+    justify-content: center;
+    margin-top: 8vh ;
+    height: 6vh;
+    /* padding-bottom: 4vh; */
+    padding-left: 2vw;
+    /* width: 95%; */
+    /* margin-left: 1vw; */
     border-left: 0.2vh solid gray;
     border-bottom: 0.2vh solid gray;
-
+    font-size: 3vh;
+    font-weight: 400;
+    font-style: bold;
+    -webkit-box-shadow: 0 0 0.2vw 0.01vw gray;
+    box-shadow: 0 0 0.2vw 0.01vw gray;
 
 }
+
+#user, #status, #language{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 #user{
+    
     width: 60%;
     padding-left: 1vw;
+
 }
 #status, #language{
     width: 19%;

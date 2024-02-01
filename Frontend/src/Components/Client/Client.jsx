@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { userData, page } from "../../Redux/Slices/admin";
 import axios from "axios";
-
-import MaterialIcon from "material-icons-react";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const Client = () => {
   const dispatch = useDispatch();
@@ -78,12 +79,12 @@ const Client = () => {
       console.log(err);
     }
   };
-  useEffect(() => {
-    handle(true, url);
-    return () => {
-      dispatch(userData([]));
-    };
-  }, []);
+  // useEffect(() => {
+  //   handle(true, url);
+  //   return () => {
+  //     dispatch(userData([]));
+  //   };
+  // }, []);
   return (
     <div className="homeContainer">
       <Filter handleApi={handle} />
@@ -106,16 +107,17 @@ const Client = () => {
         })}
       </div>
       <div id="pageSelection">
-        <button name="prev" className="page" onClick={handleClick}>
-          {/* <MaterialIcon icon="arrow_back_ios" /> */}
-          {"<"}
-        </button>
-        <button name="next" className="page" onClick={handleClick}>
-          {/* <MaterialIcon icon="arrow_forward_ios">
+        <ArrowBackIosNewIcon
+          name="prev"
+          className="page"
+          onClick={handleClick}
+        />
 
-        </MaterialIcon> */}
-          {">"}
-        </button>
+        <ArrowForwardIosIcon
+          name="next"
+          className="page"
+          onClick={handleClick}
+        />
       </div>
     </div>
   );

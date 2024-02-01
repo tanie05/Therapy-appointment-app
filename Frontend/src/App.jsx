@@ -8,21 +8,21 @@ import Admin from "./Pages/Admin/Admin";
 import "./app.css";
 import { PrivateRotuerAdmin, PrivateRotuerUser } from "./PrivateRoutes";
 import { Navbar } from "./Components/Navbar/Navbar";
+import NavWrapper from "./Components/NavWrapper/NavWrapper";
 function App() {
   const userInfo = useSelector((state) => state.userInfo);
   // console.log(userInfo);
   return (
     <>
-    
       <BrowserRouter>
         <Routes>
-          <Route>
+          <Route element={<NavWrapper />}>
             <Route element={<PrivateRotuerUser />}>
               <Route path="/" element={<Home />}></Route>
               <Route path="/profile" element={<Profilepage />}></Route>
             </Route>
           </Route>
-          <Route>
+          <Route element={<NavWrapper />}>
             <Route element={<PrivateRotuerAdmin />}>
               <Route path="/admin" element={<Admin />}></Route>
             </Route>

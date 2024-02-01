@@ -1,0 +1,5 @@
+#navWrapperContainer{
+    display: flex;
+    flex-direction: column;
+    
+}

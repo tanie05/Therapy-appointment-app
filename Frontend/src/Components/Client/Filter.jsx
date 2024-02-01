@@ -7,6 +7,11 @@ import "./filter.css";
 import { useDispatch, useSelector } from "react-redux";
 import { filter, page, userData } from "../../Redux/Slices/admin";
 
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+
 const Filter = ({ handleApi }) => {
   // console.log(handleApi);
   const [toggle, setToggle] = useState(false);
@@ -69,6 +74,7 @@ const Filter = ({ handleApi }) => {
     dispatch(page(0));
     const handle = async () => {
       const result = await handleClick(access);
+      console.log(result);
       dispatch(userData(result.data));
     };
 
@@ -79,18 +85,7 @@ const Filter = ({ handleApi }) => {
     setIsFiltering((val) => !val);
   }, [access]);
 
-  const list = [
-    "pending",
-    "completed",
-    "booked",
-    "ongoing",
-    "a",
-    "a",
-    "a",
-    "a",
-    "a",
-    "a",
-  ];
+  const list = ["pending", "completed", "booked"];
   return (
     <div id="filterContainer">
       <div className="filterField" id="inputField">
@@ -101,23 +96,33 @@ const Filter = ({ handleApi }) => {
           type="text"
           placeholder="Search Users By Email"
         />
-        <button id="search" className="filterBtn btn" onClick={handleBtnClick}>
-          Search
-        </button>
-        <button id="reset" className="filterBtn btn" onClick={resetEmail}>
-          Reset
-        </button>
+        <SearchIcon
+          id="search"
+          className="filterBtn button"
+          onClick={handleBtnClick}
+        />
+
+        <CloseIcon
+          id="reset"
+          className="filterBtn button"
+          onClick={resetEmail}
+        />
       </div>
       <div className="filterField" id="dropDownField">
         <div className="label">
-          <span>Status Code</span>
+          <span>Status</span>
         </div>
         <div className="selectField">
-          <div>{access.length ? access : "All Status"}</div>
+          <div id="statusText">
+            {access.length
+              ? access.charAt(0).toUpperCase() + access.slice(1)
+              : "All Status"}
+          </div>
 
-          <button className="btn" onClick={() => setToggle((val) => !val)}>
-            ^
-          </button>
+          <ArrowDropDownIcon
+            className="button"
+            onClick={() => setToggle((val) => !val)}
+          ></ArrowDropDownIcon>
           {toggle && (
             <DropDown
               list={list}
@@ -129,9 +134,11 @@ const Filter = ({ handleApi }) => {
       </div>
 
       <div className="filterField" id="removeFilter">
-        <button className="btn" onClick={handleRemoveFilter}>
-          {"Remove Filters"}
-        </button>
+        <RemoveCircleOutlineIcon
+          className="button"
+          id="removeFilterBtn"
+          onClick={handleRemoveFilter}
+        ></RemoveCircleOutlineIcon>
       </div>
     </div>
   );

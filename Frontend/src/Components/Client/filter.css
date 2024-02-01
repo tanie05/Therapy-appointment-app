@@ -5,7 +5,7 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    border-left: 0.2vh solid gray;
+    /* border-left: 0.2vh solid gray; */
     /* position: fixed; */
     z-index: 20;
     /* margin-bottom: 2vh; */
@@ -24,10 +24,10 @@
     padding: 0.5vh 0.5vw;
     /* -webkit-box-shadow: 0 0 0.2vw 0.05vw #7c7979;
         box-shadow: 0 0 0.2vw 0.05vw #7c7979; */
-        -webkit-box-shadow: 0 0 0.2vw 0.05vw #2194f7;
-        box-shadow: 0 0 0.2vw 0.05vw #2194f7;
+        -webkit-box-shadow: 0 0 0.2vw 0.05vw gray;
+        box-shadow: 0 0 0.2vw 0.05vw gray;
     border-radius: 0.5vw;
-    color:rgb(64, 64, 221)
+    color:black
     /* font-size: 1em; */
     
 }
@@ -44,6 +44,7 @@
     margin-right: auto;
     padding-left: 1vw;
     outline: none;
+    font-size: 2.5vh;
 }
 
 
@@ -57,9 +58,10 @@
 
 }
 
-.btn{
+.button{
     /* font-size: 0.8vh; */
     height: 70%;
+    padding: 0vh 1vw;
     border-radius: 5%;
     background-color: white;
     border: none;
@@ -69,14 +71,14 @@
     
 }
 
-.btn:hover{
+.button:hover{
     background-color: gray;
 }
 
 
 #inputField{
     width: 60%;
-    margin-left: 1vw;
+    /* margin-left: 1vw; */
     /* border: 0.1vw solid black; */
     /* border-radius: .5vw; */
     
@@ -90,13 +92,22 @@
     width: 20%;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 .label{
     display: flex;
     width: 90%;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
+    /* padding-top: 0.4vh; */
+    
+}
+
+.label span{
+    font-size: 2vh;
+    color: gray;
+
 }
 
 .selectField{
@@ -106,24 +117,33 @@
     justify-content: space-between;
 }
 
+#statusText{
+    font-size: 2.5vh;
+}
 
 #removeFilter{
     
     width: 10%;
     /* height: 80%; */
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    border-radius: 0.5vw;
+    
+    border: none;
+    box-shadow: none;
     
 }
-#removeFilter button{
-    width: 100%;
+#removeFilterBtn{
+    width: 80%;
+    border: none;
+    padding: 0px;
+
 }
 
-.label{
-    font-size: smaller;
-    color: gray
-}
+
+
+
+
+
 .selectField{
     border-bottom: 0.2vh solid gray;
     /* display: flex; */
@@ -131,5 +151,7 @@
     display: flex;
     justify-content: space-between;
     position: relative;
+    padding: 1vh 0.2vw;
+    width: 100%;
    
 }
