@@ -55,27 +55,32 @@ const registerController = async (req, res, next) => {
       error.status = 400;
       throw error;
     }
+
     if (!validateEmail(email)) {
       const error = new Error("Email is not valid");
       error.status = 400;
       throw error;
     }
+
     if (!validatePassword(password)) {
       const error = new Error("Password less than 6 digit");
       error.status = 400;
       throw error;
     }
+
     if (!validateDateOfBirth(DOB)) {
       const error = new Error("Invalid age ");
       error.status = 400;
       throw error;
     }
+
     const existinguser = await finduserbyemail({ email });
     if (existinguser) {
       const error = new Error("User already exist ");
       error.status = 400;
       throw error;
     }
+
     const user = await createUser(userDetails);
     if (user) {
       res.status(200).send({ message: "User successfully created" });
@@ -110,7 +115,7 @@ const loginController = async (req, res, next) => {
   }
 };
 
-const showAllUsers = async (req, res) => {
+const showAllUsers = async (req, res, next) => {
   try {
     const id = req.user.id; //taken from decoded token
     const data = await findUserById(id);
@@ -129,7 +134,7 @@ const showAllUsers = async (req, res) => {
   }
 };
 
-const showUserProfile = async (req, res) => {
+const showUserProfile = async (req, res, next) => {
   try {
     //check whether id from token and params is same
     const id1 = req.params.id,
@@ -161,7 +166,7 @@ const showUserProfile = async (req, res) => {
   }
 };
 
-const showAppointmentHistory = async (req, res) => {
+const showAppointmentHistory = async (req, res, next) => {
   try {
     //check whether id from token and params is same
     const id1 = req.params.id,
