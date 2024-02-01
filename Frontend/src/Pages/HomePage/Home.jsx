@@ -15,13 +15,15 @@ const Home = () => {
   const userInfo = useSelector((state) => state.userInfo)
   const navigate = useNavigate();
 
-  // console.log(userInfo)
-  const [formData, setFormData] = useState({
+  const inititalFormData = {
     name: {
       firstName: userInfo.name.firstname,
       lastName: userInfo.name.lastname
     }
-  });
+  }
+
+  // console.log(userInfo)
+  const [formData, setFormData] = useState(inititalFormData);
 
   const [step, setStep] = useState(1);
 
@@ -72,13 +74,17 @@ const Home = () => {
     
     // console.log(data);
     const res = await axios.post('http://localhost:5000/therapy/create', data);
-    navigate("/")
-    // console.log(res);
 
+    // console.log(res)
+    if(res.data.success){
+      alert('Therapy appointment booked!');
+      setFormData(inititalFormData)
+      setStep(1)
+      navigate("/")
 
-
-
-    
+    }else{
+      alert('Error creating therapy: ', res.data.message);
+    }
   };
 
   const handleBack = () => {

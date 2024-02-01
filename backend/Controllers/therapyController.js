@@ -56,9 +56,10 @@ const createTherapy = async (req, res, next) => {
     };
     const result = await addTherapy(therapy);
 
-    res.status(200).json(result);
+    res.status(200).json({success: true, data: result});
   } catch (err) {
-    if (err.status) res.status(err.status).json(err.message);
+    console.log(err)
+    if (err.status) res.status(err.status).json({success: false, message: err.message});
     else res.status(500).json(err.message);
   }
 };
