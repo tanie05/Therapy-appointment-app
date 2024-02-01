@@ -1914,7 +1914,7 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-libphonenumber-js@^1.10.47:
+libphonenumber-js@^1.10.47, libphonenumber-js@^1.10.54:
   version "1.10.54"
   resolved "https://registry.npmjs.org/libphonenumber-js/-/libphonenumber-js-1.10.54.tgz"
   integrity sha512-P+38dUgJsmh0gzoRDoM4F5jLbyfztkU6PY6eSK6S5HwTi/LPvnwXqVCQZlAy1FxZ5c48q25QhxGQ0pq+WQcSlQ==

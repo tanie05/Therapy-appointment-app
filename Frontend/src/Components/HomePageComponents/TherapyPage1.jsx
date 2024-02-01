@@ -5,9 +5,13 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./therapyForms.css";
 import "react-phone-input-2/lib/style.css";
-import { MuiTelInput } from "mui-tel-input";
-
+import { MuiTelInput } from 'mui-tel-input'
+import dayjs from "dayjs"; 
 export default function TherapyPage1({ formData, onFormDataChange }) {
+
+  const [showEmailError, setShowEmailError] = useState(false);
+  const [showDateError, setshowDateError] = useState(false);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     onFormDataChange({ [name]: value });
@@ -22,6 +26,19 @@ export default function TherapyPage1({ formData, onFormDataChange }) {
     const dobDate = new Date(dobString);
     onFormDataChange({ dob: dobDate });
   }
+
+  function validateEmail(e) {
+    const email = e.target.value;
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setShowEmailError(emailRegex.test(email) === false)
+  }
+  const validateDateOfBirth = (dob) => {
+    const dobString = value.$d;
+    const dobDate = new Date(dobString);
+    const todaydate = new Date();
+    setshowDateError(dobDate >= todaydate)
+  };
+
 
   return (
     <div className="therapy-form-one-container">
@@ -48,13 +65,17 @@ export default function TherapyPage1({ formData, onFormDataChange }) {
           />
         </div>
         <div className="therapy-row">
-          <MuiTelInput
-            name="phone"
-            value={formData.phone}
-            onChange={handlePhoneChange}
-          />
-
-          <TextField
+        
+        <MuiTelInput 
+        name="phone" 
+        value={formData.phone || "91"} 
+        onChange={handlePhoneChange} 
+        defaultCountry={'in'}
+        className="therapy-form-field"
+        
+        />
+      
+        <TextField
             className="therapy-form-field"
             variant="standard"
             type={"email"}
@@ -62,23 +83,27 @@ export default function TherapyPage1({ formData, onFormDataChange }) {
             label="Email"
             value={formData.email ? formData.email : ""}
             onChange={handleInputChange}
+            onBlur={validateEmail}
+            helperText={showEmailError ? "Enter a valid email" : ""}
           />
         </div>
 
-        <div>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <div className="therapy-row">
+          
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              className="therapy-description"
+            className="therapy-form-field"
               label="Date of Birth"
-              value={formData.dob ? formData.dob : ""}
+              value={formData.dob ? formData.dob : dayjs()}
               onChange={handleDateChange}
               name="dob"
             />
           </LocalizationProvider>
+          
         </div>
 
-        <div className="address-container">
-          <div className="address-row">
+        <div>
+          <div className="therapy-row">
             <TextField
               required
               className="therapy-form-field"
@@ -107,7 +132,7 @@ export default function TherapyPage1({ formData, onFormDataChange }) {
               onChange={handleInputChange}
             />
           </div>
-          <div className="address-row">
+          <div className="therapy-row">
             <TextField
               required
               className="therapy-form-field"

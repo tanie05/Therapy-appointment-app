@@ -3,10 +3,12 @@
 * {
   font-size: 13px;
 }
+
 .Parentprofilecontainer {
   height: 100vh;
   font-size: 14px;
-  background-image: linear-gradient(to right, white, rgb(234, 234, 234));
+  width: 68%;
+  margin: auto;
 }
 .container1 {
   background-color: #ffffff;

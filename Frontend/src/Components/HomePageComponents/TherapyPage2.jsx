@@ -72,8 +72,9 @@ export default function TherapyPage2({ formData, onFormDataChange }) {
           
           <select
             defaultValue={"english"}
+            className="therapy-form-field"
             name="language"
-            value={formData.language}
+            value={formData.language || "english"}
             onChange={handleInputChange}
           >
             <option value="english">English</option>
@@ -81,10 +82,10 @@ export default function TherapyPage2({ formData, onFormDataChange }) {
           </select>
             </div>
 
-        <div>
+        <div className="therapy-row">
           <textarea
             required
-            className="therapy-form-field therapy-description"
+            className="therapy-form-field"
             name="description"
             rows="10"
             placeholder="Briefly describe your reason to seek therapy"
