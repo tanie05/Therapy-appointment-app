@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { json, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import "./Login.css";
 const LoginPage = () => {
   const [error, setError] = useState();
@@ -18,13 +21,23 @@ const LoginPage = () => {
         "http://localhost:5000/auth/login",
         data
       );
-      console.log(userdata);
       if (userdata) {
         const token = userdata.data.token;
-        console.log(token);
         localStorage.setItem("token", token);
-
-        navigate("/homepage");
+        toast.success("Login Successful ", {
+          position: "top-center",
+          autoClose: 500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          onClose: () => {
+            navigate("/homepage");
+          },
+        });
+        // navigate("/homepage");
       }
     } catch (err) {
       setError("Wrong Password or Email");
@@ -57,6 +70,8 @@ const LoginPage = () => {
             placeholder="UserEmail"
             onChange={handleEmailChange}
             required
+            minlength="4"
+            maxlength="30"
           />
           <input
             type="password"
@@ -66,6 +81,8 @@ const LoginPage = () => {
             placeholder="Password"
             onChange={handlePasswordChange}
             required
+            minlength="6"
+            maxlength="30"
           />
           <p style={{ color: "rgb(37, 58, 214)" }}>Forgot Password?</p>
           <button type="submit" className="btn3">
@@ -79,6 +96,18 @@ const LoginPage = () => {
           {error}
         </span>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

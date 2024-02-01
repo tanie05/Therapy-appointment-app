@@ -2,24 +2,26 @@ import React, { useEffect, useState } from "react";
 import "./Profilepage.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import PersonIcon from "@mui/icons-material/Person";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FaCircleUser } from "react-icons/fa6";
+import { Checkmark } from "react-checkmark";
 
-// useEffect(() => {}, []);
+//import PersonIcon from "@mui/icons-material/Person";
 
 const Profilepage = () => {
-  const id = "65b748134b758584546d78dd";
+  const { id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
-    Firstname: "",
-    Lastname: "",
-    Email: "",
-    Langauge: "",
+    name: {
+      firstname: "",
+      lastname: "",
+    },
+    email: "",
+    language: "",
     DOB: "",
   });
-  //const token = localStorage.getItem("token");
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Yjc0ODEzNGI3NTg1ODQ1NDZkNzhkZCIsImlhdCI6MTcwNjY4NzY4NSwiZXhwIjoxNzA2NjkxMjg1fQ.SZ_J5p2Vx9T6luq3Dw9uGEptqctaPiVjIYFL8vkgPR4";
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
     const fetchdata = async () => {
       try {
@@ -28,7 +30,7 @@ const Profilepage = () => {
             authorization: `Bearer ${token}`,
           },
         });
-        console.log(userdata.data);
+
         if (userdata) {
           setUserData(userdata.data);
         }
@@ -39,18 +41,20 @@ const Profilepage = () => {
     fetchdata();
   }, []);
 
-  const handleInputChange = (field) => (event) => {
-    setUserData({
-      ...userData,
-      [field]: event.target.value,
-    });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserData((prevfield) => ({
+      name: {
+        ...prevfield.name,
+        [name]: value,
+      },
+    }));
   };
-
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `https://localhost:5000/users/${id}`,
+        `http://localhost:5000/users/${id}`,
         userData,
         {
           headers: {
@@ -58,66 +62,85 @@ const Profilepage = () => {
           },
         }
       );
-
+      setIsEditing((val) => !val);
       if (response.status !== 200) {
         throw new Error("Failed to update user data");
       }
-      setIsEditing(false);
-      console.log("User data updated successfully");
+      toast.success("Updated Profile", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (error) {
       console.error("Error updating user data:", error.message);
     }
   };
   return (
     <div className="Parentcontainer">
-      <div className="container">
+      <div className="container1">
         <form className="login-form">
-          <PersonIcon style={{ fontSize: "10rem" }} />
-          <h1>User Profile</h1>
-          <input
-            type="text"
-            id="fname"
-            name="Firstname"
-            value={userData.Firstname}
-            onChange={handleInputChange("Firstname")}
-            disabled={!isEditing}
-            placeholder="FirstName"
-          />
-          <input
-            type="text"
-            id="lname"
-            name="Lastname"
-            value={userData.Lastname}
-            disabled={!isEditing}
-            onChange={handleInputChange("Lastname")}
-            placeholder="Lastname"
-          />
+          <div className="img">
+            <FaCircleUser style={{ fontSize: "5rem" }} />
+            <h1>My Profile</h1>
+          </div>
+
+          <div className="format">
+            <input
+              type="text"
+              id="firstname"
+              name="firstname"
+              className="inputfield"
+              value={userData.name.firstname}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+              placeholder="FirstName"
+              maxlength="20"
+            />
+            <input
+              type="text"
+              id="lastname"
+              name="lastname"
+              className="inputfield"
+              value={userData.name.lastname}
+              disabled={!isEditing}
+              onChange={handleInputChange}
+              placeholder="Lastname"
+              maxlength="20"
+            />
+          </div>
           <input
             type="Email"
             id="email"
             name="email"
-            value={userData.Email}
-            onChange={handleInputChange("Email")}
-            disabled={!isEditing}
+            value={userData.email}
+            readOnly
             placeholder="Email"
+            maxlength="20"
           />
           <input
-            type="Language"
-            id="lanaguage"
-            value={userData.Langauge}
-            name="Langauge"
-            onChange={handleInputChange("Langauge")}
+            type="text"
+            id="langauge"
+            value={userData.language}
+            name="langauge"
+            onChange={handleInputChange}
             disabled={!isEditing}
             placeholder="Langauge"
+            maxlength="20"
           />
           <input
             type="date"
             id="dob"
             name="DOB"
             value={userData.DOB}
-            onChange={handleInputChange("DOB")}
+            onChange={handleInputChange}
             disabled={!isEditing}
             placeholder="DOB"
+            maxlength="20"
           />
 
           <div className="buttoncontainer">
@@ -127,7 +150,7 @@ const Profilepage = () => {
               onClick={() => {
                 setIsEditing((val) => !val);
               }}
-              style={{ backgroundColor: "#008CBA" }}
+              style={{ backgroundColor: !isEditing ? "#008CBA" : "#ADD8E6" }}
             >
               Edit
             </button>
@@ -137,6 +160,18 @@ const Profilepage = () => {
           </div>
         </form>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

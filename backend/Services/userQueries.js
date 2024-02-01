@@ -29,14 +29,11 @@ async function updateUser(userId, updates) {
     return updatedUser;
   } catch (err) {
     if (err.code === 11000 || err.code === 11001) {
-      // Duplicate key error
-      console.error("Duplicate key error:", error.message);
       const error = new Error("Duplicate entry");
       error.status = 403;
       throw error;
     }
   }
-  throw err;
 }
 
 async function finduserbyemail({ email }) {

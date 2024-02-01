@@ -18,22 +18,23 @@ const {
 const jwt = require("jsonwebtoken");
 const { comparePassword } = require("../Utils/authhelper");
 
-async function editUser(req, res) {
+async function editUser(req, res, next) {
   const updates = req.body;
   const userId = req.params.id;
 
   try {
     if (updates.email) {
-      const emailExists = await doesEmailExists(updates.email);
+      const emailExists = await finduserbyemail(updates.email);
       if (emailExists) {
         return res.status(409).json({ error: "Email already in use." });
       }
     }
 
     const updatedUser = await updateUser(userId, updates);
-
     if (!updatedUser) {
-      res.status(404).send({ success: false, message: "user not found" });
+      const error = new Error("Internal error while updating");
+      error.status = 400;
+      throw error;
     } else {
       res.status(200).send({
         success: true,
@@ -42,8 +43,7 @@ async function editUser(req, res) {
       });
     }
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal server error." });
+    next(err);
   }
 }
 
@@ -148,8 +148,6 @@ const showUserProfile = async (req, res, next) => {
       id2 = req.user.id; //taken from decoded token
 
     if (!areTokenAndParameterIdSame(id1, id2)) {
-      console.log(id1);
-      console.log(id2);
       let error = new Error("Unauthorized");
       error.status = 401;
       throw error;
@@ -161,11 +159,21 @@ const showUserProfile = async (req, res, next) => {
       error.status = 401;
       throw error;
     }
+    function convertDateTimeToDateFormat(dateTimeString) {
+      const date = new Date(dateTimeString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0"); // Month is zero-based, so add 1 and pad with zero if needed
+      const day = String(date.getDate()).padStart(2, "0"); // Pad with zero if needed
 
+      return `${year}-${month}-${day}`;
+    }
+
+    const formattedDate = convertDateTimeToDateFormat(data.DOB);
+    // Output: "2022-02-01"
     const userInfo = {
       name: data.name,
       language: data.language,
-      DOB: data.DOB,
+      DOB: formattedDate,
       email: data.email,
     };
 
