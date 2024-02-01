@@ -8,10 +8,10 @@ const Tab = ({ email, status, language }) => {
         {email}
       </div>
       <div className="common" id="status">
-        {status.toUpperCase()}
+        {status}
       </div>
       <div className="common" id="language">
-        {language.toUpperCase()}
+        {language}
       </div>
     </div>
   );

@@ -11,7 +11,14 @@ const PaneHeader = ({ heading }) => {
   return (
     <div id="paneHeader">
       <span>{heading}</span>
-      <Button variant="outlined" disableElevation onClick={handleClick}>
+      <Button
+        style={{
+          borderColor: "blue",
+        }}
+        variant="outlined"
+        disableElevation
+        onClick={handleClick}
+      >
         X
       </Button>
     </div>

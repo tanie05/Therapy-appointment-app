@@ -25,7 +25,7 @@ const LoginPage = () => {
         data
       );
       
-      console.log(userdata)
+      // console.log(userdata)
       
         const token = userdata.data.token;
         localStorage.setItem("token", token);
@@ -41,7 +41,12 @@ const LoginPage = () => {
         
         dispatch(login(storeUser))
 
-        navigate("/")
+        if(storeUser.role === 'user'){
+          navigate("/")
+        }else{
+          navigate("/admin")
+        }
+        
 
       
     } catch (err) {

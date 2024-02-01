@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 export const adminSlice = createSlice({
   initialState: {
-    paneList: ["Admin", "Client", "Admin", "Client"],
+    paneList: ["Client"],
     isClose: false,
     userData: [],
   },
@@ -26,8 +26,14 @@ export const adminSlice = createSlice({
         userData: action.payload,
       };
     },
+    filter: (state, action) => {
+      return { ...state, filter: action.payload };
+    },
+    page: (state, action) => {
+      return { ...state, page: action.payload };
+    },
   },
 });
 
-export const { paneList, isClose, userData } = adminSlice.actions;
+export const { paneList, isClose, userData, filter, page } = adminSlice.actions;
 export default adminSlice.reducer;
