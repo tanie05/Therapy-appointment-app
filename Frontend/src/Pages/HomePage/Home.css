@@ -1,5 +1,6 @@
 .form-container{
   height: 100vh;
+  width: 68%;
  }
 
  .therapy-form-nav-btn{
@@ -12,7 +13,6 @@
   align-self: flex-start;
   color: orange;
   background-color: white;
-  
 }
 
 .therapy-form-submit-btn{
@@ -26,6 +26,7 @@
   background-color: orange;
   border: orange 2px solid;
   color: white;
+
 }
 
 .therapy-btn-container{
@@ -33,4 +34,8 @@
   width: 100%;
   justify-content: space-between;
   margin: 10px;
+  
+}
+.form-component-container{
+  width: 100%;
 }

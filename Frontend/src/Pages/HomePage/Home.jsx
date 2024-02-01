@@ -39,7 +39,6 @@ const Home = () => {
     
     const [countryCode, number] = phone.split(' ');
   
-    
     const phoneObject = {
       countryCode: countryCode,
       number: number
@@ -96,6 +95,7 @@ const Home = () => {
     <div className="form-container">
       <Navbar/>
       <TherapyHeader/>
+      <div className="form-component-container">
       {step === 1 && (
         <TherapyPage1
           formData={formData}
@@ -108,8 +108,13 @@ const Home = () => {
           onFormDataChange={handleFormDataChange}
         />
       )}
+      </div>
+      
 
-      {step < 2 && <button onClick={handleNext} className="therapy-form-submit-btn">Next</button>}
+      {step < 2 && 
+      <button onClick={handleNext} className="therapy-form-submit-btn">Next</button>
+      
+      }
       {step === 2 && (
         <div className="therapy-btn-container">
           <button onClick={handleBack} className="therapy-form-nav-btn">Back</button>

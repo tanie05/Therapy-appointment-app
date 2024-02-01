@@ -24,12 +24,12 @@ export const Navbar = () => {
       <Link to={"/"} className="nav-items">Home</Link>
       {role === "user" && (
         <>
-          <Link to={"/profile"} className="nav-items" >{user.name.firstname}</Link>
+          <Link to={"/profile"} className="nav-items" >Profile</Link>
           <Link to={"/history"} className="nav-items" >History</Link>
         </>
       )}
-      <LogoutIcon onClick={handleLogOut} className="logout-icon nav-items"/>
       </div>
+      <LogoutIcon onClick={handleLogOut} className="logout-icon nav-items"/>
       
     </div>
   );
