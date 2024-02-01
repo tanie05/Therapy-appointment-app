@@ -25,8 +25,14 @@ const SidePane = () => {
         </div>
       ) : (
         <Button
-          variant="contained"
-          style={{ height: "5vh", position: "sticky", top: 0, bottom: 0 }}
+          variant="outlined"
+          style={{
+            height: "5vh",
+            position: "sticky",
+            top: 0,
+            bottom: 0,
+            backgroundColor: "#0698f6",
+          }}
           onClick={handleOnClick}
         >
           {":)"}

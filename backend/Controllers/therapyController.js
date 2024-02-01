@@ -4,7 +4,7 @@ const {
   deleteTherapyById,
   updateTherapyById,
 } = require("../Services/therapyQueries");
-const { validatePhone } = require("../Utils/therapyUtils");
+const { validatePhone, validateAddress } = require("../Utils/therapyUtils");
 const ObjectId = require("mongodb").ObjectId;
 
 const createTherapy = async (req, res, next) => {
@@ -16,6 +16,7 @@ const createTherapy = async (req, res, next) => {
       timings,
       userId,
       phone,
+      status,
       ...rest
     } = req.body;
 
@@ -33,7 +34,6 @@ const createTherapy = async (req, res, next) => {
       userId: new ObjectId(userId),
       phone,
       address: rest.address,
-      status: "pending",
     };
     const result = await addTherapy(therapy);
 
@@ -46,10 +46,13 @@ const createTherapy = async (req, res, next) => {
 
 const getAllTherapies = async (req, res, next) => {
   try {
-    const page = parseInt(req.query.page) || 1; // Current page number
-    const pageSize = parseInt(req.query.pageSize) || 10; // Number of items per page
+    console.log(req.query);
+    const page = req.query.page ? parseInt(req.query.page) : 0; // Current page number
+    const accessCode = req.query.accessCode || "";
+    const email = req.query.email || "";
+    const pageSize = 10; // Number of items per page
 
-    const result = await getTherapy(page, pageSize);
+    const result = await getTherapy(page, pageSize, email, accessCode);
     res.status(200).json(result);
   } catch (err) {
     if (err.status) res.status(err.status).json(err.message);
