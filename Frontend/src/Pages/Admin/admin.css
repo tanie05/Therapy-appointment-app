@@ -1,0 +1,6 @@
+#adminContainer{
+    display: flex;
+    flex-direction: row;
+    /* background-color: beige; */
+    /* height: 1000px; */
+}

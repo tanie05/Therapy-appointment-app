@@ -1,0 +1,23 @@
+#tabContainer{
+    display: flex;
+    flex-direction: row;
+    background-color: aqua;
+    margin-left: 4vw;
+    border-bottom: 0.2vh solid gray
+}
+.common{
+    display: flex;
+    height: 6vh;
+    background-color: aqua;
+    align-items: center;
+    padding: 1vh 1vw;
+    color: rgb(112, 111, 111)
+    
+}
+#email{
+    width: 60%;
+}
+#language, #status{
+    width: 20%;
+    
+}

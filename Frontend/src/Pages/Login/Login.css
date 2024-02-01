@@ -1,0 +1,81 @@
+/* @import url("https://fonts.googleapis.com/css?family=Poppins");
+
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+.container {
+  background-color: #ffffff;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+.container h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  padding-bottom: 2rem;
+  border-bottom: 0.1rem solid silver;
+}
+.container form {
+  margin: 1rem;
+}
+.container input {
+  width: 100%;
+  margin-top: 2rem;
+  height: 4rem;
+  font-size: 1.4rem;
+  border: none;
+  border-bottom: 0.15rem solid rgb(163, 163, 163);
+  padding: 0 0.5rem;
+  outline: none;
+}
+.container input:hover {
+  border-bottom: 0.15rem solid #0086da;
+}
+.container input::placeholder {
+  color: rgb(163, 163, 163);
+}
+.container form p {
+  font-size: 1.3rem;
+  padding: 3rem 0.5rem 0 0;
+  color: rgb(37, 58, 214);
+}
+.container form p:hover {
+  color: #ff705b;
+  cursor: pointer;
+}
+.btn3 {
+  display: block;
+  margin: 2rem auto;
+  font-size: 1.6rem;
+  width: 90%;
+  padding: 0.9rem 0;
+  border-radius: 1.7rem;
+  border: none;
+  background-color: #ff705b;
+  color: #ffffff;
+}
+.btn3:hover {
+  cursor: pointer;
+}
+.container .login-message {
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.container .login-message span {
+  color: #ff705b;
+  font-weight: 600;
+}
+.container login-message span:hover {
+  cursor: pointer;
+}  */

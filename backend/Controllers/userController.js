@@ -4,6 +4,7 @@ const {
   validatePassword,
   areTokenAndParameterIdSame,
 } = require("../Utils/userUtils");
+const { comparePassword } = require("../Utils/authhelper");
 
 const {
   finduserbyemail,
@@ -17,13 +18,14 @@ const {
 
 const jwt = require("jsonwebtoken");
 
+
 async function editUser(req, res) {
   const updates = req.body;
   const userId = req.params.id;
 
   try {
     if (updates.email) {
-      const emailExists = await doesEmailExists(updates.email);
+      const emailExists = await finduserbyemail(updates.email);
       if (emailExists) {
         return res.status(409).json({ error: "Email already in use." });
       }
@@ -84,10 +86,10 @@ const registerController = async (req, res, next) => {
     next(error);
   }
 };
-
 const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    // console.log(req.body);
     if (!email || !password) {
       const error = new Error("email or password not provided");
       error.status = 400;
@@ -99,17 +101,26 @@ const loginController = async (req, res, next) => {
       throw error;
     }
     const user = await finduserbyemail({ email });
-    if (user) {
+    if (!user) {
+      const error = new Error("user not exist");
+      error.status = 400;
+      throw error;
+    }
+    const match = await comparePassword(password, user.password);
+    if (!match) {
+      const error = new Error("Wrong Password");
+      error.status = 400;
+      throw error;
+    } else {
       const token = await jwt.sign({ id: user.id }, "abc", {
         expiresIn: "1h",
       });
-      res.status(200).json({ token });
+      res.status(200).json({ token: token, user: {name: user.name, _id: user._id, role: user.role} });
     }
   } catch (error) {
     next(error);
   }
 };
-
 const showAllUsers = async (req, res) => {
   try {
     const id = req.user.id; //taken from decoded token
@@ -187,6 +198,7 @@ const showAppointmentHistory = async (req, res) => {
     next(error);
   }
 };
+
 
 module.exports = {
   registerController,
