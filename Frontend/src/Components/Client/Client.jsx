@@ -20,6 +20,7 @@ const Client = () => {
   const url = `http://localhost:5000/therapy`;
 
   const handleClick = async (e) => {
+    console.log("here", e.target.name);
     switch (e.target.name) {
       case "prev": {
         if (admin.page === 0) return;
@@ -107,17 +108,24 @@ const Client = () => {
         })}
       </div>
       <div id="pageSelection">
-        <ArrowBackIosNewIcon
+        <button
+          type="button"
           name="prev"
           className="page"
           onClick={handleClick}
-        />
+        >
+          <ArrowBackIosNewIcon />
+        </button>
 
-        <ArrowForwardIosIcon
+        <button
+          type="button"
           name="next"
           className="page"
           onClick={handleClick}
-        />
+        >
+          {/* <ArrowForwardIosIcon /> */}
+          {">"}
+        </button>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@
     /* justify-content: center; */
     align-items: center;
     background-color: #ffffff;
-    width: 20vw;
+    width: 12vw;
     height: 100vh;
     border-radius: 2%;
     position: sticky;
@@ -15,10 +15,10 @@
     
 }
 
-#sideBtnContainer{
+/* #sideBtnContainer{
     margin-right: 2vw;
 
-}
+} */
 
 #listContainer {
     display: flex;
