@@ -1,0 +1,36 @@
+.form-container{
+  height: 100vh;
+ }
+
+ .therapy-form-nav-btn{
+  font-size: 20px;
+  padding: 5px 30px;
+  border-radius: 20px;
+  text-decoration: underline; 
+  cursor: pointer; 
+  border: none; 
+  align-self: flex-start;
+  color: orange;
+  background-color: white;
+  
+}
+
+.therapy-form-submit-btn{
+  font-size: 20px;
+  padding: 5px 30px;
+  border-radius: 20px;
+  text-decoration: none; 
+  cursor: pointer; 
+  border: none; 
+  align-self: flex-end;
+  background-color: orange;
+  border: orange 2px solid;
+  color: white;
+}
+
+.therapy-btn-container{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: 10px;
+}

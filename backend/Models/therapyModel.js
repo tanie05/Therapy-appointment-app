@@ -57,6 +57,15 @@ const TherapySchema = new Schema(
         required: true,
       },
     },
+    DOB: {
+      type: Date,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     status: {
       type: String,
       enum: ["booked", "pending", "cancelled"],

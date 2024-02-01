@@ -1,0 +1,25 @@
+.nav-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.nav-link-list {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  align-items: center;
+}
+.logout-icon {
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.nav-items {
+  text-decoration: none;
+  font-size: 20px !important;
+  margin: 0 15px;
+  color: #333;
+}
