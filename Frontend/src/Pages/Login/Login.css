@@ -7,15 +7,7 @@
   font-size: 13px;
 }
 
-.Parentcontainer {
-  box-sizing: border-box;
-  padding: 0px;
-  margin: 0px;
-  background-image: linear-gradient(to right, white, rgb(210, 207, 207));
-  height: 100%;
-  width: 100%;
-}
-.container {
+.containerlogin {
   background-color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -29,7 +21,7 @@
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
-.container input {
+.containerlogin input {
   width: 100%;
   margin-top: 2rem;
   height: 4rem;
@@ -39,22 +31,22 @@
   padding: 0 0.5rem;
   outline: none;
 }
-.container input:hover {
+.containerlogin input:hover {
   border-bottom: 0.15rem solid #0086da;
 }
-.container input::placeholder {
+.containerlogin input::placeholder {
   color: rgb(163, 163, 163);
 }
-.container form p {
+.containerlogin form p {
   font-size: 1.3rem;
   padding: 3rem 0.5rem 0 0;
   color: rgb(37, 58, 214);
 }
-.container form p:hover {
+.containerlogin form p:hover {
   color: #ff705b;
   cursor: pointer;
 }
-.container h1 {
+.containerlogin h1 {
   font-size: 2.5rem;
   text-align: center;
   padding-bottom: 5rem;
@@ -75,15 +67,15 @@
 .btn3:hover {
   cursor: pointer;
 }
-.container .login-message {
+.containerlogin .login-message {
   text-align: center;
   font-size: 1.3rem;
 }
 
-.container .login-message span {
+.containerlogin .login-message span {
   color: #ff705b;
   font-weight: 600;
 }
-.container login-message span:hover {
+.containerlogin login-message span:hover {
   cursor: pointer;
 }

@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import { login } from "../../Redux/Slices/userInfo";
+import { useDispatch } from "react-redux";
 import axios from "axios";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./Login.css";
+
 const LoginPage = () => {
   const [error, setError] = useState();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const handlelogin = async (e) => {
     e.preventDefault();
@@ -24,20 +28,26 @@ const LoginPage = () => {
       if (userdata) {
         const token = userdata.data.token;
         localStorage.setItem("token", token);
-        toast.success("Login Successful ", {
+
+        const userInfo = userdata.data.user;
+        const storeUser = {
+          isLoggedIn: true,
+          _id: userInfo._id,
+          name: userInfo.name,
+          role: userInfo.role,
+        };
+        localStorage.setItem("user", JSON.stringify(storeUser));
+        toast.success("Login successful", {
           position: "top-center",
-          autoClose: 500,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
           theme: "light",
-          onClose: () => {
-            navigate("/homepage");
-          },
         });
-        // navigate("/homepage");
+        dispatch(login(storeUser));
       }
     } catch (err) {
       setError("Wrong Password or Email");
@@ -59,12 +69,11 @@ const LoginPage = () => {
   };
   return (
     <div className="Parentcontainer">
-      <div className="container">
+      <div className="containerlogin">
         <form className="login-form" onSubmit={handlelogin}>
           <h1>Login</h1>
           <input
             type="email"
-            id="email"
             name="email"
             value={email}
             placeholder="UserEmail"

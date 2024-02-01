@@ -1,0 +1,10 @@
+.therapy-header-container{
+    display: flex;
+    height: 15vh;
+    align-items: center;
+    margin: 15px;
+    background-color: aliceblue;
+    width: 100%;
+    justify-content: center;
+
+ }

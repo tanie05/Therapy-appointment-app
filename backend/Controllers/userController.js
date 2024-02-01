@@ -4,6 +4,7 @@ const {
   validatePassword,
   areTokenAndParameterIdSame,
 } = require("../Utils/userUtils");
+const { comparePassword } = require("../Utils/authhelper");
 
 const {
   finduserbyemail,
@@ -16,7 +17,7 @@ const {
 } = require("../Services/userQueries");
 
 const jwt = require("jsonwebtoken");
-const { comparePassword } = require("../Utils/authhelper");
+
 
 async function editUser(req, res, next) {
   const updates = req.body;
@@ -85,11 +86,10 @@ const registerController = async (req, res, next) => {
     next(error);
   }
 };
-
 const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     if (!email || !password) {
       const error = new Error("email or password not provided");
       error.status = 400;
@@ -115,13 +115,12 @@ const loginController = async (req, res, next) => {
       const token = await jwt.sign({ id: user.id }, "abc", {
         expiresIn: "1h",
       });
-      res.status(200).json({ token });
+      res.status(200).json({ token: token, user: {name: user.name, _id: user._id, role: user.role} });
     }
   } catch (error) {
     next(error);
   }
 };
-
 const showAllUsers = async (req, res) => {
   try {
     const id = req.user.id; //taken from decoded token
@@ -141,7 +140,7 @@ const showAllUsers = async (req, res) => {
   }
 };
 
-const showUserProfile = async (req, res, next) => {
+const showUserProfile = async (req, res) => {
   try {
     //check whether id from token and params is same
     const id1 = req.params.id,
@@ -209,6 +208,7 @@ const showAppointmentHistory = async (req, res) => {
     next(error);
   }
 };
+
 
 module.exports = {
   registerController,

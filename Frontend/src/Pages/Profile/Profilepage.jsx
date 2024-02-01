@@ -6,11 +6,12 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaCircleUser } from "react-icons/fa6";
 import { Checkmark } from "react-checkmark";
-
-//import PersonIcon from "@mui/icons-material/Person";
+import { Navbar } from "../../Components/Navbar/Navbar";
+import { useSelector } from "react-redux";
 
 const Profilepage = () => {
-  const { id } = useParams();
+  const userInfo = useSelector((state) => state.userInfo);
+  const id = userInfo._id;
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
     name: {
@@ -66,7 +67,7 @@ const Profilepage = () => {
       if (response.status !== 200) {
         throw new Error("Failed to update user data");
       }
-      toast.success("Updated Profile", {
+      toast.success("Profile Updated", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -82,6 +83,7 @@ const Profilepage = () => {
   };
   return (
     <div className="Parentcontainer">
+      <Navbar />
       <div className="container1">
         <form className="login-form">
           <div className="img">
