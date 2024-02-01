@@ -2,22 +2,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .address-container {
-    margin-top: 24px;
-  }
-  
-  .address-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 16px;
+    margin:16px;
   }
   
   .therapy-form-field {
     flex: 1;
-    margin: 5px !important;
+    margin: 8px !important;
   }
 
   .form-container{
@@ -25,18 +15,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: max-content;
+    width: 100%;
     margin: auto; 
     height: 100vh; 
   }
 
-
-
-
- .therapy-description{
-    width: 80vh;
- }
  .therapy-phone{
    align-self: center;
  }
+
 
