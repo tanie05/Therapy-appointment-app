@@ -14,6 +14,7 @@ const Client = () => {
   const dispatch = useDispatch();
   const admin = useSelector((state) => state.admin);
   const user = useSelector((state) => state.user);
+  // const [status, setStatus] = useState(admin.userData.status);
 
   // const [page, setPage] = useState(0);
   // let page = 0;
@@ -73,8 +74,10 @@ const Client = () => {
       console.log(result);
       if (refresh) {
         dispatch(userData(result.data));
-      } else
+      } else {
         dispatch(userData(result.data.length ? result.data : admin.userData));
+        // setStatus(admin.userData.status);
+      }
       return result;
     } catch (err) {
       console.log(err);
@@ -99,10 +102,12 @@ const Client = () => {
         {admin.userData.map((data, index) => {
           return (
             <Tab
+              id={data._id}
               key={index}
               email={data.email}
               status={data.status}
               language={data.language}
+              handleApi={handle}
             />
           );
         })}
@@ -114,7 +119,8 @@ const Client = () => {
           className="page"
           onClick={handleClick}
         >
-          <ArrowBackIosNewIcon />
+          {/* <ArrowBackIosNewIcon /> */}
+          {"<"}
         </button>
 
         <button

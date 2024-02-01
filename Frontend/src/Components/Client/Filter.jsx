@@ -33,7 +33,8 @@ const Filter = ({ handleApi }) => {
   };
 
   const handleAccessCode = (data) => {
-    setAccessCode(data);
+    if (data !== "all") setAccessCode(data);
+    else setAccessCode("");
     // setIsFiltering((val) => !val);
   };
 
@@ -85,7 +86,7 @@ const Filter = ({ handleApi }) => {
     setIsFiltering((val) => !val);
   }, [access]);
 
-  const list = ["pending", "completed", "booked"];
+  const list = ["pending", "completed", "booked", "cancelled", "all"];
   return (
     <div id="filterContainer">
       <div className="filterField" id="inputField">
