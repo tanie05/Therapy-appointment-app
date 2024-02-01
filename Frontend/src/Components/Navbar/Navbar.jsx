@@ -14,7 +14,7 @@ export const Navbar = () => {
   const dispatch = useDispatch();
 
   const handleLogOut = (e) => {
-    dispatch(logout());
+    dispatch(logout(false));
     navigate("/login");
   };
 
@@ -28,6 +28,7 @@ export const Navbar = () => {
           <>
             <Link to={"/profile"} className="nav-items">
               {user.name.firstname}
+              {"  "}
               {user.name.lastname}
             </Link>
             <Link to={"/history"} className="nav-items">

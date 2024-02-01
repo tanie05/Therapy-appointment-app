@@ -4,7 +4,10 @@
   box-sizing: border-box;
   padding: 0px;
   margin: 0px;
-  font-size: 13px;
+}
+.Parentlogincontainer {
+  height: 100vh;
+  background-image: linear-gradient(to right, white, rgb(210, 207, 207));
 }
 
 .containerlogin {
@@ -13,10 +16,11 @@
   position: absolute;
   top: 50%;
   right: 50%;
+  width: 35%;
   transform: translate(50%, -50%);
   padding: 2rem;
   border-radius: 1rem;
-  background-color: #fff;
+  background-color: #ffffffbf;
   border: 1px solid #ccc;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
@@ -25,7 +29,7 @@
   width: 100%;
   margin-top: 2rem;
   height: 4rem;
-  font-size: 1.4rem;
+  font-size: 13px;
   border: none;
   border-bottom: 0.15rem solid rgb(163, 163, 163);
   padding: 0 0.5rem;
@@ -38,7 +42,7 @@
   color: rgb(163, 163, 163);
 }
 .containerlogin form p {
-  font-size: 1.3rem;
+  font-size: 13px;
   padding: 3rem 0.5rem 0 0;
   color: rgb(37, 58, 214);
 }
@@ -56,7 +60,7 @@
 .btn3 {
   display: block;
   margin: 2rem auto;
-  font-size: 1.6rem;
+  font-size: 13px;
   width: 90%;
   padding: 0.9rem 0;
   border-radius: 1.7rem;

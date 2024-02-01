@@ -7,12 +7,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaCircleUser } from "react-icons/fa6";
 import { Checkmark } from "react-checkmark";
 import { Navbar } from "../../Components/Navbar/Navbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { editName } from "../../Redux/Slices/userInfo";
 
 const Profilepage = () => {
   const userInfo = useSelector((state) => state.userInfo);
   const id = userInfo._id;
   const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     name: {
       firstname: "",
@@ -77,12 +79,14 @@ const Profilepage = () => {
         progress: undefined,
         theme: "light",
       });
+      dispatch(editName(userData.name));
     } catch (error) {
       console.error("Error updating user data:", error.message);
     }
   };
+
   return (
-    <div className="Parentcontainer">
+    <div className="Parentprofilecontainer">
       <Navbar />
       <div className="container1">
         <form className="login-form">

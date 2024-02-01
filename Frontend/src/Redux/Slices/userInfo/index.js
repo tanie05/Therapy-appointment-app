@@ -17,8 +17,11 @@ export const userInfoSlice = createSlice({
     logout: () => {
       return { isLoggedIn: false };
     },
+    editName: (state, action) => {
+      return { ...state, name: action.payload };
+    },
   },
 });
 
-export const { login, logout } = userInfoSlice.actions;
+export const { login, logout, editName } = userInfoSlice.actions;
 export default userInfoSlice.reducer;

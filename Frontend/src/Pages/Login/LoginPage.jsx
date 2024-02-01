@@ -25,6 +25,7 @@ const LoginPage = () => {
         "http://localhost:5000/auth/login",
         data
       );
+
       if (userdata) {
         const token = userdata.data.token;
         localStorage.setItem("token", token);
@@ -37,6 +38,7 @@ const LoginPage = () => {
           role: userInfo.role,
         };
         localStorage.setItem("user", JSON.stringify(storeUser));
+
         toast.success("Login successful", {
           position: "top-center",
           autoClose: 1000,
@@ -47,7 +49,10 @@ const LoginPage = () => {
           progress: undefined,
           theme: "light",
         });
+
         dispatch(login(storeUser));
+        if (userInfo.role === "admin") navigate("/admin");
+        else navigate("/");
       }
     } catch (err) {
       setError("Wrong Password or Email");
@@ -68,7 +73,7 @@ const LoginPage = () => {
     navigate("/signup");
   };
   return (
-    <div className="Parentcontainer">
+    <div className="Parentlogincontainer">
       <div className="containerlogin">
         <form className="login-form" onSubmit={handlelogin}>
           <h1>Login</h1>

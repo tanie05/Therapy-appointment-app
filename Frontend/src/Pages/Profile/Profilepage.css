@@ -1,7 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins");
 
 * {
-  font-size: 12px;
+  font-size: 13px;
+}
+.Parentprofilecontainer {
+  height: 100vh;
+  font-size: 14px;
+  background-image: linear-gradient(to right, white, rgb(234, 234, 234));
 }
 .container1 {
   background-color: #ffffff;
@@ -9,8 +14,9 @@
   position: absolute;
   top: 50%;
   right: 50%;
+  margin: auto;
   transform: translate(50%, -50%);
-  padding: 2rem;
+  padding: 3rem;
   border-radius: 1rem;
   background-color: #fff;
   border: 1px solid #ccc;
