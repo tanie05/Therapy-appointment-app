@@ -55,6 +55,7 @@ const TherapySchema = new Schema({
       type: String,
       required: true
     }
+      
   },
   DOB: {
     type: Date,
