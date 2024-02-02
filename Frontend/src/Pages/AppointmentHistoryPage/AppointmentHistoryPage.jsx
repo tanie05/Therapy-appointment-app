@@ -8,6 +8,7 @@ import { Typography } from "@mui/material";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
+import { Navbar } from "../../Components/Navbar/Navbar";
 
 const AppointmentHistoryPage = () => {
   const userInfo = useSelector((state) => state.userInfo);
@@ -97,6 +98,7 @@ const AppointmentHistoryPage = () => {
 
   return (
     <>
+      <Navbar />
       <div className="flexRow">
         <AppointmentHistorySidebar defaultValue="all" setFunction={setStatus} />
 

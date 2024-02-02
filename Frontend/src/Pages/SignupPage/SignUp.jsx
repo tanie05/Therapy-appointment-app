@@ -65,14 +65,11 @@ const SignUp = () => {
 
   return (
     <>
-      <div>
-        Space For Navbar, Can be configured in css, signupParentContainer class,
-        top value
-      </div>
       <div className="signupParentContainer">
         <div className="signupContainer">
           <form className="login-form" onSubmit={onSubmit}>
-            <h1>Sign Up</h1>
+            {/* <h1>Therapy Appointments</h1> */}
+            <h2>Sign Up</h2>
 
             <div
               style={{
@@ -176,6 +173,7 @@ const SignUp = () => {
                 type="none"
                 onClick={(e) => {
                   e.preventDefault();
+                  navigate("/");
                 }}
               >
                 Log In
