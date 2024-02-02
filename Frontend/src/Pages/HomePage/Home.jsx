@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-// import TherapyPage1 from "../../Components/HomePageComponents/TherapyPage1";
-// import TherapyPage2 from "../../Components/HomePageComponents/TherapyPage2";
+import TherapyPage1 from "../../Components/HomePageComponents/TherapyPage1";
+import TherapyPage2 from "../../Components/HomePageComponents/TherapyPage2";
 import { useDispatch, useSelector } from "react-redux";
 import { userData } from "../../Redux/Slices/user";
 import "./home.css";
