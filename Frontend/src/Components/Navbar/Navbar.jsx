@@ -4,6 +4,7 @@ import { logout } from "../../Redux/Slices/userInfo";
 import { useDispatch, useSelector } from "react-redux";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./navbar.css";
+import { Button } from "@mui/material";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export const Navbar = () => {
           <>
             <Link to={"/profile"} className="nav-items">
               {user.name.firstname}
-              {"  "}
+              {"   "}
               {user.name.lastname}
             </Link>
             <Link to={"/history"} className="nav-items">
@@ -36,7 +37,13 @@ export const Navbar = () => {
             </Link>
           </>
         )}
-        <LogoutIcon onClick={handleLogOut} className="logout-icon nav-items" />
+        <Button
+          // style={{ height: "0.2vh", width: "0.1vw" }}
+          onClick={handleLogOut}
+          className="logout-icon nav-items"
+        >
+          <LogoutIcon />
+        </Button>
       </div>
     </div>
   );
