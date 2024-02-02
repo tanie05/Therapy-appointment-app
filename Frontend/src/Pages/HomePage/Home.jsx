@@ -85,7 +85,7 @@ const Home = () => {
     <div className="form-container">
       <Navbar />
       <TherapyHeader />
-      {/* {step === 1 && (
+      {step === 1 && (
         <TherapyPage1
           formData={formData}
           onFormDataChange={handleFormDataChange}
@@ -96,7 +96,7 @@ const Home = () => {
           formData={formData}
           onFormDataChange={handleFormDataChange}
         />
-      )} */}
+      )}
 
       {step < 2 && (
         <button onClick={handleNext} className="therapy-form-submit-btn">
