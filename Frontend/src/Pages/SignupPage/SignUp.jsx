@@ -5,7 +5,7 @@ import "./Signup.css";
 import Dropdown from "../../Atoms/Dropdown";
 
 const SignUp = () => {
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [language, setLanguage] = useState("english");
 
@@ -15,6 +15,12 @@ const SignUp = () => {
 
   const passwordMatch = (p1, p2) => {
     return p1 === p2;
+  };
+
+  const validateDOB = (date) => {
+    const dob = new Date(date);
+    const todaydate = new Date();
+    return dob <= todaydate;
   };
 
   const onSubmit = async (e) => {
@@ -32,13 +38,22 @@ const SignUp = () => {
       return;
     }
 
+    if (!validateDOB(details.DOB)) {
+      setErrors({
+        ...errors,
+        DOB: "Invalid date of birth",
+      });
+      return;
+    }
+
     //add user to db
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/signup",
+        `http://localhost:5000/auth/signup`,
         details
       );
-      // navigate("/login");
+      clearErrors();
+      navigate("/");
     } catch (error) {
       setErrors({
         ...errors,
@@ -51,11 +66,11 @@ const SignUp = () => {
   return (
     <>
       <div>
-        Space For Navbar, Can be configured in css, parentcontainer class, top
-        value
+        Space For Navbar, Can be configured in css, signupParentContainer class,
+        top value
       </div>
-      <div className="Parentcontainer">
-        <div className="container">
+      <div className="signupParentContainer">
+        <div className="signupContainer">
           <form className="login-form" onSubmit={onSubmit}>
             <h1>Sign Up</h1>
 
@@ -123,7 +138,7 @@ const SignUp = () => {
                 <label style={{ fontSize: "0.875rem" }} htmlFor="DOB">
                   Birth Date:{" "}
                 </label>
-                <input type="date" name="DOB" onChange={clearErrors} required />
+                <input type="date" name="DOB" onFocus={clearErrors} required />
               </div>
             </div>
 
@@ -150,7 +165,7 @@ const SignUp = () => {
               integers and special characters
             </p>
 
-            <button type="submit" className="btnhover btn3">
+            <button type="submit" className="btnhover signupbtn3">
               Sign Up
             </button>
 
@@ -170,6 +185,7 @@ const SignUp = () => {
           <span className="errordisplay">
             {errors.confirmpassword}
             {errors.submit}
+            {errors.DOB}
           </span>
         </div>
       </div>

@@ -110,6 +110,7 @@ const loginController = async (req, res, next) => {
       error.status = 400;
       throw error;
     }
+
     const match = await comparePassword(password, user.password);
     if (!match) {
       const error = new Error("Wrong Password");
@@ -192,6 +193,7 @@ const showAppointmentHistory = async (req, res, next) => {
       throw error;
     }
 
+    // Check user or admin
     const data = await findUserById(id1);
     if (data.role !== "user") {
       let error = new Error("Unauthorized");
@@ -199,7 +201,25 @@ const showAppointmentHistory = async (req, res, next) => {
       throw error;
     }
 
-    const response = await findAppointmentHistory(id1);
+    let filter = {
+      userId: req.params.id,
+    };
+
+    if (req.query.status[0] !== "all") {
+      filter.status = req.query.status[0];
+    }
+
+    if (req.query.language[0] !== "all") {
+      filter.language = req.query.language[0];
+    }
+
+    let sort = {
+      [req.query.sort[0]]: parseInt(req.query.sortValue[0]),
+    };
+
+    let pageNum = parseInt(req.query.pageNum[0]);
+
+    const response = await findAppointmentHistory(filter, sort, pageNum);
 
     res.status(200).json(response);
   } catch (error) {

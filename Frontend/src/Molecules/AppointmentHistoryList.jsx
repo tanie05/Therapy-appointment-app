@@ -2,8 +2,7 @@ import React from "react";
 import AppointmentHistoryListHeading from "../Atoms/AppointmentHistoryListHeading";
 import AppointmentHistoryListItem from "../Atoms/AppointmentHistoryListItem";
 
-const AppointmentHistoryList = () => {
-  let list = [1, 2, 3, 4, 5];
+const AppointmentHistoryList = (props) => {
   return (
     <>
       <ul
@@ -18,9 +17,8 @@ const AppointmentHistoryList = () => {
       >
         <AppointmentHistoryListHeading />
 
-        {/* Dynamically add the type of appointments */}
-        {list.map((i) => {
-          return <AppointmentHistoryListItem key={i} />;
+        {props.data.map((obj) => {
+          return <AppointmentHistoryListItem key={obj._id} data={obj} />;
         })}
       </ul>
     </>

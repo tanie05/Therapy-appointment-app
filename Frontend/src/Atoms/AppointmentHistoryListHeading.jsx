@@ -9,7 +9,7 @@ const AppointmentHistoryListHeading = () => {
           flexDirection: "row",
           padding: "0.5rem 0 0.5rem 0",
           width: "100%",
-          border: "4px solid #ff705b",
+          border: "3px solid #fc9383",
           borderRadius: "0.5rem",
           fontWeight: "700",
           marginBottom: "1rem",

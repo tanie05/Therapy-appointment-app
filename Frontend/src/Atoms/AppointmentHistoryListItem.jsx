@@ -1,6 +1,8 @@
 import React from "react";
+import formatDate from "../Utils/Utils";
 
-const AppointmentHistoryListItem = () => {
+const AppointmentHistoryListItem = (props) => {
+  const data = props.data;
   return (
     <>
       <li
@@ -9,7 +11,7 @@ const AppointmentHistoryListItem = () => {
           flexDirection: "row",
           padding: "0.1rem 0 0.1rem 0",
           width: "100%",
-          border: "2px solid #ff705b",
+          border: "2px solid #fc9383",
           borderRadius: "0.5rem",
           marginBottom: "0.4rem",
         }}
@@ -24,7 +26,7 @@ const AppointmentHistoryListItem = () => {
             alignItems: "center",
           }}
         >
-          <p>Lorem ipsum dolor sit amet consectet...</p>
+          <p>{data.description}</p>
         </div>
         <div
           style={{
@@ -35,7 +37,7 @@ const AppointmentHistoryListItem = () => {
             alignItems: "center",
           }}
         >
-          English
+          {data.language}
         </div>
         <div
           style={{
@@ -46,7 +48,7 @@ const AppointmentHistoryListItem = () => {
             alignItems: "center",
           }}
         >
-          09:33PM, 23-03-23
+          {formatDate(data.timings[0])}
         </div>
         <div
           style={{
@@ -57,7 +59,7 @@ const AppointmentHistoryListItem = () => {
             alignItems: "center",
           }}
         >
-          +91 12344567890
+          {data.phone.countryCode + " " + data.phone.number}
         </div>
         <div
           style={{
@@ -69,7 +71,7 @@ const AppointmentHistoryListItem = () => {
             fontWeight: "700",
           }}
         >
-          Pending
+          {data.status}
         </div>
       </li>
     </>

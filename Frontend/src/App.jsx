@@ -17,21 +17,20 @@ function App() {
           {userInfo.isLoggedIn && userInfo.role === "admin" && (
             <Route path="/" element={<Admin />}></Route>
           )}
-
           {userInfo.isLoggedIn && userInfo.role === "user" && (
             <>
               <Route path="/" element={<Home />}></Route>
               <Route path="/profile" element={<Profilepage />}></Route>
-              <Route
-                path="/history"
-                element={<AppointmentHistoryPage />}
-              ></Route>
             </>
           )}
-
+          {/*To be inserted in userInfo.isLoggedin===true part*/}
+          <Route
+            path="/history"
+            element={<AppointmentHistoryPage />}
+          ></Route>{" "}
           {userInfo.isLoggedIn === false && (
             <>
-              <Route path="/signup" element={<Signup />}></Route>
+              <Route path="/signup" element={<SignUp />}></Route>
               <Route path="/" element={<LoginPage />}></Route>
             </>
           )}

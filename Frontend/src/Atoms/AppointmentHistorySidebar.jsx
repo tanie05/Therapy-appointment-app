@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import "@fontsource/roboto/700.css";
 import { Typography } from "@mui/material";
+import "../Pages/AppointmentHistoryPage/AppointmentHistoryPage.css";
 
 const AppointmentHistorySidebar = (props) => {
   const { setFunction } = props;
@@ -30,37 +31,12 @@ const AppointmentHistorySidebar = (props) => {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          width: "7rem",
-          position: "fixed",
-          flex: "none",
-        }}
-        id="leftPart"
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+      <div className="historySidebarParent" id="leftPart">
+        <div className="historySidebar">
           <Typography style={{ fontSize: "1.5rem", marginBottom: "0.6rem" }}>
             Status
           </Typography>
-          <ul
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              fontSize: "1.2rem",
-              margin: "0rem",
-              padding: "0rem",
-              listStyleType: "none",
-            }}
-          >
+          <ul className="sidebarUl">
             <li
               style={{
                 border: `${btnSelect.allBtn ? "2px solid #ff705b" : "none"}`,
@@ -72,7 +48,6 @@ const AppointmentHistorySidebar = (props) => {
                   color: "#ff705b",
                   fontWeight: "700",
                   fontSize: "0.8rem",
-                  //   backgroundColor: `${btnSelect.all && "#000000"}`,
                 }}
                 variant="text"
                 value="all"
@@ -167,11 +142,11 @@ const AppointmentHistorySidebar = (props) => {
         </div>
         <div
           style={{
-            border: "1px solid #ff705b",
+            border: "1px solid #fc9383",
             margin: "0px 0px 0px 10px",
             width: "2px",
             height: "100vh",
-            backgroundColor: "#ff705b",
+            backgroundColor: "#fc9383",
           }}
         />
       </div>

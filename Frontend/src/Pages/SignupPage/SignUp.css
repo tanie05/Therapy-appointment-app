@@ -8,7 +8,7 @@ body {
   margin: 0px;
 }
 
-.Parentcontainer {
+.signupParentContainer {
   position: absolute;
   top: 100px;
   bottom: 0px;
@@ -21,7 +21,7 @@ body {
   justify-content: center;
 }
 
-.container {
+.signupContainer {
   text-align: center;
   background-color: #ffffff;
   width: 27.5%;
@@ -31,16 +31,16 @@ body {
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
-.container h1 {
+.signupContainer h1 {
   font-size: 1.5625rem;
   text-align: center;
   padding-bottom: 1.25rem;
   border-bottom: 0.0625rem solid silver;
 }
-.container form {
+.signupContainer form {
   margin: 0.625rem;
 }
-.container input {
+.signupContainer input {
   width: 100%;
   margin-top: 1.25rem;
   height: 2.5rem;
@@ -51,14 +51,14 @@ body {
   outline: none;
 }
 
-.container input::placeholder {
+.signupContainer input::placeholder {
   color: rgb(163, 163, 163);
 }
-.container form {
+.signupContainer form {
   font-size: 0.8125rem;
 }
 
-.btn3 {
+.signupbtn3 {
   display: block;
   margin: 1.25rem auto;
   font-size: 1rem;
@@ -80,12 +80,12 @@ body {
   cursor: pointer;
 }
 
-.container .login-message {
+.signupContainer .login-message {
   text-align: center;
   font-size: 0.8125rem;
 }
 
-.container .login-message button {
+.signupContainer .login-message button {
   color: #ff705b;
   border: none;
   background: none;

@@ -68,7 +68,7 @@ const TherapySchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["booked", "pending", "cancelled"],
+      enum: ["booked", "pending", "completed", "cancelled"],
       default: "pending",
       required: true,
     },

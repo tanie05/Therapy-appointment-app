@@ -1,3 +1,69 @@
 :root {
   --sidebar-width: 7rem;
 }
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.rightParentContainer {
+  margin-left: 7rem;
+  flex: 1;
+}
+
+.rightContainer {
+  width: 100%;
+}
+
+.historyHeading {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filtersContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.navBtnContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.errorMsg {
+  color: red;
+  text-align: center;
+}
+
+.historySidebarParent {
+  display: flex;
+  flex-direction: row;
+  width: 7rem;
+  position: fixed;
+  flex: none;
+}
+
+.historySidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebarUl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2rem;
+  margin: 0rm;
+  padding: 0rem;
+  list-style-type: none;
+}
