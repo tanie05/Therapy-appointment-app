@@ -27,7 +27,8 @@
         /* -webkit-box-shadow: 0 0 0.2vw 0.02vw gray;
         box-shadow: 0 0 0.2vw 0.02vw gray; */
     border-radius: 0.5vw;
-    color:black
+    color:black;
+    background-color: white;
     /* font-size: 1em; */
     
 }
@@ -35,7 +36,7 @@
 
 #in{
     /* font-size: 1.4vh; */
-    width: 70%;
+    width: 80%;
     border-width: 0px;
     height: 70%;
     border-radius: 2%;
@@ -103,7 +104,7 @@
     flex-direction: column;
     align-items: flex-start;
     box-shadow: none;
-    border: none
+    /* border: none */
 }
 
 .label{
@@ -121,15 +122,16 @@
 
 }
 
-.selectField{
+/* .selectField{
     display: flex;
     width: 90%;
     align-items: center;
     justify-content: space-between;
-}
+} */
 
 #statusText{
     font-size: 2.5vh;
+    /* color: transparent; */
 }
 
 #removeFilter{
@@ -138,12 +140,13 @@
     /* height: 80%; */
     justify-content: space-around;
     align-items: flex-end;
-    
     border: none;
     box-shadow: none;
+    background-color: transparent;
     
 }
 #removeFilterBtn{
+    background-color: transparent;
     width: 80%;
     border: none;
     padding: 0px;
@@ -156,10 +159,11 @@
 
 
 .selectField{
-    border-bottom: 0.2vh solid gray;
+    /* border-bottom: 0.2vh solid gray; */
     /* display: flex; */
     padding-top: 1vh;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     position: relative;
     padding: 1vh 0.2vw;

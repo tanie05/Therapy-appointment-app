@@ -6,18 +6,20 @@ import useFilter from "../../Hooks/filterHooks";
 import "./filter.css";
 import { useDispatch, useSelector } from "react-redux";
 import { filter, page, userData } from "../../Redux/Slices/admin";
+import { animateScroll as scroll } from "react-scroll";
 
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 
-const Filter = ({ handleApi }) => {
+const Filter = ({ handleApi, handleSectionScroll }) => {
   // console.log(handleApi);
   const [toggle, setToggle] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
   const url = "http://localhost:5000/therapy";
   const dispatch = useDispatch();
+  const admin = useSelector((state) => state.admin);
 
   const {
     email,
@@ -26,6 +28,13 @@ const Filter = ({ handleApi }) => {
     setAccessCode,
     // handleAccessCode,
   } = useFilter(url, handleApi);
+
+  const scrollToSection = (sectionName) => {
+    scroll.scrollTo(sectionName, {
+      smooth: true,
+      duration: 500,
+    });
+  };
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -40,7 +49,7 @@ const Filter = ({ handleApi }) => {
 
   const handleClick = async (access) => {
     const result = await handleApi(
-      false,
+      true,
       url + `?page=0&email=${email}&accessCode=${access}`
     );
     return result;
@@ -75,8 +84,8 @@ const Filter = ({ handleApi }) => {
     dispatch(page(0));
     const handle = async () => {
       const result = await handleClick(access);
-      console.log(result);
-      dispatch(userData(result.data));
+      // console.log(result);
+      // dispatch(userData(result.data));
     };
 
     handle();
@@ -87,6 +96,13 @@ const Filter = ({ handleApi }) => {
   }, [access]);
 
   const list = ["pending", "completed", "booked", "cancelled", "all"];
+  const colorObj = {
+    pending: "#009fffa6",
+    completed: "green",
+    booked: "gray",
+    cancelled: "red",
+    all: "black",
+  };
   return (
     <div id="filterContainer">
       <div className="filterField" id="inputField">
@@ -114,7 +130,7 @@ const Filter = ({ handleApi }) => {
           <span>Status</span>
         </div>
         <div className="selectField">
-          <div id="statusText">
+          <div id="statusText" style={{ color: colorObj[access] }}>
             {access.length
               ? access.charAt(0).toUpperCase() + access.slice(1)
               : "All Status"}

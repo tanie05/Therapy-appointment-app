@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LogoutIcon from "@mui/icons-material/Logout";
 import './navbar.css';
 
+
 export const Navbar = () => {
   const navigate = useNavigate();
 

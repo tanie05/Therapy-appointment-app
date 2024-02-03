@@ -10,9 +10,9 @@ const PaneButton = ({ text }) => {
         className="paneButton"
         variant="primary"
         size="medium"
-        disablePadding
+        id="paneButton"
       >
-        <div className="paneButton">
+        <div className="paneButtonElement">
           <PersonOutlineIcon />
           <div>{text}</div>
         </div>

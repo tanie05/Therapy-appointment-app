@@ -6,19 +6,29 @@
     background-color: #ffffff;
     width: 20vw;
     height: 100vh;
-    border-radius: 2%;
+    /* border-radius: 2%; */
     position: sticky;
-    top: 0;
+    top: -1vh;
     left: 0;
-    border-bottom: 0.2vh solid gray;
-    border-right: 0.2vh solid gray;
+    margin-left: -3vw;
+    margin-top: -1vh;
+    /* margin-top: 1vh; */
+    /* border: 0.4vh solid gray; */
+    -webkit-box-shadow: 0 0 0.2vw 0.01vw gray;
+    box-shadow: 0 0 0.2vw 0.01vw gray;
+    /* border-right: 0.2vh solid gray; */
     
 }
 
-/* #sideBtnContainer{
-    margin-right: 2vw;
-
-} */
+#sideBtnContainer {
+    height: 100vh;
+    margin-top: -1vh;
+    margin-bottom: -2vh;
+    margin-left: -2.5vw;
+    /* background-color: transparent; */
+    /* -webkit-box-shadow: 0 0 0.2vw 0.01vw gray;
+    box-shadow: 0 0 0.2vw 0.01vw gray; */
+}
 
 #listContainer {
     display: flex;
@@ -35,15 +45,19 @@
     /* background-color: #ff80008e; */
     border-radius: 2%;
     margin: 0.3vh 0vw;
-    color: orange;
+    color: rgb(0, 217, 255);
 }
 
-.paneButton{
+.paneButtonElement{
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
+#paneButton{
+    padding: 0.2vh 0vw;
+}
 
 #paneHeader{
     display: flex;

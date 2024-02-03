@@ -4,21 +4,30 @@ import Tab from "../../Molecules/Tab";
 import "./client.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { userData, page } from "../../Redux/Slices/admin";
+import { userData, page, errorText, total } from "../../Redux/Slices/admin";
 import axios from "axios";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { Snackbar, TextField } from "@mui/material";
 
 const Client = () => {
   const dispatch = useDispatch();
   const admin = useSelector((state) => state.admin);
   const user = useSelector((state) => state.user);
+  const [openSnack, setOpenSnack] = useState(false);
+  const [error, setError] = useState("");
+
   // const [status, setStatus] = useState(admin.userData.status);
 
   // const [page, setPage] = useState(0);
   // let page = 0;
   const url = `http://localhost:5000/therapy`;
+
+  const handleSnackClose = () => {
+    setOpenSnack((val) => !val);
+    dispatch(err);
+  };
 
   const handleClick = async (e) => {
     console.log("here", e.target.name);
@@ -73,26 +82,45 @@ const Client = () => {
 
       console.log(result);
       if (refresh) {
-        dispatch(userData(result.data));
+        dispatch(userData(result.data.data));
+        dispatch(total(result.data.total));
       } else {
-        dispatch(userData(result.data.length ? result.data : admin.userData));
+        if (result.data.data && result.data.data.length) {
+          dispatch(userData(result.data.data));
+          console.log(result.data.total);
+          dispatch(total(result.data.total));
+        }
+
         // setStatus(admin.userData.status);
       }
-      return result;
+      setError("");
+      return result.data;
     } catch (err) {
-      console.log(err);
+      setError(err.message);
+
+      setOpenSnack((val) => !val);
     }
   };
-  // useEffect(() => {
-  //   handle(true, url);
-  //   return () => {
-  //     dispatch(userData([]));
-  //   };
-  // }, []);
+
+  useEffect(() => {
+    dispatch(errorText(error));
+  }, [error]);
+
   return (
     <div className="homeContainer">
+      <Snackbar
+        open={openSnack}
+        onClose={() => setOpenSnack((val) => !val)}
+        autoHideDuration={3000}
+        message={admin.errorText}
+        className="snackbar"
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        color="orange"
+      />
       <Filter handleApi={handle} />
+
       <div id="tabHeading">
+        <div className="totalRecord">Total Records: {admin.total}</div>
         {/* <Tab email={"User"} status={"Status"} language={"Language"} /> */}
         <div id="user">User</div>
         <div id="status">Status</div>
@@ -111,6 +139,16 @@ const Client = () => {
             />
           );
         })}
+        {
+          <div className="errorHandle">
+            {" "}
+            {!admin.errorText.length
+              ? !admin.userData.length
+                ? "No Records Found"
+                : ""
+              : admin.errorText}{" "}
+          </div>
+        }
       </div>
       <div id="pageSelection">
         <button

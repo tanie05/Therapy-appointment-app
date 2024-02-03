@@ -32,7 +32,7 @@ const SidePane = () => {
               position: "sticky",
               top: 0,
               bottom: 0,
-              color: "orange",
+              color: "rgb(6 193 246)",
               // backgroundColor: "#0698f6",
             }}
             onClick={handleOnClick}
