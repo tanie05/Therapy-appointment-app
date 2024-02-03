@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from "react";
 import TherapyPage1 from "../../Components/HomePageComponents/TherapyPage1";
 import TherapyPage2 from "../../Components/HomePageComponents/TherapyPage2";
-import { useDispatch, useSelector } from "react-redux";
-import { userData } from "../../Redux/Slices/user";
+import { useSelector } from "react-redux";
 import "./home.css";
 import TherapyHeader from "../../Molecules/TherapyHeader";
 import { Navbar } from "../../Components/Navbar/Navbar";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {
+  therapyPage1Validation,
+  createTimingsArray,
+  therapyPage2Validation,
+  createDataToSend,
+} from "../../Utils/therapyValidations";
 
 const Home = () => {
-  const userInfo = useSelector((state) => state.userInfo);
-  const userId = userInfo._id;
-  const navigate = useNavigate();
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
+  const inititalFormData = {
     name: {
       firstName: "",
       lastName: "",
     },
     language: "english",
-  });
+  };
+
+  const userInfo = useSelector((state) => state.userInfo);
+  const userId = userInfo._id;
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState(inititalFormData);
 
   useEffect(() => {
     async function fetchingUser() {
@@ -51,83 +56,20 @@ const Home = () => {
   };
 
   const handleNext = () => {
-    setStep(step + 1);
+    const isValid = therapyPage1Validation(formData);
+    if (isValid) {
+      setStep(step + 1);
+    }
   };
-  function countNumbersInString(inputString) {
-    console.log(inputString);
-    var count = 0;
-    for (let i = 0; i < inputString.length; i++) {
-      if (
-        inputString[i] in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-      ) {
-        count++;
-      }
-    }
-    console.log(count);
-    return count;
-  }
-  function parsePhoneNumber(phoneString) {
-    const pattern = /\+(\d+)(?:\s*(.*))?/;
-    const match = phoneString.match(pattern);
-
-    if (match) {
-      const countryCode = match[1];
-      const number = match[2] || "";
-
-      if (countNumbersInString(number) < 10) {
-        return null;
-      }
-      return { countryCode, number };
-    } else {
-      return null;
-    }
-  }
+  const handleBack = () => {
+    setStep(step - 1);
+  };
 
   const handleFormSubmit = async () => {
-    const timings = new Array(
-      formData.time1,
-      formData.time2,
-      formData.time3,
-      formData.time4
-    );
-    const filteredTimings = timings.filter((time) => time !== undefined);
-
-    // console.log(formData);
-    if (
-      !formData.city ||
-      !formData.houseno ||
-      !formData.locality ||
-      !formData.state ||
-      !formData.country ||
-      !formData.healthPlan ||
-      !formData.phone ||
-      !formData.DOB
-    ) {
-      alert("Enter all required values");
-    } else if (filteredTimings.length === 0) {
-      alert("Choose atleast a single timing for appointment");
-    } else if (parsePhoneNumber(formData.phone) === null) {
-      alert("Enter a valid phone number");
-    } else {
-      const phone = parsePhoneNumber(formData.phone);
-
-      const data = {
-        email: formData.email,
-        phone: phone,
-        DOB: formData.DOB.$d,
-        description: formData.description,
-        address: {
-          houseNo: formData.houseno,
-          locality: formData.locality,
-          city: formData.city,
-          state: formData.state,
-          country: formData.country,
-        },
-        language: formData.language,
-        timings: filteredTimings,
-        healthPlan: formData.healthPlan,
-        userId: userInfo._id,
-      };
+    const filteredTimings = createTimingsArray(formData);
+    const isValid = therapyPage2Validation(formData, filteredTimings);
+    if (isValid) {
+      const data = createDataToSend(formData, filteredTimings, userInfo._id);
 
       // console.log(data);
 
@@ -143,7 +85,6 @@ const Home = () => {
           alert("Therapy appointment booked!");
           setFormData(inititalFormData);
           setStep(1);
-          navigate("/");
         })
         .catch((err) => {
           alert(err.response.data.message);
@@ -151,29 +92,24 @@ const Home = () => {
     }
   };
 
-  const handleBack = () => {
-    setStep(step - 1);
-  };
-
   return (
     <div>
       <Navbar />
       <div className="form-container">
         <TherapyHeader />
-       
-          {step === 1 && (
-            <TherapyPage1
-              formData={formData}
-              onFormDataChange={handleFormDataChange}
-            />
-          )}
-          {step === 2 && (
-            <TherapyPage2
-              formData={formData}
-              onFormDataChange={handleFormDataChange}
-            />
-          )}
-       
+
+        {step === 1 && (
+          <TherapyPage1
+            formData={formData}
+            onFormDataChange={handleFormDataChange}
+          />
+        )}
+        {step === 2 && (
+          <TherapyPage2
+            formData={formData}
+            onFormDataChange={handleFormDataChange}
+          />
+        )}
 
         {step < 2 && (
           <div className="therapy-next-btn-container">
