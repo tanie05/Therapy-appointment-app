@@ -12,45 +12,59 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+import { useSearchParams } from "react-router-dom";
 
 const Filter = ({ handleApi, handleSectionScroll }) => {
   // console.log(handleApi);
   const [toggle, setToggle] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
   const url = "http://localhost:5000/therapy";
-  const dispatch = useDispatch();
-  const admin = useSelector((state) => state.admin);
 
-  const {
-    email,
-    setEmail,
-    accessCode: access,
-    setAccessCode,
-    // handleAccessCode,
-  } = useFilter(url, handleApi);
+  const [searchParams, setSearchParams] = useSearchParams({
+    email: "",
+    status: "",
+  });
 
-  const scrollToSection = (sectionName) => {
-    scroll.scrollTo(sectionName, {
-      smooth: true,
-      duration: 500,
-    });
-  };
+  const [status, setStatus] = useState("");
 
   const handleEmail = (e) => {
-    setEmail(e.target.value);
+    // setEmail(e.target.value);
     // setIsFiltering((val) => !val);
+    setSearchParams(
+      (prev) => {
+        prev.set("email", e.target.value);
+        console.log(searchParams.get("email"));
+        return prev;
+      },
+      { replace: true }
+    );
   };
 
   const handleAccessCode = (data) => {
-    if (data !== "all") setAccessCode(data);
-    else setAccessCode("");
-    // setIsFiltering((val) => !val);
+    console.log("in handle access", data);
+    let val;
+    if (data !== "all") val = "";
+    else val = data;
+
+    setSearchParams(
+      (prev) => {
+        prev.set("status", val);
+        return prev;
+      },
+      { replace: true }
+    );
+    setStatus(val);
+    console.log(searchParams.get("status"), val);
+    setIsFiltering((val) => !val);
   };
 
-  const handleClick = async (access) => {
+  const handleClick = async () => {
     const result = await handleApi(
       true,
-      url + `?page=0&email=${email}&accessCode=${access}`
+      url +
+        `?page=0&email=${searchParams.get(
+          "email"
+        )}&accessCode=${searchParams.get("status")}`
     );
     return result;
   };
@@ -60,30 +74,28 @@ const Filter = ({ handleApi, handleSectionScroll }) => {
   };
 
   const handleRemoveFilter = async (e) => {
-    console.log("in remove");
-    setEmail("");
-    setAccessCode("");
+    setSearchParams((prev) => {
+      prev.set("email", "");
+      prev.set("status", "");
+      return prev;
+    });
+
+    setStatus("");
 
     setIsFiltering((val) => !val);
   };
 
   const resetEmail = () => {
-    setEmail("");
+    setSearchParams((prev) => {
+      prev.set("email", "");
+      return prev;
+    });
     setIsFiltering((val) => !val);
   };
 
   useEffect(() => {
-    console.log("here", access);
-
-    dispatch(
-      filter({
-        email,
-        access,
-      })
-    );
-    dispatch(page(0));
     const handle = async () => {
-      const result = await handleClick(access);
+      const result = await handleClick();
       // console.log(result);
       // dispatch(userData(result.data));
     };
@@ -91,9 +103,9 @@ const Filter = ({ handleApi, handleSectionScroll }) => {
     handle();
   }, [isFiltering]);
 
-  useEffect(() => {
-    setIsFiltering((val) => !val);
-  }, [access]);
+  // useEffect(() => {
+  //   setIsFiltering((val) => !val);
+  // }, [access]);
 
   const list = ["pending", "completed", "booked", "cancelled", "all"];
   const colorObj = {
@@ -107,7 +119,7 @@ const Filter = ({ handleApi, handleSectionScroll }) => {
     <div id="filterContainer">
       <div className="filterField" id="inputField">
         <input
-          value={email}
+          value={searchParams.get("email")}
           onChange={handleEmail}
           id="in"
           type="text"
@@ -130,9 +142,9 @@ const Filter = ({ handleApi, handleSectionScroll }) => {
           <span>Status</span>
         </div>
         <div className="selectField">
-          <div id="statusText" style={{ color: colorObj[access] }}>
-            {access.length
-              ? access.charAt(0).toUpperCase() + access.slice(1)
+          <div id="statusText" style={{ color: colorObj[status] }}>
+            {status.length
+              ? status.charAt(0).toUpperCase() + status.slice(1)
               : "All Status"}
           </div>
 
