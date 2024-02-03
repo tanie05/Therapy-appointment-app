@@ -63,6 +63,14 @@ async function createUser(userdetails) {
   }
 }
 
+async function deleteUser(userId) {
+  try {
+    const response = await User.findByIdAndDelete(userId);
+  } catch (err) {
+    throw err;
+  }
+}
+
 const findUserById = async (id) => {
   try {
     const user = await User.findById(id);
@@ -104,4 +112,5 @@ module.exports = {
   findUserById,
   findAllUsers,
   findAppointmentHistory,
+  deleteUser,
 };

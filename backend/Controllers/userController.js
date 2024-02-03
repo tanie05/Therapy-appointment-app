@@ -6,6 +6,8 @@ const {
 } = require("../Utils/userUtils");
 const { comparePassword } = require("../Utils/authhelper");
 
+const { salesforceNewUser } = require("../Services/salesforceApiCalls");
+
 const {
   finduserbyemail,
   createUser,
@@ -13,6 +15,7 @@ const {
   findUserById,
   findAllUsers,
   findAppointmentHistory,
+  deleteUser,
   doesEmailExists,
 } = require("../Services/userQueries");
 
@@ -83,8 +86,27 @@ const registerController = async (req, res, next) => {
     }
 
     const user = await createUser(userDetails);
-    if (user) {
-      res.status(200).send({ message: "User successfully created" });
+
+    try {
+      const response = await salesforceNewUser(user);
+
+      res.status(200).send({ message: "Operation performed successfully" });
+    } catch (error2) {
+      try {
+        const response = await deleteUser(user._id.toString());
+      } catch (error3) {
+        console.log(
+          "Failed to perform revert operation in first database. Synchronization Failed"
+        );
+        console.log(`user to remove with id : ${user._id.toString()}`);
+        throw error3;
+      }
+
+      console.log(
+        "Failed to save data in second database, reverting information"
+      );
+
+      throw error2;
     }
   } catch (error) {
     next(error);
@@ -120,6 +142,7 @@ const loginController = async (req, res, next) => {
       const token = await jwt.sign({ id: user.id }, "abc", {
         expiresIn: "1h",
       });
+
       res.status(200).json({
         token: token,
         user: { name: user.name, _id: user._id, role: user.role },

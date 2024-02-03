@@ -105,7 +105,7 @@ const AppointmentHistoryPage = () => {
         <div className="rightParentContainer">
           <div className="rightContainer" id="rightPart">
             <div className="historyHeading">
-              <Typography style={{ fontSize: "2rem" }}>
+              <Typography style={{ fontSize: "2rem", fontWeight: "700" }}>
                 Appointments History
               </Typography>
             </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import formatDate from "../Utils/Utils";
+import { formatDate, limitLetters } from "../Utils/Utils";
 
 const AppointmentHistoryListItem = (props) => {
   const data = props.data;
@@ -26,7 +26,7 @@ const AppointmentHistoryListItem = (props) => {
             alignItems: "center",
           }}
         >
-          <p>{data.description}</p>
+          <p>{limitLetters(data.description, 40)}</p>
         </div>
         <div
           style={{

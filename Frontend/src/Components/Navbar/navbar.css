@@ -4,6 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+  box-sizing: border-box;
 }
 
 .nav-link-list {

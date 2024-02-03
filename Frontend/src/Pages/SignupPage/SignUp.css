@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins");
 
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
+
 .age-select-component {
   color: #ff705b;
 }
@@ -40,20 +45,37 @@ body {
 .signupContainer form {
   margin: 0.625rem;
 }
-.signupContainer input {
+/* .signupContainer input {
   width: 100%;
-  margin-top: 1.25rem;
-  height: 2.5rem;
+  height: 1.5rem;
   font-size: 0.875rem;
+  box-sizing: border-box;
   border: none;
   border-bottom: 0.09375rem solid rgb(163, 163, 163);
-  /* padding: 0 0.3125rem; */
+  outline: none;
+} */
+
+.signupContainerParent {
+  margin-top: 1rem;
+}
+
+.signupContainerInput {
+  width: 100%;
+  height: 1.5rem;
+  font-size: 0.875rem;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 0.09375rem solid rgb(163, 163, 163);
   outline: none;
 }
 
-.signupContainer input::placeholder {
+.signupContainerInput::placeholder {
   color: rgb(163, 163, 163);
 }
+
+/* .signupContainer input::placeholder {
+  color: rgb(163, 163, 163);
+} */
 .signupContainer form {
   font-size: 0.8125rem;
 }
@@ -80,12 +102,12 @@ body {
   cursor: pointer;
 }
 
-.signupContainer .login-message {
+.signupContainer .signup-message {
   text-align: center;
   font-size: 0.8125rem;
 }
 
-.signupContainer .login-message button {
+.signupContainer .signup-message button {
   color: #ff705b;
   border: none;
   background: none;
@@ -101,4 +123,18 @@ body {
 
 .blueFont {
   color: rgb(37, 58, 214);
+}
+
+.languageContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.birthDateContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  margin: 0.5rem;
 }

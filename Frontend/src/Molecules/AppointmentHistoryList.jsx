@@ -5,16 +5,7 @@ import AppointmentHistoryListItem from "../Atoms/AppointmentHistoryListItem";
 const AppointmentHistoryList = (props) => {
   return (
     <>
-      <ul
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          margin: "0.5rem",
-          alignItems: "center",
-          padding: "0rem",
-          listStyleType: "none",
-        }}
-      >
+      <ul className="historyListParent">
         <AppointmentHistoryListHeading />
 
         {props.data.map((obj) => {

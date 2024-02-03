@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 import Dropdown from "../../Atoms/Dropdown";
+import { Typography } from "@mui/material";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -67,51 +68,60 @@ const SignUp = () => {
     <>
       <div className="signupParentContainer">
         <div className="signupContainer">
-          <form className="login-form" onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
             {/* <h1>Therapy Appointments</h1> */}
             <h2>Sign Up</h2>
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-              }}
-            >
+            <div className="flexRow">
+              <div className="signupContainerParent">
+                <Typography
+                  style={{ textAlign: "initial", fontSize: "0.8rem" }}
+                >
+                  First Name
+                </Typography>
+                <input
+                  className="signupContainerInput"
+                  style={{ marginRight: "0.25rem" }}
+                  type="text"
+                  name="firstname"
+                  maxLength={100}
+                  placeholder="Enter First Name"
+                  required
+                />
+              </div>
+              <div className="signupContainerParent">
+                <Typography
+                  style={{ textAlign: "initial", fontSize: "0.8rem" }}
+                >
+                  Last Name
+                </Typography>
+                <input
+                  className="signupContainerInput"
+                  style={{ marginLeft: "0.25rem" }}
+                  type="text"
+                  name="lastname"
+                  maxLength={100}
+                  placeholder="Enter Last Name"
+                  onChange={clearErrors}
+                />
+              </div>
+            </div>
+            <div className="signupContainerParent">
+              <Typography style={{ textAlign: "initial", fontSize: "0.8rem" }}>
+                E-mail
+              </Typography>
               <input
-                style={{ marginRight: "0.25rem" }}
-                type="text"
-                name="firstname"
-                maxLength={100}
-                placeholder="Enter First Name"
-                required
-              />
-
-              <input
-                style={{ marginLeft: "0.25rem" }}
-                type="text"
-                name="lastname"
-                maxLength={100}
-                placeholder="Enter Last Name"
+                className="signupContainerInput"
+                type="email"
+                name="email"
+                maxLength={300}
+                placeholder="Enter E-mail"
                 onChange={clearErrors}
+                required
               />
             </div>
 
-            <input
-              type="email"
-              name="email"
-              maxLength={300}
-              placeholder="Enter E-mail"
-              onChange={clearErrors}
-              required
-            />
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-              }}
-            >
+            <div className="languageContainer">
               <div style={{ marginTop: "1rem" }}>
                 <Dropdown
                   name="Language"
@@ -124,38 +134,51 @@ const SignUp = () => {
                 />
               </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <label style={{ fontSize: "0.875rem" }} htmlFor="DOB">
-                  Birth Date:{" "}
-                </label>
-                <input type="date" name="DOB" onFocus={clearErrors} required />
+              <div className="birthDateContainer">
+                <Typography
+                  style={{ textAlign: "initial", fontSize: "0.8rem" }}
+                >
+                  Date of Birth
+                </Typography>
+                <input
+                  style={{ height: "1.4rem" }}
+                  type="date"
+                  name="DOB"
+                  onFocus={clearErrors}
+                  required
+                />
               </div>
             </div>
 
-            <input
-              type="password"
-              name="password"
-              onChange={clearErrors}
-              required
-              minLength={6}
-              pattern="(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9\s]).+"
-              placeholder="Enter Password"
-            />
+            <div className="signupContainerParent">
+              <Typography style={{ textAlign: "initial", fontSize: "0.8rem" }}>
+                Password
+              </Typography>
+              <input
+                className="signupContainerInput"
+                type="password"
+                name="password"
+                onChange={clearErrors}
+                required
+                minLength={6}
+                pattern="(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9\s]).+"
+                placeholder="Enter Password"
+              />
+            </div>
 
-            <input
-              type="password"
-              name="confirmpassword"
-              onChange={clearErrors}
-              required
-              placeholder="Confirm Password"
-            />
+            <div className="signupContainerParent">
+              <Typography style={{ textAlign: "initial", fontSize: "0.8rem" }}>
+                Confirm Password
+              </Typography>
+              <input
+                className="signupContainerInput"
+                type="password"
+                name="confirmpassword"
+                onChange={clearErrors}
+                required
+                placeholder="Confirm Password"
+              />
+            </div>
 
             <p>
               Password should contain lowercase letters, uppercase letters,
@@ -166,7 +189,7 @@ const SignUp = () => {
               Sign Up
             </button>
 
-            <p className="login-message">
+            <p className="signup-message">
               Already a member?{" "}
               <button
                 className="btnhover"

@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import "@fontsource/roboto/700.css";
 import { Typography } from "@mui/material";
-import "../Pages/AppointmentHistoryPage/AppointmentHistoryPage.css";
 
 const AppointmentHistorySidebar = (props) => {
-  const { setFunction } = props;
   const [btnSelect, setBtnSelect] = useState({
     allBtn: true,
     pendingBtn: false,
@@ -13,6 +11,19 @@ const AppointmentHistorySidebar = (props) => {
     completedBtn: false,
     cancelledBtn: false,
   });
+
+  const { setFunction } = props;
+
+  const muiBtnStyle = (flag) => {
+    return {
+      fontWeight: "700",
+      fontSize: "1rem",
+      width: "100%",
+      backgroundColor: flag ? "#ff705b" : "#ffffff",
+      color: flag ? "#ffffff" : "#ff705b",
+      marginBottom: "0.3rem",
+    };
+  };
 
   useEffect(() => {
     setFunction(props.defaultValue);
@@ -33,22 +44,23 @@ const AppointmentHistorySidebar = (props) => {
     <>
       <div className="historySidebarParent" id="leftPart">
         <div className="historySidebar">
-          <Typography style={{ fontSize: "1.5rem", marginBottom: "0.6rem" }}>
+          <Typography
+            style={{
+              fontSize: "1.5rem",
+              marginBottom: "0rem",
+              width: "100%",
+              textAlign: "center",
+              fontWeight: "700",
+              marginTop: "1rem",
+            }}
+          >
             Status
           </Typography>
-          <ul className="sidebarUl">
-            <li
-              style={{
-                border: `${btnSelect.allBtn ? "2px solid #ff705b" : "none"}`,
-              }}
-            >
+          <ul className="sidebarList">
+            <li style={{ width: "100%" }}>
               <Button
                 id="allBtn"
-                style={{
-                  color: "#ff705b",
-                  fontWeight: "700",
-                  fontSize: "0.8rem",
-                }}
+                style={muiBtnStyle(btnSelect.allBtn)}
                 variant="text"
                 value="all"
                 onClick={onClick}
@@ -56,20 +68,10 @@ const AppointmentHistorySidebar = (props) => {
                 All
               </Button>
             </li>
-            <li
-              style={{
-                border: `${
-                  btnSelect.pendingBtn ? "2px solid #ff705b" : "none"
-                }`,
-              }}
-            >
+            <li style={{ width: "100%" }}>
               <Button
                 id="pendingBtn"
-                style={{
-                  color: "#ff705b",
-                  fontWeight: "700",
-                  fontSize: "0.8rem",
-                }}
+                style={muiBtnStyle(btnSelect.pendingBtn)}
                 variant="text"
                 value="pending"
                 onClick={onClick}
@@ -77,18 +79,10 @@ const AppointmentHistorySidebar = (props) => {
                 Pending
               </Button>
             </li>
-            <li
-              style={{
-                border: `${btnSelect.bookedBtn ? "2px solid #ff705b" : "none"}`,
-              }}
-            >
+            <li style={{ width: "100%" }}>
               <Button
                 id="bookedBtn"
-                style={{
-                  color: "#ff705b",
-                  fontWeight: "700",
-                  fontSize: "0.8rem",
-                }}
+                style={muiBtnStyle(btnSelect.bookedBtn)}
                 variant="text"
                 value="booked"
                 onClick={onClick}
@@ -96,20 +90,10 @@ const AppointmentHistorySidebar = (props) => {
                 Booked
               </Button>
             </li>
-            <li
-              style={{
-                border: `${
-                  btnSelect.completedBtn ? "2px solid #ff705b" : "none"
-                }`,
-              }}
-            >
+            <li style={{ width: "100%" }}>
               <Button
                 id="completedBtn"
-                style={{
-                  color: "#ff705b",
-                  fontWeight: "700",
-                  fontSize: "0.8rem",
-                }}
+                style={muiBtnStyle(btnSelect.completedBtn)}
                 variant="text"
                 value="completed"
                 onClick={onClick}
@@ -117,20 +101,10 @@ const AppointmentHistorySidebar = (props) => {
                 Completed
               </Button>
             </li>
-            <li
-              style={{
-                border: `${
-                  btnSelect.cancelledBtn ? "2px solid #ff705b" : "none"
-                }`,
-              }}
-            >
+            <li style={{ width: "100%" }}>
               <Button
                 id="cancelledBtn"
-                style={{
-                  color: "#ff705b",
-                  fontWeight: "700",
-                  fontSize: "0.8rem",
-                }}
+                style={muiBtnStyle(btnSelect.cancelledBtn)}
                 variant="text"
                 value="cancelled"
                 onClick={onClick}
@@ -140,15 +114,6 @@ const AppointmentHistorySidebar = (props) => {
             </li>
           </ul>
         </div>
-        <div
-          style={{
-            border: "1px solid #fc9383",
-            margin: "0px 0px 0px 10px",
-            width: "2px",
-            height: "100vh",
-            backgroundColor: "#fc9383",
-          }}
-        />
       </div>
     </>
   );

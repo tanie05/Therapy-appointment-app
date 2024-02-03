@@ -3,22 +3,21 @@ const {
   getTherapy,
   deleteTherapyById,
   updateTherapyById,
-  fetchTherapyWithId
+  fetchTherapyWithId,
 } = require("../Services/therapyQueries");
 const { validatePhone, validateAddress } = require("../Utils/therapyUtils");
+const { salesforceNewTherapy } = require("../Services/salesforceApiCalls");
 const ObjectId = require("mongodb").ObjectId;
 
+async function fetchSingleTherapy(req, res) {
+  const therapyId = req.params.id;
+  const result = await fetchTherapyWithId(therapyId);
 
-async function fetchSingleTherapy(req,res) {
-
-    const therapyId = req.params.id;
-    const result = await fetchTherapyWithId(therapyId);
-
-    if(result){
-        res.status(200).send({success: true, therapy: result})
-    }else{
-        res.status(404).send({success: false, message: "Therapy not found"});
-    }
+  if (result) {
+    res.status(200).send({ success: true, therapy: result });
+  } else {
+    res.status(404).send({ success: false, message: "Therapy not found" });
+  }
 }
 
 const createTherapy = async (req, res, next) => {
@@ -35,7 +34,6 @@ const createTherapy = async (req, res, next) => {
       ...rest
     } = req.body;
 
-    
     // if (!validatePhone(phone.number) || !validateAddress(rest.address)) {
     //   const error = new Error("Invalid Entries");
     //   error.status = 401;
@@ -54,9 +52,30 @@ const createTherapy = async (req, res, next) => {
       address: rest.address,
       status: "pending",
     };
+
     const result = await addTherapy(therapy);
 
-    res.status(200).json(result);
+    try {
+      const result2 = await salesforceNewTherapy(result);
+
+      res.status(200).json(result);
+    } catch (error2) {
+      try {
+        const response = await deleteTherapyById(result._id.toString());
+      } catch (error3) {
+        console.log(
+          "Failed to perform revert operation in first database. Synchronization Failed"
+        );
+        console.log(`user to remove with id : ${result._id.toString()}`);
+        throw error3;
+      }
+
+      console.log(
+        "Failed to save data in second database, reverting information"
+      );
+
+      throw error2;
+    }
   } catch (err) {
     if (err.status) res.status(err.status).json(err.message);
     else res.status(500).json(err.message);
@@ -110,5 +129,5 @@ module.exports = {
   getAllTherapies,
   deleteTherapy,
   updateTherapy,
-  fetchSingleTherapy
+  fetchSingleTherapy,
 };

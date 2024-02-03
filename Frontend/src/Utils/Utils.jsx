@@ -1,4 +1,4 @@
-export default function formatDate(dateString) {
+export function formatDate(dateString) {
   const months = [
     "Jan",
     "Feb",
@@ -21,4 +21,11 @@ export default function formatDate(dateString) {
   const year = date.getFullYear();
 
   return `${day} ${month}, ${year}`;
+}
+
+export function limitLetters(str, maxLength) {
+  if (str.length > maxLength) {
+    return str.substring(0, maxLength) + "...";
+  }
+  return str;
 }
