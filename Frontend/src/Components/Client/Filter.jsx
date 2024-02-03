@@ -6,13 +6,20 @@ import useFilter from "../../Hooks/filterHooks";
 import "./filter.css";
 import { useDispatch, useSelector } from "react-redux";
 import { filter, page, userData } from "../../Redux/Slices/admin";
+import { animateScroll as scroll } from "react-scroll";
 
-const Filter = ({ handleApi }) => {
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+
+const Filter = ({ handleApi, handleSectionScroll }) => {
   // console.log(handleApi);
   const [toggle, setToggle] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
   const url = "http://localhost:5000/therapy";
   const dispatch = useDispatch();
+  const admin = useSelector((state) => state.admin);
 
   const {
     email,
@@ -22,19 +29,27 @@ const Filter = ({ handleApi }) => {
     // handleAccessCode,
   } = useFilter(url, handleApi);
 
+  const scrollToSection = (sectionName) => {
+    scroll.scrollTo(sectionName, {
+      smooth: true,
+      duration: 500,
+    });
+  };
+
   const handleEmail = (e) => {
     setEmail(e.target.value);
     // setIsFiltering((val) => !val);
   };
 
   const handleAccessCode = (data) => {
-    setAccessCode(data);
+    if (data !== "all") setAccessCode(data);
+    else setAccessCode("");
     // setIsFiltering((val) => !val);
   };
 
   const handleClick = async (access) => {
     const result = await handleApi(
-      false,
+      true,
       url + `?page=0&email=${email}&accessCode=${access}`
     );
     return result;
@@ -69,7 +84,8 @@ const Filter = ({ handleApi }) => {
     dispatch(page(0));
     const handle = async () => {
       const result = await handleClick(access);
-      dispatch(userData(result.data));
+      // console.log(result);
+      // dispatch(userData(result.data));
     };
 
     handle();
@@ -79,18 +95,14 @@ const Filter = ({ handleApi }) => {
     setIsFiltering((val) => !val);
   }, [access]);
 
-  const list = [
-    "pending",
-    "completed",
-    "booked",
-    "ongoing",
-    "a",
-    "a",
-    "a",
-    "a",
-    "a",
-    "a",
-  ];
+  const list = ["pending", "completed", "booked", "cancelled", "all"];
+  const colorObj = {
+    pending: "#009fffa6",
+    completed: "green",
+    booked: "gray",
+    cancelled: "red",
+    all: "black",
+  };
   return (
     <div id="filterContainer">
       <div className="filterField" id="inputField">
@@ -101,23 +113,33 @@ const Filter = ({ handleApi }) => {
           type="text"
           placeholder="Search Users By Email"
         />
-        <button id="search" className="filterBtn btn" onClick={handleBtnClick}>
-          Search
-        </button>
-        <button id="reset" className="filterBtn btn" onClick={resetEmail}>
-          Reset
-        </button>
+        <SearchIcon
+          id="search"
+          className="filterBtn button"
+          onClick={handleBtnClick}
+        />
+
+        <CloseIcon
+          id="reset"
+          className="filterBtn button"
+          onClick={resetEmail}
+        />
       </div>
       <div className="filterField" id="dropDownField">
         <div className="label">
-          <span>Status Code</span>
+          <span>Status</span>
         </div>
         <div className="selectField">
-          <div>{access.length ? access : "All Status"}</div>
+          <div id="statusText" style={{ color: colorObj[access] }}>
+            {access.length
+              ? access.charAt(0).toUpperCase() + access.slice(1)
+              : "All Status"}
+          </div>
 
-          <button className="btn" onClick={() => setToggle((val) => !val)}>
-            ^
-          </button>
+          <ArrowDropDownIcon
+            className="button"
+            onClick={() => setToggle((val) => !val)}
+          ></ArrowDropDownIcon>
           {toggle && (
             <DropDown
               list={list}
@@ -129,9 +151,11 @@ const Filter = ({ handleApi }) => {
       </div>
 
       <div className="filterField" id="removeFilter">
-        <button className="btn" onClick={handleRemoveFilter}>
-          {"Remove Filters"}
-        </button>
+        <RemoveCircleOutlineIcon
+          className="button"
+          id="removeFilterBtn"
+          onClick={handleRemoveFilter}
+        ></RemoveCircleOutlineIcon>
       </div>
     </div>
   );

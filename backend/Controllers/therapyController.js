@@ -65,10 +65,13 @@ const createTherapy = async (req, res, next) => {
 
 const getAllTherapies = async (req, res, next) => {
   try {
-    const page = parseInt(req.query.page) || 1; // Current page number
-    const pageSize = parseInt(req.query.pageSize) || 10; // Number of items per page
+    console.log(req.query);
+    const page = req.query.page ? parseInt(req.query.page) : 0; // Current page number
+    const accessCode = req.query.accessCode || "";
+    const email = req.query.email || "";
+    const pageSize = 10; // Number of items per page
 
-    const result = await getTherapy(page, pageSize);
+    const result = await getTherapy(page, pageSize, email, accessCode);
     res.status(200).json(result);
   } catch (err) {
     if (err.status) res.status(err.status).json(err.message);

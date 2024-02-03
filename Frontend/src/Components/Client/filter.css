@@ -5,7 +5,7 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    border-left: 0.2vh solid gray;
+    /* border-left: 0.2vh solid gray; */
     /* position: fixed; */
     z-index: 20;
     /* margin-bottom: 2vh; */
@@ -20,14 +20,15 @@
     justify-content:center;
     align-items: center;
     height: 6vh;
-    border: 0.1vw solid black;
+    border: 0.1vw solid gray;
     padding: 0.5vh 0.5vw;
     /* -webkit-box-shadow: 0 0 0.2vw 0.05vw #7c7979;
         box-shadow: 0 0 0.2vw 0.05vw #7c7979; */
-        -webkit-box-shadow: 0 0 0.2vw 0.05vw #2194f7;
-        box-shadow: 0 0 0.2vw 0.05vw #2194f7;
+        /* -webkit-box-shadow: 0 0 0.2vw 0.02vw gray;
+        box-shadow: 0 0 0.2vw 0.02vw gray; */
     border-radius: 0.5vw;
-    color:rgb(64, 64, 221)
+    color:black;
+    background-color: white;
     /* font-size: 1em; */
     
 }
@@ -35,7 +36,7 @@
 
 #in{
     /* font-size: 1.4vh; */
-    width: 70%;
+    width: 80%;
     border-width: 0px;
     height: 70%;
     border-radius: 2%;
@@ -44,6 +45,7 @@
     margin-right: auto;
     padding-left: 1vw;
     outline: none;
+    font-size: 2.5vh;
 }
 
 
@@ -57,9 +59,10 @@
 
 }
 
-.btn{
+.button{
     /* font-size: 0.8vh; */
     height: 70%;
+    padding: 0vh 1vw;
     border-radius: 5%;
     background-color: white;
     border: none;
@@ -69,14 +72,14 @@
     
 }
 
-.btn:hover{
+.button:hover{
     background-color: gray;
 }
 
 
 #inputField{
     width: 60%;
-    margin-left: 1vw;
+    /* margin-left: 1vw; */
     /* border: 0.1vw solid black; */
     /* border-radius: .5vw; */
     
@@ -84,52 +87,86 @@
     
 }
 
+.button:hover{
+    color: orange;
+    background-color: white;
+}
+
+#reset:hover{
+    color: orange;
+    background-color: white;
+}
 
 
 #dropDownField{
     width: 20%;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    box-shadow: none;
+    /* border: none */
 }
 
 .label{
     display: flex;
     width: 90%;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
+    /* padding-top: 0.4vh; */
+    
 }
 
-.selectField{
+.label span{
+    font-size: 2vh;
+    color: gray;
+
+}
+
+/* .selectField{
     display: flex;
     width: 90%;
     align-items: center;
     justify-content: space-between;
-}
+} */
 
+#statusText{
+    font-size: 2.5vh;
+    /* color: transparent; */
+}
 
 #removeFilter{
     
-    width: 10%;
+    width: 2%;
     /* height: 80%; */
-    justify-content: center;
-    align-items: center;
-    border-radius: 0.5vw;
+    justify-content: space-around;
+    align-items: flex-end;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
     
 }
-#removeFilter button{
-    width: 100%;
+#removeFilterBtn{
+    background-color: transparent;
+    width: 80%;
+    border: none;
+    padding: 0px;
+
 }
 
-.label{
-    font-size: smaller;
-    color: gray
-}
+
+
+
+
+
 .selectField{
-    border-bottom: 0.2vh solid gray;
+    /* border-bottom: 0.2vh solid gray; */
     /* display: flex; */
     padding-top: 1vh;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     position: relative;
+    padding: 1vh 0.2vw;
+    width: 100%;
    
 }

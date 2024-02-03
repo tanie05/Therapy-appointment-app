@@ -15,7 +15,7 @@ const DropDown = ({ list, setAccess, setToggle, handleClick }) => {
               }}
               className="dropDownBtn"
             >
-              {text}
+              {text.charAt(0).toUpperCase() + text.slice(1)}
             </button>
           </div>
         );
