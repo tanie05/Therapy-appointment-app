@@ -18,7 +18,6 @@ const {
 
 const jwt = require("jsonwebtoken");
 
-
 async function editUser(req, res) {
   const updates = req.body;
   const userId = req.params.id;
@@ -43,7 +42,7 @@ async function editUser(req, res) {
       });
     }
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.status(500).json({ error: "Internal server error." });
   }
 }
@@ -115,13 +114,18 @@ const loginController = async (req, res, next) => {
       const token = await jwt.sign({ id: user.id }, "abc", {
         expiresIn: "1h",
       });
-      res.status(200).json({ token: token, user: {name: user.name, _id: user._id, role: user.role} });
+      res
+        .status(200)
+        .json({
+          token: token,
+          user: { name: user.name, _id: user._id, role: user.role },
+        });
     }
   } catch (error) {
     next(error);
   }
 };
-const showAllUsers = async (req, res) => {
+const showAllUsers = async (req, res, next) => {
   try {
     const id = req.user.id; //taken from decoded token
     const data = await findUserById(id);
@@ -140,7 +144,7 @@ const showAllUsers = async (req, res) => {
   }
 };
 
-const showUserProfile = async (req, res) => {
+const showUserProfile = async (req, res, next) => {
   try {
     //check whether id from token and params is same
     const id1 = req.params.id,
@@ -198,7 +202,6 @@ const showAppointmentHistory = async (req, res) => {
     next(error);
   }
 };
-
 
 module.exports = {
   registerController,
