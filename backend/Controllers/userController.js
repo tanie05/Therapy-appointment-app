@@ -18,7 +18,6 @@ const {
 
 const jwt = require("jsonwebtoken");
 
-
 async function editUser(req, res, next) {
   const updates = req.body;
   const userId = req.params.id;
@@ -91,7 +90,7 @@ const loginController = async (req, res, next) => {
     const { email, password } = req.body;
     // console.log(req.body);
     if (!email || !password) {
-      const error = new Error("email or password not provided");
+      const error = new Error("Email or password not provided");
       error.status = 400;
       throw error;
     }
@@ -102,7 +101,7 @@ const loginController = async (req, res, next) => {
     }
     const user = await finduserbyemail({ email });
     if (!user) {
-      const error = new Error("user not exist");
+      const error = new Error("User not exist");
       error.status = 400;
       throw error;
     }
@@ -115,7 +114,10 @@ const loginController = async (req, res, next) => {
       const token = await jwt.sign({ id: user.id }, "abc", {
         expiresIn: "1h",
       });
-      res.status(200).json({ token: token, user: {name: user.name, _id: user._id, role: user.role} });
+      res.status(200).json({
+        token: token,
+        user: { name: user.name, _id: user._id, role: user.role },
+      });
     }
   } catch (error) {
     next(error);
@@ -208,7 +210,6 @@ const showAppointmentHistory = async (req, res) => {
     next(error);
   }
 };
-
 
 module.exports = {
   registerController,

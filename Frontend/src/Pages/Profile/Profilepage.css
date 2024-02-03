@@ -1,67 +1,49 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins");
 
-* {
-  font-size: 13px;
+.Parentprofilecontainer {
+  font-size: 14px;
+  width: 100%;
+  margin: auto;
+  height: 100vh;
+  background-image: linear-gradient(to right, white, rgb(210, 207, 207));
 }
 
-.Parentprofilecontainer {
-  height: 100vh;
-  font-size: 14px;
-  width: 68%;
-  margin: auto;
-}
 .container1 {
-  background-color: #ffffff;
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  right: 50%;
+  width: 50%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: auto;
-  transform: translate(50%, -50%);
-  padding: 3rem;
   border-radius: 1rem;
   background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 2rem;
+  box-shadow: 5px 5px 3px 5px rgba(0.2, 0.2, 0.2, 0.2);
 }
 .container1 h1 {
   font-size: 2.5rem;
   padding-bottom: 2rem;
   font-family: "sans-serif";
 }
-.container1 form {
-  margin: 1rem;
-}
-.container1 input {
-  width: 100%;
-  margin-top: 2rem;
-  height: 4rem;
-  font-size: 1.4rem;
-  border: none;
-  border-bottom: 0.15rem solid rgb(163, 163, 163);
-  padding: 0 0.5rem;
-}
+
 .container1 input:hover {
   border-bottom: 0.15rem solid #4eafeb;
 }
 .container1 input::placeholder {
   color: rgb(163, 163, 163);
 }
-.container1 form p {
-  font-size: 1.3rem;
-  padding: 3rem 0.5rem 0 0;
-  color: rgb(37, 58, 214);
-}
-.container1 form p:hover {
+container1 p:hover {
   color: #ff705b;
   cursor: pointer;
 }
-.buttoncontainer {
+.container1 .buttoncontainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin: 10px;
 }
 
-.btn1 {
+.container1 .btn1 {
   display: block;
   margin: 2rem auto;
   font-size: 1.6rem;
@@ -73,34 +55,32 @@
   background-color: #ff705b;
   color: #ffffff;
 }
-.btn1:hover {
+.container1 .btn1:hover {
   cursor: pointer;
 }
 
-.btn {
+.container1 .btn {
   display: block;
   margin: 2rem auto;
   font-size: 1.6rem;
   width: 50%;
   align-content: flex-end;
-  padding: 0.9rem 0;
+  padding: 0.5rem 0;
   border-radius: 1.7rem;
   border: none;
   background-color: #326bdc;
   color: #ffffff;
 }
-.btn:hover {
+.container1 .btn:hover {
   cursor: pointer;
 }
-.img {
-  display: block;
-  text-align: center;
+.container1 .img {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  justify-content: space-between;
-  padding-top: 1rem;
-  gap: 15px;
+  height: 25vh;
+  background-color: aliceblue;
 }
 .format {
   display: flex;
@@ -112,4 +92,33 @@
 }
 .container1 input:focus {
   border-color: #ff0000;
+}
+.textfield {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.profileContainerParent {
+  margin: 1rem 1.6rem;
+  box-sizing: border-box;
+}
+
+.profileContainerInput {
+  width: 95%;
+  height: 1.5rem;
+  font-size: 1.2rem;
+  margin: auto;
+  border: 1px solid black;
+  margin-top: 0.7rem;
+  box-sizing: border-box;
+  border: none;
+
+  border-bottom: 0.09375rem solid rgb(163, 163, 163);
+  outline: none;
+}
+.profileContainerInput::placeholder {
+  color: rgb(163, 163, 163);
+}
+.logindiv {
+  width: 45%;
 }

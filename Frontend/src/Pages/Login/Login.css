@@ -6,6 +6,10 @@
   margin: 0px;
 }
 .Parentlogincontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
   height: 100vh;
   background-image: linear-gradient(to right, white, rgb(210, 207, 207));
 }
@@ -13,11 +17,9 @@
 .containerlogin {
   background-color: #ffffff;
   display: inline-block;
-  position: absolute;
-  top: 50%;
-  right: 50%;
+
   width: 35%;
-  transform: translate(50%, -50%);
+
   padding: 2rem;
   border-radius: 1rem;
   background-color: #ffffffbf;
@@ -25,11 +27,22 @@
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
+#errorContainer {
+  color: "white";
+  background-color: #e6e4e4;
+  border: 0.1vw solid #eb3434;
+  border-radius: 0.4vw;
+
+  font-size: "1.5rem";
+
+  width: 35%;
+}
+
 .containerlogin input {
   width: 100%;
   margin-top: 2rem;
   height: 4rem;
-  font-size: 13px;
+  font-size: 14px;
   border: none;
   border-bottom: 0.15rem solid rgb(163, 163, 163);
   padding: 0 0.5rem;
@@ -51,10 +64,9 @@
   cursor: pointer;
 }
 .containerlogin h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   text-align: center;
-  padding-bottom: 5rem;
-
+  padding-bottom: 2rem;
   border-bottom: 0.1rem solid silver;
 }
 .btn3 {

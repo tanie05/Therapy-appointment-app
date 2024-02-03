@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { Navbar } from "../Components/Navbar/Navbar";
+
 export const PrivateRotuerUser = () => {
   const auth = JSON.parse(localStorage.getItem("user"));
   // if()

@@ -12,7 +12,6 @@ function App() {
   const userInfo = useSelector((state) => state.userInfo);
   return (
     <>
-    
       <BrowserRouter>
         <Routes>
           <Route>

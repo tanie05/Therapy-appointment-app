@@ -5,11 +5,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import validateEmail from "../../../util";
+import { Alert } from "@mui/material";
+import AlertTitle from "@mui/material/AlertTitle";
 
 import "./Login.css";
 
 const LoginPage = () => {
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +22,11 @@ const LoginPage = () => {
     e.preventDefault();
     const rawdata = new FormData(e.target);
     const data = Object.fromEntries(rawdata.entries());
+
+    if (!validateEmail(email)) {
+      setError("Invalid email format");
+      return;
+    }
 
     try {
       const userdata = await axios.post(
@@ -55,7 +63,8 @@ const LoginPage = () => {
         else navigate("/");
       }
     } catch (err) {
-      setError("Wrong Password or Email");
+      setError(`${err.message}`);
+      //setError(err.response.data.message);
     }
   };
 
@@ -72,16 +81,36 @@ const LoginPage = () => {
   const redirecttosignup = () => {
     navigate("/signup");
   };
+
   return (
     <div className="Parentlogincontainer">
+      {error && (
+        <div id="errorContainer">
+          <Alert
+            severity="error"
+            style={{
+              backgroundColor: "#fff",
+              color: "black",
+              boxShadow: "0 0 0 5px #fcf4f4 inset",
+              borderRadius: "1vw",
+            }}
+          >
+            <AlertTitle style={{ fontSize: "20px", color: "#c40000" }}>
+              There was a problem
+            </AlertTitle>
+            {error}
+          </Alert>
+        </div>
+      )}
       <div className="containerlogin">
-        <form className="login-form" onSubmit={handlelogin}>
+        <form onSubmit={handlelogin}>
           <h1>Login</h1>
+
           <input
             type="email"
             name="email"
             value={email}
-            placeholder="UserEmail"
+            placeholder=" UserEmail"
             onChange={handleEmailChange}
             required
             minlength="4"
@@ -96,19 +125,16 @@ const LoginPage = () => {
             onChange={handlePasswordChange}
             required
             minlength="6"
-            maxlength="30"
+            maxlength="15"
           />
           <p style={{ color: "rgb(37, 58, 214)" }}>Forgot Password?</p>
-          <button type="submit" className="btn3">
+          <button type="submit" className="btn3 ">
             Login
           </button>
-          <p className="login-message">
+          <p className="login-message ">
             Not a member? <span onClick={redirecttosignup}>Sign up</span>
           </p>
         </form>
-        <span style={{ color: "red", padding: "5rem", fontSize: "1.5rem" }}>
-          {error}
-        </span>
       </div>
       <ToastContainer
         position="top-center"

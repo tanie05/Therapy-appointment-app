@@ -28,9 +28,7 @@ export const Navbar = () => {
         {role === "user" && (
           <>
             <Link to={"/profile"} className="nav-items">
-              {user.name.firstname}
-              {"   "}
-              {user.name.lastname}
+              Profile
             </Link>
             <Link to={"/history"} className="nav-items">
               History
