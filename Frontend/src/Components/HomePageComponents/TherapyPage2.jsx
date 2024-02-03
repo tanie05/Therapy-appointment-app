@@ -89,7 +89,6 @@ export default function TherapyPage2({ formData, onFormDataChange }) {
           />
 
           <select
-            defaultValue={"english"}
             className="therapy-form-field language-select"
             name="language"
             value={formData.language || "english"}
