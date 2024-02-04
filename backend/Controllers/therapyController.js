@@ -85,9 +85,8 @@ const createTherapy = async (req, res, next) => {
     }
   } catch (err) {
     // // console.log(err)
-// <<<<<<< abhinavmishra
+    // <<<<<<< abhinavmishra
     next(err);
-
   }
 };
 
