@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     margin: 1vh 2.5vw;
+    box-sizing: unset;
     /* background-color: gray; */
     
     /* background-color: beige; */

@@ -56,6 +56,7 @@ const Tab = ({ email, status, language, id, handleApi }) => {
       <div className="common" id="email">
         {email}
       </div>
+
       <div className="common" id="status">
         <div id="statusButtonField">
           <Button
