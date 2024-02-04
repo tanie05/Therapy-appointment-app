@@ -140,8 +140,40 @@ const salesforceNewTherapy = async (therapy) => {
     });
 };
 
+const salesforceUpdateTherapy = async (id, data) => {
+  const apiUrl = process.env.SALESFORCE_UPDATE_THERAPY_ENDPOINT + `${id}`;
+  const accessToken = process.env.SALESFORCE_ACCESS_TOKEN;
+
+  const patchData = data;
+
+  await fetch(apiUrl, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(patchData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        const err = new Error(`HTTP error! Status: ${response.status}`);
+        err.status = response.status;
+        throw err;
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Data send to salesforce successfully");
+    })
+    .catch((error) => {
+      console.log(error);
+      throw error;
+    });
+};
+
 module.exports = {
   salesforceNewUser,
   salesforceNewTherapy,
   salesforceUpdateUser,
+  salesforceUpdateTherapy,
 };
