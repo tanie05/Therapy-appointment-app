@@ -98,7 +98,7 @@ const AppointmentHistoryPage = () => {
 
   return (
     <>
-      <div className="flexRow">
+      <div className="fullScreen flexRow">
         <AppointmentHistorySidebar defaultValue="all" setFunction={setStatus} />
 
         <div className="rightParentContainer">

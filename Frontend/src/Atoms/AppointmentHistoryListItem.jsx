@@ -11,7 +11,9 @@ const AppointmentHistoryListItem = (props) => {
           flexDirection: "row",
           padding: "0.1rem 0 0.1rem 0",
           width: "100%",
-          border: "2px solid #fc9383",
+          height: "2rem",
+          boxShadow: "2px 2px 4px 2px rgba(0, 0, 0, 0.2)",
+          backgroundColor: "white",
           borderRadius: "0.5rem",
           marginBottom: "0.4rem",
         }}
