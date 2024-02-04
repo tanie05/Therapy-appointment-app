@@ -70,12 +70,12 @@ const SignUp = () => {
         <div className="signupContainer">
           <form onSubmit={onSubmit}>
             {/* <h1>Therapy Appointments</h1> */}
-            <h2>Sign Up</h2>
+            <h1 style={{ fontSize: "2rem" }}>Sign Up</h1>
 
-            <div className="flexRow">
+            <div className="flexRowAlign">
               <div className="signupContainerParent">
                 <Typography
-                  style={{ textAlign: "initial", fontSize: "0.8rem" }}
+                  style={{ textAlign: "initial", fontSize: "0.7rem" }}
                 >
                   First Name
                 </Typography>
@@ -91,7 +91,7 @@ const SignUp = () => {
               </div>
               <div className="signupContainerParent">
                 <Typography
-                  style={{ textAlign: "initial", fontSize: "0.8rem" }}
+                  style={{ textAlign: "initial", fontSize: "0.7rem" }}
                 >
                   Last Name
                 </Typography>
@@ -107,7 +107,7 @@ const SignUp = () => {
               </div>
             </div>
             <div className="signupContainerParent">
-              <Typography style={{ textAlign: "initial", fontSize: "0.8rem" }}>
+              <Typography style={{ textAlign: "initial", fontSize: "0.7rem" }}>
                 E-mail
               </Typography>
               <input
@@ -136,12 +136,12 @@ const SignUp = () => {
 
               <div className="birthDateContainer">
                 <Typography
-                  style={{ textAlign: "initial", fontSize: "0.8rem" }}
+                  style={{ textAlign: "initial", fontSize: "0.7rem" }}
                 >
                   Date of Birth
                 </Typography>
                 <input
-                  style={{ height: "1.4rem" }}
+                  style={{ height: "2rem", width: "10rem" }}
                   type="date"
                   name="DOB"
                   onFocus={clearErrors}
@@ -151,7 +151,7 @@ const SignUp = () => {
             </div>
 
             <div className="signupContainerParent">
-              <Typography style={{ textAlign: "initial", fontSize: "0.8rem" }}>
+              <Typography style={{ textAlign: "initial", fontSize: "0.7rem" }}>
                 Password
               </Typography>
               <input
@@ -167,7 +167,12 @@ const SignUp = () => {
             </div>
 
             <div className="signupContainerParent">
-              <Typography style={{ textAlign: "initial", fontSize: "0.8rem" }}>
+              <Typography
+                style={{
+                  textAlign: "initial",
+                  fontSize: "0.7rem",
+                }}
+              >
                 Confirm Password
               </Typography>
               <input
@@ -180,7 +185,12 @@ const SignUp = () => {
               />
             </div>
 
-            <p>
+            <p
+              style={{
+                marginTop: "1.5rem",
+                fontSize: "0.9rem",
+              }}
+            >
               Password should contain lowercase letters, uppercase letters,
               integers and special characters
             </p>
@@ -192,6 +202,7 @@ const SignUp = () => {
             <p className="signup-message">
               Already a member?{" "}
               <button
+                style={{ fontSize: "1.2rem" }}
                 className="btnhover"
                 type="none"
                 onClick={(e) => {
