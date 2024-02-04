@@ -2,7 +2,7 @@ import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import LoginPage from "./Pages/Login/LoginPage";
 import SignupPage from "./Pages/Signup/SignupPage";
 import Home from "./Pages/HomePage/Home";
-import Profilepage from "./Components/Profile/Profilepage";
+import Profilepage from "./Pages/Profile/Profilepage";
 import { useSelector } from "react-redux";
 import Admin from "./Pages/Admin/Admin";
 import "./app.css";
@@ -11,7 +11,6 @@ import { Navbar } from "./Components/Navbar/Navbar";
 import NavWrapper from "./Components/NavWrapper/NavWrapper";
 function App() {
   const userInfo = useSelector((state) => state.userInfo);
-  // console.log(userInfo);
   return (
     <>
       <BrowserRouter>

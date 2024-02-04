@@ -94,7 +94,6 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="form-container">
         <TherapyHeader />
 
