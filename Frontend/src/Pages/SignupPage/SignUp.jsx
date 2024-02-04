@@ -196,7 +196,7 @@ const SignUp = () => {
                 type="none"
                 onClick={(e) => {
                   e.preventDefault();
-                  navigate("/");
+                  navigate("/login");
                 }}
               >
                 Log In

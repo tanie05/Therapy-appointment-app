@@ -98,7 +98,6 @@ const AppointmentHistoryPage = () => {
 
   return (
     <>
-      <Navbar />
       <div className="flexRow">
         <AppointmentHistorySidebar defaultValue="all" setFunction={setStatus} />
 

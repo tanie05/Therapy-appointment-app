@@ -3,8 +3,7 @@ import { Navbar } from "../Components/Navbar/Navbar";
 
 export const PrivateRotuerUser = () => {
   const auth = JSON.parse(localStorage.getItem("user"));
-
-  console.log(auth);
+  console.log("auth -> ", auth);
   // if()
   return auth && auth.isLoggedIn && auth.role === "user" ? (
     <Outlet />
