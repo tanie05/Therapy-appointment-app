@@ -113,17 +113,16 @@ const Filter = ({ handleApi, handleSectionScroll }) => {
           type="text"
           placeholder="Search Users By Email"
         />
+        {/* <div className="filterBtn"> */}
         <SearchIcon
           id="search"
-          className="filterBtn button"
+          className="filterBtn iconButton"
           onClick={handleBtnClick}
         />
-
-        <CloseIcon
-          id="reset"
-          className="filterBtn button"
-          onClick={resetEmail}
-        />
+        {/* </div> */}
+        {/* <div className="filterBtn"> */}
+        <CloseIcon id="reset" className="iconButton" onClick={resetEmail} />
+        {/* </div> */}
       </div>
       <div className="filterField" id="dropDownField">
         <div className="label">
@@ -137,7 +136,7 @@ const Filter = ({ handleApi, handleSectionScroll }) => {
           </div>
 
           <ArrowDropDownIcon
-            className="button"
+            className="iconButton"
             onClick={() => setToggle((val) => !val)}
           ></ArrowDropDownIcon>
           {toggle && (
@@ -151,11 +150,14 @@ const Filter = ({ handleApi, handleSectionScroll }) => {
       </div>
 
       <div className="filterField" id="removeFilter">
-        <RemoveCircleOutlineIcon
-          className="button"
+        {/* <RemoveCircleOutlineIcon
+          className="iconButton"
           id="removeFilterBtn"
           onClick={handleRemoveFilter}
-        ></RemoveCircleOutlineIcon>
+        ></RemoveCircleOutlineIcon> */}
+        <button id="removeFilterBtn" onClick={handleRemoveFilter}>
+          {"Remove Filter"}
+        </button>
       </div>
     </div>
   );
