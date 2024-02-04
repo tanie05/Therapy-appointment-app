@@ -1,10 +1,16 @@
-#adminContainer{
+
+
+.adminContainer{
     display: flex;
     flex-direction: row;
     margin: 1vh 2.5vw;
-    box-sizing: unset;
+    box-sizing:content-box;
     /* background-color: gray; */
     
     /* background-color: beige; */
     /* height: 1000px; */
+}
+
+.adminContainer *{
+    box-sizing: content-box;
 }

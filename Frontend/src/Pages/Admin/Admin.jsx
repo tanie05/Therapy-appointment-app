@@ -4,11 +4,12 @@ import { Button } from "@mui/material";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Client from "../../Components/Client/Client";
 import "./admin.css";
+
 import { Navbar } from "../../Components/Navbar/Navbar";
 
 const Admin = () => {
   return (
-    <div id="adminContainer">
+    <div className="adminContainer">
       <SidePane />
       <Client />
     </div>
