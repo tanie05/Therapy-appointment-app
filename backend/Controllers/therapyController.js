@@ -9,13 +9,19 @@ const { validatePhone, validateAddress } = require("../Utils/therapyUtils");
 const ObjectId = require("mongodb").ObjectId;
 
 async function fetchSingleTherapy(req, res) {
-  const therapyId = req.params.id;
-  const result = await fetchTherapyWithId(therapyId);
-
-  if (result) {
-    res.status(200).send({ success: true, therapy: result });
-  } else {
-    res.status(404).send({ success: false, message: "Therapy not found" });
+  try {
+    const therapyId = req.params.id;
+    const result = await fetchTherapyWithId(therapyId);
+    if (result) {
+      res.status(200).send({ success: true, therapy: result });
+    } else {
+      const error = new Error("Therapy Not Found");
+      error.status = 404;
+      throw error;
+      res.status(404).send({ success: false, message: "Therapy not found" });
+    }
+  } catch (err) {
+    next(err);
   }
 }
 
@@ -35,7 +41,7 @@ const createTherapy = async (req, res, next) => {
 
     if (!validateAddress(rest.address)) {
       const error = new Error();
-      error.message = "Invalid house number"
+      error.message = "Invalid house number";
       error.status = 401;
       throw error;
     }
@@ -57,9 +63,7 @@ const createTherapy = async (req, res, next) => {
     res.status(200).json({ success: true, data: result });
   } catch (err) {
     // // console.log(err)
-    if (err.status) res.status(err.status).json({success: false, message: err.message});
-    else res.status(500).json({success: false, message: err.message});
-    
+    next(err);
   }
 };
 
@@ -74,8 +78,9 @@ const getAllTherapies = async (req, res, next) => {
     const result = await getTherapy(page, pageSize, email, accessCode);
     res.status(200).json(result);
   } catch (err) {
-    if (err.status) res.status(err.status).json(err.message);
-    else res.status(500).json(err.message);
+    // if (err.status) res.status(err.status).json(err.message);
+    // else res.status(500).json(err.message);
+    next(err);
   }
 };
 
@@ -86,8 +91,9 @@ const deleteTherapy = async (req, res, next) => {
     const result = await deleteTherapyById(userId);
     res.status(200).json(result);
   } catch (err) {
-    if (err.statu) res.status(err.status).json(err.message);
-    else res.status(500).json(err.message);
+    // if (err.statu) res.status(err.status).json(err.message);
+    // else res.status(500).json(err.message);
+    next(err);
   }
 };
 
@@ -103,8 +109,9 @@ const updateTherapy = async (req, res, next) => {
     const result = updateTherapyById(id, data);
     res.status(200).send(result);
   } catch (err) {
-    if (err.status) res.status(err.status).json(err.message);
-    else res.status(500).json(err.message);
+    // if (err.status) res.status(err.status).json(err.message);
+    // else res.status(500).json(err.message);
+    next(err);
   }
 };
 
