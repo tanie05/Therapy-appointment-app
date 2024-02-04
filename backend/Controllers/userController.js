@@ -18,11 +18,7 @@ const {
 
 const jwt = require("jsonwebtoken");
 
-<<<<<<< HEAD
 async function editUser(req, res, next) {
-=======
-async function editUser(req, res) {
->>>>>>> origin
   const updates = req.body;
   const userId = req.params.id;
 
@@ -47,12 +43,7 @@ async function editUser(req, res) {
       });
     }
   } catch (err) {
-<<<<<<< HEAD
     next(err);
-=======
-    // console.error(err);
-    res.status(500).json({ error: "Internal server error." });
->>>>>>> origin
   }
 }
 
@@ -123,20 +114,13 @@ const loginController = async (req, res, next) => {
       const token = await jwt.sign({ id: user.id }, "abc", {
         expiresIn: "1h",
       });
-<<<<<<< HEAD
-      res.status(200).json({
-        token: token,
-        user: { name: user.name, _id: user._id, role: user.role },
-      });
-=======
       res
         .status(200)
         .json({
           token: token,
           user: { name: user.name, _id: user._id, role: user.role },
         });
->>>>>>> origin
-    }
+    
   } catch (error) {
     next(error);
   }
