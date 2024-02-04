@@ -15,13 +15,14 @@ export const Navbar = () => {
   const dispatch = useDispatch();
 
   const handleLogOut = (e) => {
+    localStorage.clear();
     dispatch(logout(false));
     navigate("/login");
   };
 
   return (
     <div className="nav-container">
-      <div className="nav-link-list nav-items">
+      <div className="nav-link-list">
         <Link to={"/"} className="nav-items">
           Home
         </Link>
@@ -35,6 +36,7 @@ export const Navbar = () => {
             </Link>
           </>
         )}
+  </div>
         <Button
           // style={{ height: "0.2vh", width: "0.1vw" }}
           onClick={handleLogOut}
@@ -42,7 +44,7 @@ export const Navbar = () => {
         >
           <LogoutIcon />
         </Button>
-      </div>
+    
     </div>
   );
 };

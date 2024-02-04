@@ -34,20 +34,7 @@ function App() {
 
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
-          {/* {userInfo.isLoggedIn && userInfo.role === "admin" && (
-            <Route path="/" element={<Admin />}></Route>
-          )}
-          {userInfo.isLoggedIn && userInfo.role === "user" && (
-            <>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/profile" element={<Profilepage />}></Route>
-            </>
-          )}
-
-          {userInfo.isLoggedIn === false && (
-            <>
-            </>
-          )} */}
+         
         </Routes>
       </BrowserRouter>
     </>

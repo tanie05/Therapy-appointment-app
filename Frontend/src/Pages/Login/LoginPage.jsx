@@ -103,8 +103,8 @@ const LoginPage = () => {
             placeholder=" UserEmail"
             onChange={handleEmailChange}
             required
-            minlength="4"
-            maxlength="30"
+            minLength="4"
+            maxLength="30"
           />
           <input
             type="password"
@@ -114,8 +114,8 @@ const LoginPage = () => {
             placeholder="Password"
             onChange={handlePasswordChange}
             required
-            minlength="6"
-            maxlength="15"
+            minLength="6"
+            maxLength="15"
           />
           <p style={{ color: "rgb(37, 58, 214)" }}>Forgot Password?</p>
           <button type="submit" className="btn3 ">
