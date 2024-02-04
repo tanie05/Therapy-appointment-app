@@ -3,6 +3,10 @@
   flex-direction: row;
 }
 
+.fullScreen {
+  height: 100vh;
+}
+
 .rightParentContainer {
   width: 100%;
 }
@@ -91,4 +95,5 @@
   flex-direction: row;
   justify-content: space-around;
   width: 20%;
+  font-weight: 700;
 }
