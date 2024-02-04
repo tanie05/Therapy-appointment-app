@@ -34,11 +34,12 @@ const createTherapy = async (req, res, next) => {
       ...rest
     } = req.body;
 
-    // if (!validatePhone(phone.number) || !validateAddress(rest.address)) {
-    //   const error = new Error("Invalid Entries");
-    //   error.status = 401;
-    //   throw error;
-    // }
+    if (!validateAddress(rest.address)) {
+      const error = new Error();
+      error.message = "Invalid house number";
+      error.status = 401;
+      throw error;
+    }
 
     const therapy = {
       healthPlan,
@@ -77,17 +78,22 @@ const createTherapy = async (req, res, next) => {
       throw error2;
     }
   } catch (err) {
-    if (err.status) res.status(err.status).json(err.message);
-    else res.status(500).json(err.message);
+    // // console.log(err)
+    if (err.status)
+      res.status(err.status).json({ success: false, message: err.message });
+    else res.status(500).json({ success: false, message: err.message });
   }
 };
 
 const getAllTherapies = async (req, res, next) => {
   try {
-    const page = parseInt(req.query.page) || 1; // Current page number
-    const pageSize = parseInt(req.query.pageSize) || 10; // Number of items per page
+    console.log(req.query);
+    const page = req.query.page ? parseInt(req.query.page) : 0; // Current page number
+    const accessCode = req.query.accessCode || "";
+    const email = req.query.email || "";
+    const pageSize = 10; // Number of items per page
 
-    const result = await getTherapy(page, pageSize);
+    const result = await getTherapy(page, pageSize, email, accessCode);
     res.status(200).json(result);
   } catch (err) {
     if (err.status) res.status(err.status).json(err.message);

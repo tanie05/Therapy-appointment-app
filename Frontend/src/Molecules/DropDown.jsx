@@ -2,21 +2,24 @@ import React from "react";
 import { Button } from "@mui/material";
 import "./dropdown.css";
 
-const DropDown = ({ list }) => {
+const DropDown = ({ list, setAccess, setToggle, handleClick }) => {
   return (
     <div id="dropDownContainer">
-      <div className="dropDownField">
-        {list.map((text, index) => {
-          return (
-            <Button
-              style={{ fontSize: "2vh", padding: "0px", width: "90%" }}
-              key={index}
+      {list.map((text, index) => {
+        return (
+          <div key={index} className="dropDownField">
+            <button
+              onClick={(e) => {
+                setAccess(text);
+                setToggle(false);
+              }}
+              className="dropDownBtn"
             >
-              {text}
-            </Button>
-          );
-        })}
-      </div>
+              {text.charAt(0).toUpperCase() + text.slice(1)}
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 };

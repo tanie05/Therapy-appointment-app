@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../Redux/Slices/userInfo";
 import { useDispatch, useSelector } from "react-redux";
 import LogoutIcon from "@mui/icons-material/Logout";
-import './navbar.css';
+import "./navbar.css";
+import { Button } from "@mui/material";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -14,23 +15,34 @@ export const Navbar = () => {
   const dispatch = useDispatch();
 
   const handleLogOut = (e) => {
-    dispatch(logout());
-    navigate("/");
+    dispatch(logout(false));
+    navigate("/login");
   };
 
   return (
     <div className="nav-container">
-      <div className="nav-link-list">
-      <Link to={"/"} className="nav-items">Home</Link>
-      {role === "user" && (
-        <>
-          <Link to={"/profile"} className="nav-items" >{user.name.firstname}</Link>
-          <Link to={"/history"} className="nav-items" >History</Link>
-        </>
-      )}
-      <LogoutIcon onClick={handleLogOut} className="logout-icon nav-items"/>
+      <div className="nav-link-list nav-items">
+        <Link to={"/"} className="nav-items">
+          Home
+        </Link>
+        {role === "user" && (
+          <>
+            <Link to={"/profile"} className="nav-items">
+              Profile
+            </Link>
+            <Link to={"/history"} className="nav-items">
+              History
+            </Link>
+          </>
+        )}
+        <Button
+          // style={{ height: "0.2vh", width: "0.1vw" }}
+          onClick={handleLogOut}
+          className="logout-icon nav-items"
+        >
+          <LogoutIcon />
+        </Button>
       </div>
-      
     </div>
   );
 };

@@ -1,20 +1,40 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import LoginPage from "./Pages/Login/LoginPage";
 import Home from "./Pages/HomePage/Home";
-import Profilepage from "./Components/Profile/Profilepage";
+import Profilepage from "./Pages/Profile/Profilepage";
 import { useSelector } from "react-redux";
 import Admin from "./Pages/Admin/Admin";
 import SignUp from "./Pages/SignupPage/SignUp";
 import AppointmentHistoryPage from "./Pages/AppointmentHistoryPage/AppointmentHistoryPage";
-
+import "./app.css";
+import { PrivateRotuerAdmin, PrivateRotuerUser } from "./PrivateRoutes";
+import { Navbar } from "./Components/Navbar/Navbar";
+import NavWrapper from "./Components/NavWrapper/NavWrapper";
 function App() {
   const userInfo = useSelector((state) => state.userInfo);
-  // console.log(userInfo);
   return (
     <>
       <BrowserRouter>
         <Routes>
-          {userInfo.isLoggedIn && userInfo.role === "admin" && (
+          <Route element={<NavWrapper />}>
+            <Route element={<PrivateRotuerUser />}>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/profile" element={<Profilepage />}></Route>
+              <Route
+                path="/history"
+                element={<AppointmentHistoryPage />}
+              ></Route>
+            </Route>
+          </Route>
+          <Route element={<NavWrapper />}>
+            <Route element={<PrivateRotuerAdmin />}>
+              <Route path="/admin" element={<Admin />}></Route>
+            </Route>
+          </Route>
+
+          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
+          {/* {userInfo.isLoggedIn && userInfo.role === "admin" && (
             <Route path="/" element={<Admin />}></Route>
           )}
           {userInfo.isLoggedIn && userInfo.role === "user" && (
@@ -23,17 +43,11 @@ function App() {
               <Route path="/profile" element={<Profilepage />}></Route>
             </>
           )}
-          {/*To be inserted in userInfo.isLoggedin===true part*/}
-          <Route
-            path="/history"
-            element={<AppointmentHistoryPage />}
-          ></Route>{" "}
+
           {userInfo.isLoggedIn === false && (
             <>
-              <Route path="/signup" element={<SignUp />}></Route>
-              <Route path="/" element={<LoginPage />}></Route>
             </>
-          )}
+          )} */}
         </Routes>
       </BrowserRouter>
     </>

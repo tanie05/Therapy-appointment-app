@@ -5,9 +5,24 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./therapyForms.css";
 import "react-phone-input-2/lib/style.css";
-import { MuiTelInput } from "mui-tel-input";
-
+import MuiPhoneNumber from "material-ui-phone-number";
+import dayjs from "dayjs";
 export default function TherapyPage1({ formData, onFormDataChange }) {
+  const [showEmailError, setShowEmailError] = useState(false);
+  const [error, setError] = useState({
+    houseNo: false,
+    locality: false,
+    city: false,
+    state: false,
+    country: false,
+  });
+
+  const emptyCheck = (name, value) => {
+    if (value === "") {
+      setError((prev) => ({ ...prev, [name]: true }));
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     onFormDataChange({ [name]: value });
@@ -17,15 +32,20 @@ export default function TherapyPage1({ formData, onFormDataChange }) {
     onFormDataChange({ phone: value });
   }
 
-  function handleDateChange(value) {
-    const dobString = value.$d;
-    const dobDate = new Date(dobString);
-    onFormDataChange({ dob: dobDate });
+  function handleDateChange(name, value) {
+    // console.log("date change function : ", value.$d)
+    onFormDataChange({ [name]: value });
+  }
+
+  function validateEmail(e) {
+    const email = e.target.value;
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setShowEmailError(emailRegex.test(email) === false);
   }
 
   return (
-    <div className="therapy-form-one-container">
-      <form>
+    <div className="therapy--form--container">
+      <form className="therapy-form">
         <div className="therapy-row">
           <TextField
             className="therapy-form-field"
@@ -48,10 +68,13 @@ export default function TherapyPage1({ formData, onFormDataChange }) {
           />
         </div>
         <div className="therapy-row">
-          <MuiTelInput
+          <MuiPhoneNumber
+            onlyCountries={["in", "us", "il"]}
             name="phone"
+            defaultCountry={"in"}
             value={formData.phone}
             onChange={handlePhoneChange}
+            className="therapy-form-field"
           />
 
           <TextField
@@ -62,31 +85,40 @@ export default function TherapyPage1({ formData, onFormDataChange }) {
             label="Email"
             value={formData.email ? formData.email : ""}
             onChange={handleInputChange}
+            onBlur={validateEmail}
+            helperText={showEmailError ? "Enter a valid email" : ""}
           />
         </div>
 
-        <div>
+        <div className="therapy-row">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              className="therapy-description"
+              disableFuture
+              className="therapy-form-field"
               label="Date of Birth"
-              value={formData.dob ? formData.dob : ""}
-              onChange={handleDateChange}
-              name="dob"
+              value={formData.DOB}
+              onChange={(val) => handleDateChange("DOB", val)}
+              name="DOB"
             />
           </LocalizationProvider>
         </div>
 
-        <div className="address-container">
-          <div className="address-row">
+        <div className="address-div">
+          <div className="therapy-row">
             <TextField
-              required
               className="therapy-form-field"
               label="House Number"
               variant="standard"
               name="houseno"
               value={formData.houseno}
               onChange={handleInputChange}
+              inputProps={{
+                maxLength: 5,
+              }}
+              type="Number"
+              required
+              onBlur={(e) => emptyCheck("houseNo", e.target.value)}
+              helperText={error.houseNo ? "Enter a valid house number" : ""}
             />
             <TextField
               required
@@ -96,6 +128,11 @@ export default function TherapyPage1({ formData, onFormDataChange }) {
               name="locality"
               value={formData.locality}
               onChange={handleInputChange}
+              inputProps={{
+                maxLength: 30,
+              }}
+              onBlur={(e) => emptyCheck("locality", e.target.value)}
+              helperText={error.locality ? "Enter your locality" : ""}
             />
             <TextField
               required
@@ -105,9 +142,14 @@ export default function TherapyPage1({ formData, onFormDataChange }) {
               name="city"
               value={formData.city}
               onChange={handleInputChange}
+              inputProps={{
+                maxLength: 30,
+              }}
+              onBlur={(e) => emptyCheck("city", e.target.value)}
+              helperText={error.city ? "Enter your city" : ""}
             />
           </div>
-          <div className="address-row">
+          <div className="therapy-row">
             <TextField
               required
               className="therapy-form-field"
@@ -116,6 +158,11 @@ export default function TherapyPage1({ formData, onFormDataChange }) {
               name="state"
               value={formData.state}
               onChange={handleInputChange}
+              inputProps={{
+                maxLength: 30,
+              }}
+              onBlur={(e) => emptyCheck("state", e.target.value)}
+              helperText={error.state ? "Enter your state" : ""}
             />
             <TextField
               required
@@ -125,10 +172,16 @@ export default function TherapyPage1({ formData, onFormDataChange }) {
               name="country"
               value={formData.country}
               onChange={handleInputChange}
+              inputProps={{
+                maxLength: 30,
+              }}
+              onBlur={(e) => emptyCheck("country", e.target.value)}
+              helperText={error.country ? "Enter your country" : ""}
             />
           </div>
         </div>
       </form>
+      <div id="errorField"></div>
     </div>
   );
 }

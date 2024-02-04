@@ -21,7 +21,7 @@ const {
 
 const jwt = require("jsonwebtoken");
 
-async function editUser(req, res) {
+async function editUser(req, res, next) {
   const updates = req.body;
   const userId = req.params.id;
 
@@ -34,9 +34,10 @@ async function editUser(req, res) {
     }
 
     const updatedUser = await updateUser(userId, updates);
-
     if (!updatedUser) {
-      res.status(404).send({ success: false, message: "user not found" });
+      const error = new Error("Internal error while updating");
+      error.status = 400;
+      throw error;
     } else {
       res.status(200).send({
         success: true,
@@ -45,8 +46,7 @@ async function editUser(req, res) {
       });
     }
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal server error." });
+    next(err);
   }
 }
 
@@ -117,7 +117,7 @@ const loginController = async (req, res, next) => {
     const { email, password } = req.body;
     // console.log(req.body);
     if (!email || !password) {
-      const error = new Error("email or password not provided");
+      const error = new Error("Email or password not provided");
       error.status = 400;
       throw error;
     }
@@ -128,7 +128,7 @@ const loginController = async (req, res, next) => {
     }
     const user = await finduserbyemail({ email });
     if (!user) {
-      const error = new Error("user not exist");
+      const error = new Error("User not exist");
       error.status = 400;
       throw error;
     }
@@ -190,11 +190,21 @@ const showUserProfile = async (req, res, next) => {
       error.status = 401;
       throw error;
     }
+    function convertDateTimeToDateFormat(dateTimeString) {
+      const date = new Date(dateTimeString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0"); // Month is zero-based, so add 1 and pad with zero if needed
+      const day = String(date.getDate()).padStart(2, "0"); // Pad with zero if needed
 
+      return `${year}-${month}-${day}`;
+    }
+
+    const formattedDate = convertDateTimeToDateFormat(data.DOB);
+    // Output: "2022-02-01"
     const userInfo = {
       name: data.name,
       language: data.language,
-      DOB: data.DOB,
+      DOB: formattedDate,
       email: data.email,
     };
 

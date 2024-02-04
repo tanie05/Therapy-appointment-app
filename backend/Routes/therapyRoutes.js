@@ -8,16 +8,17 @@ const {
   updateTherapy,
   fetchSingleTherapy,
 } = require("../Controllers/therapyController");
+const authMiddleware = require("../Middlewares/authMiddleware");
 
-router.post("/create", createTherapy);
+router.post("/create", authMiddleware, createTherapy);
 
-router.get("/", getAllTherapies);
+router.get("/", authMiddleware, getAllTherapies);
 
-router.put("/:id", updateTherapy);
+router.put("/:id", authMiddleware, updateTherapy);
 
-router.delete("/:id", deleteTherapy);
+router.delete("/:id", authMiddleware, deleteTherapy);
 
-router.get("/history", (req, res) => {
+router.get("/history", authMiddleware, (req, res) => {
   // get request by user to view his appointments
 });
 

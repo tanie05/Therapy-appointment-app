@@ -9,7 +9,6 @@ import { Navbar } from "../../Components/Navbar/Navbar";
 const Admin = () => {
   return (
     <div id="adminContainer">
-      <Navbar />
       <SidePane />
       <Client />
     </div>

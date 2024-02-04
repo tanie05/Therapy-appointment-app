@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import TextField from "@mui/material/TextField";
 import "./therapyForms.css";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+import Flatpickr from "react-flatpickr";
+import("flatpickr/dist/themes/material_blue.css");
 
 export default function TherapyPage2({ formData, onFormDataChange }) {
   const handleInputChange = (e) => {
@@ -15,45 +14,66 @@ export default function TherapyPage2({ formData, onFormDataChange }) {
   };
 
   const addAppointmentTime = (name, value) => {
-    const dateTime = new Date(value.$d);
-    onFormDataChange({ [name]: dateTime });
+    console.log("time - ", value[0]);
+    onFormDataChange({ [name]: value[0] });
   };
 
-  const handleChange = () => {};
+  const options = {
+    enableTime: true,
+    minTime: "09:00",
+    maxTime: "18:00",
+    dateFormat: "Y-m-d H:i",
+    time_24hr: true,
+    disable: [
+      function (date) {
+        // Disable weekends
+        return date.getDay() === 0 || date.getDay() === 6;
+      },
+    ],
+    minDate: "today",
+  };
+
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={["DateTimePicker"]}>
+    <div className="therapy--form--container">
+      <div className="therapy-form">
         <div className="therapy-row">
-          <DateTimePicker
+          <Flatpickr
+            options={options}
+            placeholder="Appointment time 1"
             name="time1"
-            value={formData.time1}
-            className="therapy-form-field"
-            label="Appointment time 1"
-            onChange={(val) => addAppointmentTime("time1", val)}
+            value={formData.time1 || ""}
+            className="therapy-form-field datetime-picker"
+            onChange={(e) => addAppointmentTime("time1", e)}
+            required
           />
-          <DateTimePicker
+
+          <Flatpickr
+            options={options}
+            placeholder="Appointment time 2"
             name="time2"
-            value={formData.time2}
-            className="therapy-form-field"
-            label="Appointment time 2"
-            onChange={(val) => addAppointmentTime("time2", val)}
+            value={formData.time2 || ""}
+            className="therapy-form-field datetime-picker"
+            onChange={(e) => addAppointmentTime("time2", e)}
           />
         </div>
 
         <div className="therapy-row">
-          <DateTimePicker
+          <Flatpickr
+            options={options}
+            placeholder="Appointment time 3"
             name="time3"
-            value={formData.time3}
-            className="therapy-form-field"
-            label="Appointment time 3"
-            onChange={(val) => addAppointmentTime("time3", val)}
+            value={formData.time3 || ""}
+            className="therapy-form-field datetime-picker"
+            onChange={(e) => addAppointmentTime("time3", e)}
           />
-          <DateTimePicker
+
+          <Flatpickr
+            options={options}
+            placeholder="Appointment time 4"
             name="time4"
-            value={formData.time4}
-            className="therapy-form-field"
-            label="Appointment time 4"
-            onChange={(val) => addAppointmentTime("time4", val)}
+            value={formData.time4 || ""}
+            className="therapy-form-field datetime-picker"
+            onChange={(e) => addAppointmentTime("time4", e)}
           />
         </div>
 
@@ -69,9 +89,9 @@ export default function TherapyPage2({ formData, onFormDataChange }) {
           />
 
           <select
-            defaultValue={"english"}
+            className="therapy-form-field language-select"
             name="language"
-            value={formData.language}
+            value={formData.language || "english"}
             onChange={handleInputChange}
           >
             <option value="english">English</option>
@@ -79,18 +99,18 @@ export default function TherapyPage2({ formData, onFormDataChange }) {
           </select>
         </div>
 
-        <div>
+        <div className="therapy-row">
           <textarea
             required
             className="therapy-form-field therapy-description"
             name="description"
-            rows="10"
+            rows="8"
             placeholder="Briefly describe your reason to seek therapy"
             value={formData.description}
             onChange={handleInputChange}
           />
         </div>
-      </DemoContainer>
-    </LocalizationProvider>
+      </div>
+    </div>
   );
 }

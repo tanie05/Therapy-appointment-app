@@ -2,4 +2,127 @@
     display: flex;
     flex-direction: column;
     width: 100vw;
+    margin-right: 4vw;
+    margin-left: 4vw;
+    /* justify-content: space-around; */
+    /* border-left: 0.2vh solid gray;
+    border-bottom: 0.2vh solid gray; */
+    /* display: flex; */
+    /* margin-left: 4vw; */
+    /* background: linear-gradient(to right, #f6d0ab, #f4a94e); */
+    
+    border-radius: 0.4vw;
+    
+}
+
+.snackbar{
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+
+.totalRecord{
+    position: absolute;
+    height: 10vh;
+    margin: 0px;
+    padding: 0px;
+    top: -2vw;
+    left: 0;
+    color: rgb(255, 119, 0);
+    font-size: large;
+}
+
+#total{
+    position: absolute;
+    box-shadow: 0 0 0.1vw 0.01vw gray;
+    height: 2vh;
+}
+
+#pageSelection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2vh 2vw;
+    border-top: 0.2vh solid black;
+    /* width: 110%; */
+    /* margin-left: -2vw; */
+}
+
+.page{
+    background-color: rgb(245, 244, 244);
+    border: none;
+    height: 3vh;
+    width: 3%;
+    border-radius: 0.8vh;
+    /* font-size: 200%; */
+    font-weight: 50;
+    margin: 1vh 1vw;
+    /* background-color: rgb(0, 153, 255); */
+    color: #0698f6;
+    /* color: rgb(21, 173, 228); */
+    /* padding: 2vw; */
+    /* height: 2vh;
+    width: 2vw; */
+}
+#list{
+    padding-top: 0.5vh;
+    border-left: 0.1vh solid gray;
+    /* margin-left: 1vw; */
+    overflow: auto;
+    max-height: 60vh;
+    -webkit-box-shadow: 0 0 0.05vw 0.05vw gray;
+    box-shadow: 0 0 0.05vw 0.05vw gray;
+    background-color: white;
+    /* display: flex; */
+    
+    /* margin-left: 4vw; */
+    
+}
+#tabHeading{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    color: black;
+    /* box-sizing: border-box; */
+    /* align-items: center; */
+    justify-content: center;
+    margin-top: 8vh ;
+    height: 6vh;
+    /* padding-bottom: 4vh; */
+    padding-left: 2vw;
+    /* width: 95%; */
+    /* margin-left: 1vw; */
+    border-left: 0.2vh solid gray;
+    /* border-bottom: 0.2vh solid gray; */
+    font-size: 3vh;
+    font-weight: 400;
+    font-style: bold;
+    -webkit-box-shadow: 0 0 0.1vw 0.01vw gray;
+    box-shadow: 0 0 0.1vw 0.01vw gray;
+    background-color: #009fffa6;
+
+}
+
+#user, #status, #language{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#user{
+    
+    width: 60%;
+    padding-left: 1vw;
+
+}
+#status, #language{
+    width: 19%;
+}
+
+.errorHandle{
+    color: orange;
+    font-size: 2.5vh;
+    padding: 1vh 3vw;
 }

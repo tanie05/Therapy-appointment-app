@@ -6,10 +6,8 @@ const {
 } = require("../Controllers/userController");
 const errorMiddleware = require("../Middlewares/errorMiddleware");
 
-router.post("/signup", registerController);
+router.post("/signup", registerController, errorMiddleware);
 
-router.post("/login", loginController);
-
-router.use(errorMiddleware);
+router.post("/login", loginController, errorMiddleware);
 
 module.exports = router;

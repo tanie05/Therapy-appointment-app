@@ -3,10 +3,16 @@ import { login } from "../../Redux/Slices/userInfo";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import validateEmail from "../../../util";
+import { Alert } from "@mui/material";
+import AlertTitle from "@mui/material/AlertTitle";
+
 import "./Login.css";
 
 const LoginPage = () => {
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,31 +23,38 @@ const LoginPage = () => {
     const rawdata = new FormData(e.target);
     const data = Object.fromEntries(rawdata.entries());
 
+    if (!validateEmail(email)) {
+      setError("Invalid email format");
+      return;
+    }
+
     try {
       const userdata = await axios.post(
         `http://localhost:5000/auth/login`,
         data
       );
 
-      console.log(userdata);
+      if (userdata) {
+        const token = userdata.data.token;
+        localStorage.setItem("token", token);
 
-      const token = userdata.data.token;
-      localStorage.setItem("token", token);
-      const userInfo = userdata.data.user;
-      const storeUser = {
-        isLoggedIn: true,
-        _id: userInfo._id,
-        name: userInfo.name,
-        role: userInfo.role,
-      };
+        const userInfo = userdata.data.user;
+        const storeUser = {
+          isLoggedIn: true,
+          _id: userInfo._id,
+          name: userInfo.name,
+          role: userInfo.role,
+        };
+        localStorage.setItem("user", JSON.stringify(storeUser));
 
-      localStorage.setItem("user", JSON.stringify(storeUser));
-
-      dispatch(login(storeUser));
-
-      navigate("/");
+        dispatch(login(storeUser));
+        if (userInfo.role === "admin") navigate("/admin");
+        else navigate("/");
+      }
     } catch (err) {
-      setError("Wrong Password or Email");
+      console.log(err);
+      setError(`${err.response.data.message}`);
+      //setError(err.response.data.message);
     }
   };
 
@@ -58,19 +71,40 @@ const LoginPage = () => {
   const redirecttosignup = () => {
     navigate("/signup");
   };
+
   return (
-    <div className="Parentcontainer">
-      <div className="container">
-        <form className="login-form" onSubmit={handlelogin}>
+    <div className="Parentlogincontainer">
+      {error && (
+        <div id="errorContainer">
+          <Alert
+            severity="error"
+            style={{
+              backgroundColor: "#fff",
+              color: "black",
+              boxShadow: "0 0 0 5px #fcf4f4 inset",
+              borderRadius: "1vw",
+            }}
+          >
+            <AlertTitle style={{ fontSize: "20px", color: "#c40000" }}>
+              There was a problem
+            </AlertTitle>
+            {error}
+          </Alert>
+        </div>
+      )}
+      <div className="containerlogin">
+        <form onSubmit={handlelogin}>
           <h1>Login</h1>
+
           <input
             type="email"
-            id="email"
             name="email"
             value={email}
-            placeholder="UserEmail"
+            placeholder=" UserEmail"
             onChange={handleEmailChange}
             required
+            minlength="4"
+            maxlength="30"
           />
           <input
             type="password"
@@ -80,19 +114,30 @@ const LoginPage = () => {
             placeholder="Password"
             onChange={handlePasswordChange}
             required
+            minlength="6"
+            maxlength="15"
           />
           <p style={{ color: "rgb(37, 58, 214)" }}>Forgot Password?</p>
-          <button type="submit" className="btn3">
+          <button type="submit" className="btn3 ">
             Login
           </button>
-          <p className="login-message">
+          <p className="login-message ">
             Not a member? <span onClick={redirecttosignup}>Sign up</span>
           </p>
         </form>
-        <span style={{ color: "red", padding: "5rem", fontSize: "1.5rem" }}>
-          {error}
-        </span>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

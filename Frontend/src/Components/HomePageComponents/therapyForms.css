@@ -1,42 +1,37 @@
+.therapy--form--container {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  height: 60vh;
+}
+
 .therapy-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .address-container {
-    margin-top: 24px;
-  }
-  
-  .address-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  
-  .therapy-form-field {
-    flex: 1;
-    margin: 5px !important;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px;
+  width: 100%;
+  padding: 0;
+}
 
-  .form-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: max-content;
-    margin: auto; 
-    height: 100vh; 
-  }
+.therapy-form-field {
+  flex: 1;
+  margin: 8px !important;
+}
 
+.therapy-form,
+.address-div {
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-
-
- .therapy-description{
-    width: 80vh;
- }
- .therapy-phone{
-   align-self: center;
- }
-
+.datetime-picker,
+.language-select, .therapy-description {
+  padding: 10px;
+  font-size: inherit;
+  font-family:Arial, Helvetica, sans-serif;
+}
