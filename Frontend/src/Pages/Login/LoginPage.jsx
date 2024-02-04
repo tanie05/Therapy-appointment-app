@@ -30,7 +30,7 @@ const LoginPage = () => {
 
     try {
       const userdata = await axios.post(
-        "http://localhost:5000/auth/login",
+        `http://localhost:5000/auth/login`,
         data
       );
 

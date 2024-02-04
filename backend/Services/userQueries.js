@@ -65,6 +65,14 @@ async function createUser(userdetails) {
   }
 }
 
+async function deleteUser(userId) {
+  try {
+    const response = await User.findByIdAndDelete(userId);
+  } catch (err) {
+    throw err;
+  }
+}
+
 const findUserById = async (id) => {
   try {
     const user = await User.findById(id);
@@ -83,9 +91,15 @@ const findAllUsers = async () => {
   }
 };
 
-const findAppointmentHistory = async (userId) => {
+const findAppointmentHistory = async (filter, sort, pageNum) => {
+  const pageSize = 5;
+  const skipDocuments = (pageNum - 1) * pageSize;
+  //filter will have userId, status as well as languages
   try {
-    const appointments = await Therapy.find({ userId: userId });
+    const appointments = await Therapy.find(filter)
+      .sort(sort)
+      .skip(skipDocuments)
+      .limit(pageSize);
     return appointments;
   } catch (err) {
     throw Error;
@@ -100,4 +114,5 @@ module.exports = {
   findUserById,
   findAllUsers,
   findAppointmentHistory,
+  deleteUser,
 };

@@ -6,6 +6,8 @@ const {
 } = require("../Utils/userUtils");
 const { comparePassword } = require("../Utils/authhelper");
 
+const { salesforceNewUser } = require("../Services/salesforceApiCalls");
+
 const {
   finduserbyemail,
   createUser,
@@ -13,11 +15,11 @@ const {
   findUserById,
   findAllUsers,
   findAppointmentHistory,
+  deleteUser,
   doesEmailExists,
 } = require("../Services/userQueries");
 
 const jwt = require("jsonwebtoken");
-
 
 async function editUser(req, res, next) {
   const updates = req.body;
@@ -57,30 +59,54 @@ const registerController = async (req, res, next) => {
       error.status = 400;
       throw error;
     }
+
     if (!validateEmail(email)) {
       const error = new Error("Email is not valid");
       error.status = 400;
       throw error;
     }
+
     if (!validatePassword(password)) {
       const error = new Error("Password less than 6 digit");
       error.status = 400;
       throw error;
     }
+
     if (!validateDateOfBirth(DOB)) {
       const error = new Error("Invalid age ");
       error.status = 400;
       throw error;
     }
+
     const existinguser = await finduserbyemail({ email });
     if (existinguser) {
       const error = new Error("User already exist ");
       error.status = 400;
       throw error;
     }
+
     const user = await createUser(userDetails);
-    if (user) {
-      res.status(200).send({ message: "User successfully created" });
+
+    try {
+      const response = await salesforceNewUser(user);
+
+      res.status(200).send({ message: "Operation performed successfully" });
+    } catch (error2) {
+      try {
+        const response = await deleteUser(user._id.toString());
+      } catch (error3) {
+        console.log(
+          "Failed to perform revert operation in first database. Synchronization Failed"
+        );
+        console.log(`user to remove with id : ${user._id.toString()}`);
+        throw error3;
+      }
+
+      console.log(
+        "Failed to save data in second database, reverting information"
+      );
+
+      throw error2;
     }
   } catch (error) {
     next(error);
@@ -106,6 +132,7 @@ const loginController = async (req, res, next) => {
       error.status = 400;
       throw error;
     }
+
     const match = await comparePassword(password, user.password);
     if (!match) {
       const error = new Error("Wrong Password");
@@ -119,12 +146,12 @@ const loginController = async (req, res, next) => {
         token: token,
         user: { name: user.name, _id: user._id, role: user.role },
       });
-      
     }
   } catch (error) {
     next(error);
   }
 };
+
 const showAllUsers = async (req, res, next) => {
   try {
     const id = req.user.id; //taken from decoded token
@@ -186,7 +213,7 @@ const showUserProfile = async (req, res, next) => {
   }
 };
 
-const showAppointmentHistory = async (req, res) => {
+const showAppointmentHistory = async (req, res, next) => {
   try {
     //check whether id from token and params is same
     const id1 = req.params.id,
@@ -198,6 +225,7 @@ const showAppointmentHistory = async (req, res) => {
       throw error;
     }
 
+    // Check user or admin
     const data = await findUserById(id1);
     if (data.role !== "user") {
       let error = new Error("Unauthorized");
@@ -205,7 +233,25 @@ const showAppointmentHistory = async (req, res) => {
       throw error;
     }
 
-    const response = await findAppointmentHistory(id1);
+    let filter = {
+      userId: req.params.id,
+    };
+
+    if (req.query.status[0] !== "all") {
+      filter.status = req.query.status[0];
+    }
+
+    if (req.query.language[0] !== "all") {
+      filter.language = req.query.language[0];
+    }
+
+    let sort = {
+      [req.query.sort[0]]: parseInt(req.query.sortValue[0]),
+    };
+
+    let pageNum = parseInt(req.query.pageNum[0]);
+
+    const response = await findAppointmentHistory(filter, sort, pageNum);
 
     res.status(200).json(response);
   } catch (error) {

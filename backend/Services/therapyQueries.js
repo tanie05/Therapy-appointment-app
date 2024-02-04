@@ -2,14 +2,13 @@ const Therapy = require("../Models/therapyModel");
 
 async function fetchTherapyWithId(therapyId) {
   try {
-      const therapy = await Therapy.findById(therapyId);
-      return therapy;
+    const therapy = await Therapy.findById(therapyId);
+    return therapy;
   } catch (error) {
-      console.error("Error fetching therapy:", error);
-      throw error; 
+    console.error("Error fetching therapy:", error);
+    throw error;
   }
 }
-
 
 const addTherapy = async (data) => {
   try {
@@ -43,8 +42,7 @@ const getTherapy = async (page, pageSize, email, accessCode) => {
 
 const deleteTherapyById = async (id) => {
   try {
-    const result = Therapy.deleteOne(id);
-    return result;
+    const result = await Therapy.findByIdAndDelete(id);
   } catch (err) {
     throw err;
   }
@@ -64,5 +62,5 @@ module.exports = {
   getTherapy,
   deleteTherapyById,
   updateTherapyById,
-  fetchTherapyWithId
+  fetchTherapyWithId,
 };

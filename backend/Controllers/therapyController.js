@@ -6,6 +6,7 @@ const {
   fetchTherapyWithId,
 } = require("../Services/therapyQueries");
 const { validatePhone, validateAddress } = require("../Utils/therapyUtils");
+const { salesforceNewTherapy } = require("../Services/salesforceApiCalls");
 const ObjectId = require("mongodb").ObjectId;
 
 async function fetchSingleTherapy(req, res) {
@@ -35,7 +36,7 @@ const createTherapy = async (req, res, next) => {
 
     if (!validateAddress(rest.address)) {
       const error = new Error();
-      error.message = "Invalid house number"
+      error.message = "Invalid house number";
       error.status = 401;
       throw error;
     }
@@ -52,14 +53,35 @@ const createTherapy = async (req, res, next) => {
       address: rest.address,
       status: "pending",
     };
+
     const result = await addTherapy(therapy);
 
-    res.status(200).json({ success: true, data: result });
+    try {
+      const result2 = await salesforceNewTherapy(result);
+
+      res.status(200).json(result);
+    } catch (error2) {
+      try {
+        const response = await deleteTherapyById(result._id.toString());
+      } catch (error3) {
+        console.log(
+          "Failed to perform revert operation in first database. Synchronization Failed"
+        );
+        console.log(`user to remove with id : ${result._id.toString()}`);
+        throw error3;
+      }
+
+      console.log(
+        "Failed to save data in second database, reverting information"
+      );
+
+      throw error2;
+    }
   } catch (err) {
     // // console.log(err)
-    if (err.status) res.status(err.status).json({success: false, message: err.message});
-    else res.status(500).json({success: false, message: err.message});
-    
+    if (err.status)
+      res.status(err.status).json({ success: false, message: err.message });
+    else res.status(500).json({ success: false, message: err.message });
   }
 };
 
