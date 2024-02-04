@@ -26,17 +26,17 @@ async function updateUser(userId, updates) {
       new: true,
       runValidators: true,
     });
-    
+
     return updatedUser;
   } catch (err) {
     if (err.code === 11000 || err.code === 11001) {
-      
+      // Duplicate key error
+      console.error("Duplicate key error:", error.message);
       const error = new Error("Duplicate entry");
       error.status = 403;
       throw error;
     }
   }
-  
 }
 
 async function finduserbyemail({ email }) {
@@ -65,6 +65,14 @@ async function createUser(userdetails) {
   }
 }
 
+async function deleteUser(userId) {
+  try {
+    const response = await User.findByIdAndDelete(userId);
+  } catch (err) {
+    throw err;
+  }
+}
+
 const findUserById = async (id) => {
   try {
     const user = await User.findById(id);
@@ -83,9 +91,15 @@ const findAllUsers = async () => {
   }
 };
 
-const findAppointmentHistory = async (userId) => {
+const findAppointmentHistory = async (filter, sort, pageNum) => {
+  const pageSize = 5;
+  const skipDocuments = (pageNum - 1) * pageSize;
+  //filter will have userId, status as well as languages
   try {
-    const appointments = await Therapy.find({ userId: userId });
+    const appointments = await Therapy.find(filter)
+      .sort(sort)
+      .skip(skipDocuments)
+      .limit(pageSize);
     return appointments;
   } catch (err) {
     throw Error;
@@ -100,4 +114,5 @@ module.exports = {
   findUserById,
   findAllUsers,
   findAppointmentHistory,
+  deleteUser,
 };
