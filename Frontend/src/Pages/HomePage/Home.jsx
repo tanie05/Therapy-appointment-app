@@ -4,7 +4,7 @@ import TherapyPage2 from "../../Components/HomePageComponents/TherapyPage2";
 import { useSelector } from "react-redux";
 import "./home.css";
 import TherapyHeader from "../../Molecules/TherapyHeader";
-import { Navbar } from "../../Components/Navbar/Navbar";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   therapyPage1Validation,
@@ -14,13 +14,17 @@ import {
 } from "../../Utils/therapyValidations";
 
 const Home = () => {
-  const inititalFormData = {
+  
+
+  const navigate = useNavigate();
+
+  const [inititalFormData, setInititalFormData] = useState({
     name: {
       firstName: "",
       lastName: "",
     },
     language: "english",
-  };
+  });
 
   const userInfo = useSelector((state) => state.userInfo);
   const userId = userInfo._id;
@@ -47,6 +51,14 @@ const Home = () => {
         },
         language: userData.data.language,
       });
+
+      setInititalFormData({
+        name: {
+          firstName: userData.data.name.firstname,
+          lastName: userData.data.name.lastname,
+        },
+        language: userData.data.language,
+      })
     }
     fetchingUser();
   }, []);
@@ -85,6 +97,7 @@ const Home = () => {
           alert("Therapy appointment booked!");
           setFormData(inititalFormData);
           setStep(1);
+          navigate("/");
         })
         .catch((err) => {
           alert(err.response.data.message);
