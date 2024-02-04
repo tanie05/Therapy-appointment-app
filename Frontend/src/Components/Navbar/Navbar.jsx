@@ -21,7 +21,7 @@ export const Navbar = () => {
 
   return (
     <div className="nav-container">
-      <div className="nav-link-list">
+      <div className="nav-link-list nav-items">
         <Link to={"/"} className="nav-items">
           Home
         </Link>

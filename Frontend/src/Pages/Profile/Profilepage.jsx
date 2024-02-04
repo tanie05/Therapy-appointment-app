@@ -46,6 +46,7 @@ const Profilepage = () => {
           setUserData(userdata.data);
         }
       } catch (err) {
+        seterror("connection error");
         console.log("error while fetching user:", err.message);
       }
     };
@@ -73,7 +74,6 @@ const Profilepage = () => {
   };
   const handlesubmit = async (e) => {
     e.preventDefault();
-
     if (!userData.name.firstname || !userData.name.lastname || !userData.DOB) {
       seterror("Please Enter All Field");
       return;
@@ -82,7 +82,6 @@ const Profilepage = () => {
       !validateName(userData.name.firstname) ||
       !validateName(userData.name.lastname)
     ) {
-      console.log(validateName(userData.name.firstname));
       seterror("Please Enter a correct name");
       return;
     }
@@ -123,8 +122,6 @@ const Profilepage = () => {
   };
   return (
     <div className="Parentprofilecontainer">
-      <Navbar />
-
       <div className="container1">
         <div className="img">
           <FaCircleUser style={{ fontSize: "7rem", margin: "1rem" }} />

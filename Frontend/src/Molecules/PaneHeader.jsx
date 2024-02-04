@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { isClose } from "../Redux/Slices/admin";
 // import { ViewSidebarIcon } from "@mui/icons-material/ViewSidebar";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 const PaneHeader = ({ heading }) => {
   const dispatch = useDispatch();
   const handleClick = () => {
@@ -13,13 +14,14 @@ const PaneHeader = ({ heading }) => {
       <span>{heading}</span>
       <Button
         style={{
-          borderColor: "blue",
+          borderStyle: "none",
+          color: "orange",
         }}
         variant="outlined"
         disableElevation
         onClick={handleClick}
       >
-        X
+        <ArrowBackIosNewIcon />
       </Button>
     </div>
   );

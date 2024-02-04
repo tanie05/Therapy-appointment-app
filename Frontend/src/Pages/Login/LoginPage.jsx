@@ -47,23 +47,13 @@ const LoginPage = () => {
         };
         localStorage.setItem("user", JSON.stringify(storeUser));
 
-        toast.success("Login successful", {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-
         dispatch(login(storeUser));
         if (userInfo.role === "admin") navigate("/admin");
         else navigate("/");
       }
     } catch (err) {
-      setError(`${err.message}`);
+      console.log(err);
+      setError(`${err.response.data.message}`);
       //setError(err.response.data.message);
     }
   };

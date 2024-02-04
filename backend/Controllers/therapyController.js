@@ -3,22 +3,20 @@ const {
   getTherapy,
   deleteTherapyById,
   updateTherapyById,
-  fetchTherapyWithId
+  fetchTherapyWithId,
 } = require("../Services/therapyQueries");
 const { validatePhone, validateAddress } = require("../Utils/therapyUtils");
 const ObjectId = require("mongodb").ObjectId;
 
+async function fetchSingleTherapy(req, res) {
+  const therapyId = req.params.id;
+  const result = await fetchTherapyWithId(therapyId);
 
-async function fetchSingleTherapy(req,res) {
-
-    const therapyId = req.params.id;
-    const result = await fetchTherapyWithId(therapyId);
-
-    if(result){
-        res.status(200).send({success: true, therapy: result})
-    }else{
-        res.status(404).send({success: false, message: "Therapy not found"});
-    }
+  if (result) {
+    res.status(200).send({ success: true, therapy: result });
+  } else {
+    res.status(404).send({ success: false, message: "Therapy not found" });
+  }
 }
 
 const createTherapy = async (req, res, next) => {
@@ -35,12 +33,12 @@ const createTherapy = async (req, res, next) => {
       ...rest
     } = req.body;
 
-    
-    // if (!validatePhone(phone.number) || !validateAddress(rest.address)) {
-    //   const error = new Error("Invalid Entries");
-    //   error.status = 401;
-    //   throw error;
-    // }
+    if (!validateAddress(rest.address)) {
+      const error = new Error();
+      error.message = "Invalid house number"
+      error.status = 401;
+      throw error;
+    }
 
     const therapy = {
       healthPlan,
@@ -56,20 +54,24 @@ const createTherapy = async (req, res, next) => {
     };
     const result = await addTherapy(therapy);
 
-    res.status(200).json({success: true, data: result});
+    res.status(200).json({ success: true, data: result });
   } catch (err) {
-    console.log(err)
+    // // console.log(err)
     if (err.status) res.status(err.status).json({success: false, message: err.message});
-    else res.status(500).json(err.message);
+    else res.status(500).json({success: false, message: err.message});
+    
   }
 };
 
 const getAllTherapies = async (req, res, next) => {
   try {
-    const page = parseInt(req.query.page) || 1; // Current page number
-    const pageSize = parseInt(req.query.pageSize) || 10; // Number of items per page
+    console.log(req.query);
+    const page = req.query.page ? parseInt(req.query.page) : 0; // Current page number
+    const accessCode = req.query.accessCode || "";
+    const email = req.query.email || "";
+    const pageSize = 10; // Number of items per page
 
-    const result = await getTherapy(page, pageSize);
+    const result = await getTherapy(page, pageSize, email, accessCode);
     res.status(200).json(result);
   } catch (err) {
     if (err.status) res.status(err.status).json(err.message);
@@ -111,5 +113,5 @@ module.exports = {
   getAllTherapies,
   deleteTherapy,
   updateTherapy,
-  fetchSingleTherapy
+  fetchSingleTherapy,
 };

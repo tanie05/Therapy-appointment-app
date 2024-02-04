@@ -4,6 +4,7 @@ export const adminSlice = createSlice({
     paneList: ["Client"],
     isClose: false,
     userData: [],
+    errorText: "",
   },
   name: "admin",
   reducers: {
@@ -26,14 +27,24 @@ export const adminSlice = createSlice({
         userData: action.payload,
       };
     },
+    total: (state, action) => {
+      return {
+        ...state,
+        total: action.payload,
+      };
+    },
     filter: (state, action) => {
       return { ...state, filter: action.payload };
     },
     page: (state, action) => {
       return { ...state, page: action.payload };
     },
+    errorText: (state, action) => {
+      return { ...state, errorText: action.payload };
+    },
   },
 });
 
-export const { paneList, isClose, userData, filter, page } = adminSlice.actions;
+export const { paneList, isClose, userData, filter, page, errorText, total } =
+  adminSlice.actions;
 export default adminSlice.reducer;

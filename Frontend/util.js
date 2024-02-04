@@ -8,6 +8,7 @@ export default function validateEmail(email) {
 export const validateDateOfBirth = (dob) => {
   const currdate = new Date(dob);
   const todaydate = new Date();
+  if (dob === "") return false;
   return currdate <= todaydate;
 };
 

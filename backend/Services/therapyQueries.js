@@ -23,19 +23,19 @@ const addTherapy = async (data) => {
 
 const getTherapy = async (page, pageSize, email, accessCode) => {
   try {
-    const total = await Therapy.countDocuments();
-    console.log(total, page * pageSize, email, accessCode);
-    if (total <= page * pageSize) return [];
     const filter = {};
     if (email.length) filter.email = email;
     if (accessCode.length) filter.status = accessCode;
     console.log(filter);
+    const total = await Therapy.countDocuments(filter);
+    console.log(total, page * pageSize, email, accessCode);
+    if (total <= page * pageSize) return { data: [], total };
     const result = await Therapy.find(filter)
 
       .skip(page * pageSize)
       .limit(pageSize);
 
-    return result;
+    return { data: result, total };
   } catch (err) {
     throw err;
   }
