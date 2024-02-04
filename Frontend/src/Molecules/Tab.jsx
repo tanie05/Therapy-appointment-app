@@ -17,7 +17,8 @@ const Tab = ({ email, status, language, id, handleApi }) => {
   // const [statusState, setStatusState] = useState(status);
   const dispatch = useDispatch();
   const admin = useSelector((state) => state.admin);
-
+  const token = localStorage.getItem("token");
+  
   const url = "http://localhost:5000/therapy/";
 
   const handleDropDownClick = async (data) => {
@@ -26,8 +27,9 @@ const Tab = ({ email, status, language, id, handleApi }) => {
         url + `${id}`,
         { status: data },
         {
-          header: {
+          headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
           },
         }
       );

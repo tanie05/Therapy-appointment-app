@@ -18,6 +18,8 @@ const Client = () => {
   const [openSnack, setOpenSnack] = useState(false);
   const [error, setError] = useState("");
 
+  const token = localStorage.getItem("token");
+
   // const [status, setStatus] = useState(admin.userData.status);
 
   // const [page, setPage] = useState(0);
@@ -74,13 +76,13 @@ const Client = () => {
         url,
 
         {
-          header: {
-            "Content-Type": "application/json",
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      console.log(result);
+      console.log(result, "in handle");
       if (refresh) {
         dispatch(userData(result.data.data));
         dispatch(total(result.data.total));
@@ -96,23 +98,26 @@ const Client = () => {
       setError("");
       return result.data;
     } catch (err) {
-      setError(err.message);
+      if (err.name === "AxiosError") {
+        console.log("hi", err);
 
-      setOpenSnack((val) => !val);
+        if (!err) setError("Unknown error occurred!");
+        else setError(err.response.data.message);
+        // dispatch(errorText(err.response.data.message));
+      } else setError(err.message);
+
+      // dispatch(errorText(error));
+      setOpenSnack(true);
     }
   };
-
-  useEffect(() => {
-    dispatch(errorText(error));
-  }, [error]);
 
   return (
     <div className="homeContainer">
       <Snackbar
         open={openSnack}
-        onClose={() => setOpenSnack((val) => !val)}
+        onClose={() => setOpenSnack(false)}
         autoHideDuration={3000}
-        message={admin.errorText}
+        message={error}
         className="snackbar"
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         color="orange"
@@ -142,11 +147,11 @@ const Client = () => {
         {
           <div className="errorHandle">
             {" "}
-            {!admin.errorText.length
+            {!error.length
               ? !admin.userData.length
                 ? "No Records Found"
                 : ""
-              : admin.errorText}{" "}
+              : error}{" "}
           </div>
         }
       </div>
