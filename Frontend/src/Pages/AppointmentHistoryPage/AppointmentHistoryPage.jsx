@@ -91,7 +91,7 @@ const AppointmentHistoryPage = () => {
 
       setData(response.data);
     } catch (error) {
-      setErrorMsg(error.response.data.message);
+      setErrorMsg("Network Error");
       console.error("Error:", error);
     }
   };

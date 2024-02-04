@@ -5,8 +5,12 @@ const {
   areTokenAndParameterIdSame,
 } = require("../Utils/userUtils");
 const { comparePassword } = require("../Utils/authhelper");
+const { convertDateTimeToDateFormat } = require("../Utils/userUtils");
 
-const { salesforceNewUser } = require("../Services/salesforceApiCalls");
+const {
+  salesforceNewUser,
+  salesforceUpdateUser,
+} = require("../Services/salesforceApiCalls");
 
 const {
   finduserbyemail,
@@ -33,7 +37,41 @@ async function editUser(req, res, next) {
       }
     }
 
+    const dataObject = await findUserById(userId);
+
+    const originalUserData = {
+      name: dataObject.name,
+      language: dataObject.language,
+      email: dataObject.email,
+      DOB: dataObject.DOB,
+    };
+
     const updatedUser = await updateUser(userId, updates);
+
+    try {
+      const response = await salesforceUpdateUser(userId, updates);
+
+      res.status(200).send({ message: "Operation performed successfully" });
+    } catch (error2) {
+      try {
+        const response = await updateUser(userId, originalUserData);
+      } catch (error3) {
+        console.log(
+          "Failed to perform revert operation in first database. Synchronization Failed"
+        );
+        console.log(
+          `user to update with id : ${userId} with original data : ${dataObject}`
+        );
+        throw error3;
+      }
+
+      console.log(
+        "Failed to save data in second database, reverting information"
+      );
+
+      throw error2;
+    }
+
     if (!updatedUser) {
       const error = new Error("Internal error while updating");
       error.status = 400;
@@ -188,14 +226,6 @@ const showUserProfile = async (req, res, next) => {
       let error = new Error("Unauthorized");
       error.status = 401;
       throw error;
-    }
-    function convertDateTimeToDateFormat(dateTimeString) {
-      const date = new Date(dateTimeString);
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, "0"); // Month is zero-based, so add 1 and pad with zero if needed
-      const day = String(date.getDate()).padStart(2, "0"); // Pad with zero if needed
-
-      return `${year}-${month}-${day}`;
     }
 
     const formattedDate = convertDateTimeToDateFormat(data.DOB);
