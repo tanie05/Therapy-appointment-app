@@ -127,9 +127,15 @@ const Client = () => {
       <div id="tabHeading">
         <div className="totalRecord">Total Records: {admin.total}</div>
         {/* <Tab email={"User"} status={"Status"} language={"Language"} /> */}
-        <div id="user">User</div>
-        <div id="status">Status</div>
-        <div id="language">Language</div>
+        <div className="userHead">
+          <div>User</div>
+        </div>
+        <div className="statusHead">
+          <div>Status</div>
+        </div>
+        <div className="languageHead">
+          <div>Language</div>
+        </div>
       </div>
       <div id="list">
         {admin.userData.map((data, index) => {

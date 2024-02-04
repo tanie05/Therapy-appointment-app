@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: row;
     border-bottom: 0.1vh solid gray;
+    /* justify-content: space-evenly; */
+    gap: 5vw;
     /* background-color: aqua; */
      /* margin-left: 4vw; */
     /* border-left: 0.2vh solid gray;
@@ -15,6 +17,7 @@
     height: 6vh;
     /* background-color: aqua; */
     align-items: center;
+    
     padding: 1vh 1vw;
     /* margin: 0vh 0.2vw; */
     color: rgb(112, 111, 111);
@@ -29,21 +32,26 @@
     
 }
 #email{
-    width: 50%;
+    width: 60%;
     /* margin-right: auto; */
+    /* flex-grow: 3; */
 }
 #language, #status{
     
     justify-content: center;
 }
 #status{
-    width : 30%;
+    width : 25%;
+    /* flex-grow: 2; */
 }
 #language{
     
-    width: 30%;
+    width: 25%;
     /* justify-content: center; */
+    /* flex-grow: 2; */
 }
+
+
 #language div{
     display: flex;
     width: 100%;
