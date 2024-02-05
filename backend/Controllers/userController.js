@@ -86,10 +86,9 @@ const registerController = async (req, res, next) => {
     }
 
     const user = await createUser(userDetails);
-    res.status(200).send({ message: "Operation performed successfully" });
+    // res.status(200).send({ message: "Operation performed successfully" });
 
-    // Uncomment the following block if needed
-    /*
+    
     try {
       const response = await salesforceNewUser(user);
       res.status(200).send({ message: "Operation performed successfully" });
@@ -106,7 +105,7 @@ const registerController = async (req, res, next) => {
       console.log("Failed to save data in the second database, reverting information");
       throw error2;
     }
-    */
+    
   } catch (error) {
     next(error);
   }

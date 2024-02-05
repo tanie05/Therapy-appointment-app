@@ -61,29 +61,29 @@ const createTherapy = async (req, res, next) => {
     };
 
     const result = await addTherapy(therapy);
-    res.status(200).json(result);
+    // res.status(200).json(result);
 
-    // try {
-    //   const result2 = await salesforceNewTherapy(result);
+    try {
+      const result2 = await salesforceNewTherapy(result);
 
-    //   res.status(200).json(result);
-    // } catch (error2) {
-    //   try {
-    //     const response = await deleteTherapyById(result._id.toString());
-    //   } catch (error3) {
-    //     console.log(
-    //       "Failed to perform revert operation in first database. Synchronization Failed"
-    //     );
-    //     console.log(`user to remove with id : ${result._id.toString()}`);
-    //     throw error3;
-    //   }
+      res.status(200).json(result);
+    } catch (error2) {
+      try {
+        const response = await deleteTherapyById(result._id.toString());
+      } catch (error3) {
+        console.log(
+          "Failed to perform revert operation in first database. Synchronization Failed"
+        );
+        console.log(`user to remove with id : ${result._id.toString()}`);
+        throw error3;
+      }
 
-    //   console.log(
-    //     "Failed to save data in second database, reverting information"
-    //   );
+      console.log(
+        "Failed to save data in second database, reverting information"
+      );
 
-    //   throw error2;
-    // }
+      throw error2;
+    }
   } catch (err) {
     next(err);
 
