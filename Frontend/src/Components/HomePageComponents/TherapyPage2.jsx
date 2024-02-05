@@ -14,7 +14,7 @@ export default function TherapyPage2({ formData, onFormDataChange }) {
   };
 
   const addAppointmentTime = (name, value) => {
-    console.log("time - ", value[0]);
+    // console.log("time - ", value[0]);
     onFormDataChange({ [name]: value[0] });
   };
 

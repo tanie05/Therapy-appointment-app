@@ -64,6 +64,7 @@ const createTherapy = async (req, res, next) => {
     };
 
     const result = await addTherapy(therapy);
+    // res.status(200).json(result);
 
     try {
       const result2 = await salesforceNewTherapy(result);
@@ -87,15 +88,13 @@ const createTherapy = async (req, res, next) => {
       throw error2;
     }
   } catch (err) {
-    // // console.log(err)
-    // <<<<<<< abhinavmishra
     next(err);
   }
 };
 
 const getAllTherapies = async (req, res, next) => {
   try {
-    console.log(req.query);
+    // console.log(req.query);
     const page = req.query.page ? parseInt(req.query.page) : 0; // Current page number
     const accessCode = req.query.accessCode || "";
     const email = req.query.email || "";
