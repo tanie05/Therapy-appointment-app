@@ -1,3 +1,5 @@
+const { convertDateTimeToDateFormat } = require("../Utils/userUtils");
+
 const salesforceNewUser = async (user) => {
   const apiUrl = process.env.SALESFORCE_NEW_USER_ENDPOINT;
   const accessToken = process.env.SALESFORCE_ACCESS_TOKEN;
@@ -8,9 +10,11 @@ const salesforceNewUser = async (user) => {
     lastname: user.name.lastname,
     language: user.language,
     email: user.email,
-    DOB: user.DOB.toString(),
+    DOB: convertDateTimeToDateFormat(user.DOB),
     role: user.role,
   };
+
+  console.log(postData);
 
   await fetch(apiUrl, {
     method: "POST",
@@ -37,46 +41,42 @@ const salesforceNewUser = async (user) => {
     });
 };
 
-// const salesforceUpdateUser = async (id) => {
-//   const apiUrl = process.env.SALESFORCE_UPDATE_USER_ENDPOINT + `${id}`;
-//   const accessToken = process.env.SALESFORCE_ACCESS_TOKEN;
+const salesforceUpdateUser = async (id, data) => {
+  const apiUrl = process.env.SALESFORCE_UPDATE_USER_ENDPOINT + `${id}`;
+  const accessToken = process.env.SALESFORCE_ACCESS_TOKEN;
 
-//   const patchata = {
-//     userId: user._id.toString(),
-//     firstname: user.name.firstname,
-//     lastname: user.name.lastname,
-//     language: user.language,
-//     email: user.email,
-//     DOB: user.DOB.toString(),
-//     role: user.role,
-//   };
+  const patchData = {
+    firstname: data.name.firstname,
+    lastname: data.name.lastname,
+    language: data.language,
+    email: data.email,
+    DOB: data.DOB,
+  };
 
-//   const patchData = {};
-
-//   await fetch(apiUrl, {
-//     method: "POST",
-//     headers: {
-//       Authorization: `Bearer ${accessToken}`,
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(patchData),
-//   })
-//     .then((response) => {
-//       if (!response.ok) {
-//         const err = new Error(`HTTP error! Status: ${response.status}`);
-//         err.status = response.status;
-//         throw err;
-//       }
-//       return response.json();
-//     })
-//     .then((data) => {
-//       console.log("Data send to salesforce successfully");
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       throw error;
-//     });
-// };
+  await fetch(apiUrl, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(patchData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        const err = new Error(`HTTP error! Status: ${response.status}`);
+        err.status = response.status;
+        throw err;
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Data send to salesforce successfully");
+    })
+    .catch((error) => {
+      console.log(error);
+      throw error;
+    });
+};
 
 const salesforceNewTherapy = async (therapy) => {
   const apiUrl = process.env.SALESFORCE_NEW_THERAPY_ENDPOINT;
@@ -140,8 +140,40 @@ const salesforceNewTherapy = async (therapy) => {
     });
 };
 
+const salesforceUpdateTherapy = async (id, data) => {
+  const apiUrl = process.env.SALESFORCE_UPDATE_THERAPY_ENDPOINT + `${id}`;
+  const accessToken = process.env.SALESFORCE_ACCESS_TOKEN;
+
+  const patchData = data;
+
+  await fetch(apiUrl, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(patchData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        const err = new Error(`HTTP error! Status: ${response.status}`);
+        err.status = response.status;
+        throw err;
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Data send to salesforce successfully");
+    })
+    .catch((error) => {
+      console.log(error);
+      throw error;
+    });
+};
+
 module.exports = {
   salesforceNewUser,
   salesforceNewTherapy,
-  //   salesforceUpdateUser,
+  salesforceUpdateUser,
+  salesforceUpdateTherapy,
 };
