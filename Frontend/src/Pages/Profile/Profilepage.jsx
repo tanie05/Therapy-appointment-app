@@ -47,7 +47,7 @@ const Profilepage = () => {
         }
       } catch (err) {
         seterror("connection error");
-        console.log("error while fetching user:", err.message);
+        // console.log("error while fetching user:", err.message);
       }
     };
     fetchdata();

@@ -43,7 +43,7 @@ const Home = () => {
           },
         }
       );
-      console.log(userData.data);
+      // console.log(userData.data);
       setFormData({
         name: {
           firstName: userData.data.name.firstname,

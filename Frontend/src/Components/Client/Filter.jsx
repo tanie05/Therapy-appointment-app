@@ -60,7 +60,7 @@ const Filter = ({ handleApi, handleSectionScroll }) => {
   };
 
   const handleRemoveFilter = async (e) => {
-    console.log("in remove");
+    // console.log("in remove");
     setEmail("");
     setAccessCode("");
 
@@ -73,7 +73,7 @@ const Filter = ({ handleApi, handleSectionScroll }) => {
   };
 
   useEffect(() => {
-    console.log("here", access);
+    // console.log("here", access);
 
     dispatch(
       filter({

@@ -67,7 +67,7 @@ const registerController = async (req, res, next) => {
     }
 
     if (!validatePassword(password)) {
-      const error = new Error("Password less than 6 digit");
+      const error = new Error("Password less than 6 digits");
       error.status = 400;
       throw error;
     }
@@ -78,40 +78,40 @@ const registerController = async (req, res, next) => {
       throw error;
     }
 
-    const existinguser = await finduserbyemail({ email });
-    if (existinguser) {
-      const error = new Error("User already exist ");
+    const existingUser = await finduserbyemail({ email });
+    if (existingUser) {
+      const error = new Error("User already exists ");
       error.status = 400;
       throw error;
     }
 
     const user = await createUser(userDetails);
+    res.status(200).send({ message: "Operation performed successfully" });
 
+    // Uncomment the following block if needed
+    /*
     try {
       const response = await salesforceNewUser(user);
-
       res.status(200).send({ message: "Operation performed successfully" });
     } catch (error2) {
       try {
         const response = await deleteUser(user._id.toString());
       } catch (error3) {
         console.log(
-          "Failed to perform revert operation in first database. Synchronization Failed"
+          "Failed to perform revert operation in the first database. Synchronization Failed"
         );
-        console.log(`user to remove with id : ${user._id.toString()}`);
+        console.log(`User to remove with id: ${user._id.toString()}`);
         throw error3;
       }
-
-      console.log(
-        "Failed to save data in second database, reverting information"
-      );
-
+      console.log("Failed to save data in the second database, reverting information");
       throw error2;
     }
+    */
   } catch (error) {
     next(error);
   }
 };
+
 const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;

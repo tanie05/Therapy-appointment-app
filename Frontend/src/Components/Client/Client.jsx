@@ -51,8 +51,8 @@ const Client = () => {
       case "next": {
         // page += 1;
 
-        console.log(admin.page, url + `?page=${admin.page + 1}`);
-        console.log(admin.filter);
+        // console.log(admin.page, url + `?page=${admin.page + 1}`);
+        // console.log(admin.filter);
         const result = await handle(
           false,
           url +
@@ -61,7 +61,7 @@ const Client = () => {
             }`
         );
         if (result.data.length) {
-          console.log("hee");
+          // console.log("hee");
           // setPage((val) => val + 1);
           dispatch(page(admin.page + 1));
         }
