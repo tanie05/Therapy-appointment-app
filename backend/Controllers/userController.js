@@ -48,10 +48,14 @@ async function editUser(req, res, next) {
 
     const updatedUser = await updateUser(userId, updates);
 
-    try {
-      const response = await salesforceUpdateUser(userId, updates);
+    if (!updatedUser) {
+      const error = new Error("Internal error while updating");
+      error.status = 400;
+      throw error;
+    }
 
-      res.status(200).send({ message: "Operation performed successfully" });
+    try {
+      // const response = await salesforceUpdateUser(userId, updates);
     } catch (error2) {
       try {
         const response = await updateUser(userId, originalUserData);
@@ -72,17 +76,11 @@ async function editUser(req, res, next) {
       throw error2;
     }
 
-    if (!updatedUser) {
-      const error = new Error("Internal error while updating");
-      error.status = 400;
-      throw error;
-    } else {
-      res.status(200).send({
-        success: true,
-        message: "user updated succesfully",
-        user: updatedUser,
-      });
-    }
+    res.status(200).send({
+      success: true,
+      message: "user updated succesfully",
+      user: updatedUser,
+    });
   } catch (err) {
     next(err);
   }
@@ -126,9 +124,8 @@ const registerController = async (req, res, next) => {
     const user = await createUser(userDetails);
     // res.status(200).send({ message: "Operation performed successfully" });
 
-    
     try {
-      const response = await salesforceNewUser(user);
+      // const response = await salesforceNewUser(user);
       res.status(200).send({ message: "Operation performed successfully" });
     } catch (error2) {
       try {
@@ -140,10 +137,11 @@ const registerController = async (req, res, next) => {
         console.log(`User to remove with id: ${user._id.toString()}`);
         throw error3;
       }
-      console.log("Failed to save data in the second database, reverting information");
+      console.log(
+        "Failed to save data in the second database, reverting information"
+      );
       throw error2;
     }
-    
   } catch (error) {
     next(error);
   }

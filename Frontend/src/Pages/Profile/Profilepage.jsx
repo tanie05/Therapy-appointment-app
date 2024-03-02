@@ -186,8 +186,8 @@ const Profilepage = () => {
             disabled={!isEditing}
             id="cars"
           >
-            <option value="English">English</option>
-            <option value="Spanish">Spanish</option>
+            <option value="english">English</option>
+            <option value="spanish">Spanish</option>
           </select>
         </div>
         <div className="profileContainerParent">

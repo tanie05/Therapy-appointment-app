@@ -48,8 +48,11 @@ const LoginPage = () => {
         localStorage.setItem("user", JSON.stringify(storeUser));
 
         dispatch(login(storeUser));
-        if (userInfo.role === "admin") navigate("/admin");
-        else navigate("/");
+
+        console.log(userInfo.role);
+        if (userInfo.role === "admin") {
+          navigate("/admin");
+        } else navigate("/");
       }
     } catch (err) {
       console.log(err);

@@ -67,7 +67,7 @@ const createTherapy = async (req, res, next) => {
     // res.status(200).json(result);
 
     try {
-      const result2 = await salesforceNewTherapy(result);
+      // const result2 = await salesforceNewTherapy(result);
 
       res.status(200).json(result);
     } catch (error2) {
@@ -141,9 +141,10 @@ const updateTherapy = async (req, res, next) => {
 
     const result = await updateTherapyById(id, data);
 
-    try {
-      const result2 = await salesforceUpdateTherapy(id, data);
+    // res.status(200).json(result);
 
+    try {
+      // const result2 = await salesforceUpdateTherapy(id, data);
       res.status(200).json(result);
     } catch (error2) {
       try {
@@ -164,8 +165,6 @@ const updateTherapy = async (req, res, next) => {
 
       throw error2;
     }
-
-    res.status(200).send(result);
   } catch (err) {
     // if (err.status) res.status(err.status).json(err.message);
     // else res.status(500).json(err.message);

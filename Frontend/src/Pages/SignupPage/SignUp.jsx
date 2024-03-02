@@ -56,10 +56,18 @@ const SignUp = () => {
       clearErrors();
       navigate("/");
     } catch (error) {
-      setErrors({
-        ...errors,
-        submit: error.response.data.message,
-      });
+      if (error.response) {
+        setErrors({
+          ...errors,
+          submit: error.response.data.message,
+        });
+      } else if (error.name === "AxiosError") {
+        setErrors({
+          ...errors,
+          submit: error.message,
+        });
+      }
+
       console.error("Error:", error);
     }
   };

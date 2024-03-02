@@ -36,6 +36,8 @@ async function updateUser(userId, updates) {
       error.status = 403;
       throw error;
     }
+
+    throw err;
   }
 }
 
